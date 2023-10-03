@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+@{
+    var myUser = new KPIPrincipal();
+
+}
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+<html lang="en">
+
+<head>
+    @RenderSection("styles", required: false)
+    @Html.Partial("_head")
+
+    <title> </title>
+
+
+
+</head>
+
+<body class="full-height" style="background-color: #EEF9FE">
+    @RenderSection("stylesOfPage", required: false)
+    <!--debut page-->
+
+    <div class="content-page forced" id="wrapper">
+        <!-- header-->
+        @Html.Partial("_PartialHead", new ViewDataDictionary { { "Module", "Paramétrage" }, { "Color", "#40bbd5" } })
+
+        <div class="main-container" id="#page">
+            <div class="sidebar">
+                <div class="sidebar-content ">
+                    <ul class="navigation">
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.REFERENTIELS))
+                        {
+                            <li>
+                                <a href="~/Parametrage/Referentiels">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-settings"></i></small>
+                                    <span class="left-menu-text">Référentiels</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Parametrage/VehiculeModele">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-settings"></i></small>
+                                    <span class="left-menu-text">Modèles Vehicule</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Parametrage/CarburantCout">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-settings"></i></small>
+                                    <span class="left-menu-text">Carburant/ Cout Unitaire</span>
+                                </a>
+                            </li>
+                        }
+                            @if (myUser.Rights.Contains(Enumerators.AccessRights.DEPENSES))
+                            {
+                                <li>
+                                    <a href="~/Parametrage/Depenses">
+                                        <small class="left-menu-icon"> <i class="zmdi zmdi-settings"></i></small>
+                                        <span class="left-menu-text">Dépenses</span>
+                                    </a>
+                                </li>
+                            }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.FOURNISSEURS))
+                        {
+                            <li>
+                                <a href="~/Parametrage/Fournisseurs">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-settings"></i></small>
+                                    <span class="left-menu-text">Fournisseurs</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.PIECES))
+                        {
+                            <li>
+                                <a href="~/Parametrage/Pieces">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-settings"></i></small>
+                                    <span class="left-menu-text">Pièces</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.ALERTE_EMAIL))
+                        {
+                            <li>
+                                <a href="~/Parametrage/AlertesEmail">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-settings"></i></small>
+                                    <span class="left-menu-text">Alertes par emails</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.MODELE_C100KM))
+                        {
+                            <li>
+                                <a href="~/Parametrage/ModeleC100KM">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-settings"></i></small>
+                                    <span class="left-menu-text">Modèles C/100KM</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.GIS_GPA))
+                        {
+                            <li>
+                                <a href="~/Parametrage/GISGPA">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-settings"></i></small>
+                                    <span class="left-menu-text">GIS/GPA</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <!-- /main navigation -->
+
+                </div>
+            </div>
+            <div class="page-content clearfix">
+                <div class="inner-content">
+
+
+                    <section class="content-wrapper main-content clear-fix">
+                        @RenderSection("scriptsOfPage", required: false)
+                        @RenderBody()
+                        <!--tu ajoute ce code-->
+                        <script type="text/javascript">
+                                    $('.navigation').find('li').has('ul').children('a').on('click', function (e) {
+                                        e.preventDefault();
+
+                                        if ($('body').hasClass('sidebar-narrow')) {
+                                            $(this).parent('li > ul li').not('.disabled').toggleClass('active').children('ul').slideToggle(250);
+                                            $(this).parent('li > ul li').not('.disabled').siblings().removeClass('active').children('ul').slideUp(250);
+                                        }
+
+                                        else {
+                                            $(this).parent('li').not('.disabled').toggleClass('active').children('ul').slideToggle(250);
+                                            $(this).parent('li').not('.disabled').siblings().removeClass('active').children('ul').slideUp(250);
+                                        }
+                                    });
+                        </script>
+                    </section>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
+@RenderSection("scripts", required: false)

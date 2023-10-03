@@ -1,0 +1,235 @@
+﻿@{
+    ViewBag.Title = "GISGPA";
+    Layout = "~/Views/Shared/_LayoutParametrage.cshtml";
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>GIS / GPA </h5>
+                    </span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+                                     
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-2"><label>Département</label></div>
+                            <div class="col-md-4">
+                                @(Html.Kendo().DropDownList().Name("DepartementFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner département...")
+        .DataTextField("NomDepartement")
+        .DataValueField("IdDepartement")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs", new { client = myUser.Client }));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeDepartement");
+        })
+                                )
+                            </div>
+
+                        </div><br />
+                    
+
+                    <div id="div0">
+@*@(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .HtmlAttributes(new { style = "margin:10px;" })
+    .Items(items =>
+    {
+        items.Add().Template("<input id='dropdown' style='width: 150px;' />").Overflow(ShowInOverflowPopup.Never);
+        //items.Add().Template("<input id='dropdown2' style='width: 150px;' />").Overflow(ShowInOverflowPopup.Never);
+        //items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRow").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+
+    })
+                        )*@
+                      
+@(Html.Kendo().Grid<GISGPAModel>()
+    .Name("Grid").HtmlAttributes(new { style = "margin:10px;height:auto" })
+    .Columns(columns =>
+    {
+        //columns.Bound(e => e.ClientId).Hidden(true);
+        columns.ForeignKey(e => e.VehiculeGPAId, (System.Collections.IEnumerable)ViewBag.ListVehicules, "IdVehicule", "MatriculeVehicule").Title("Véhicule GPA");
+      //  columns.ForeignKey(e => e.VehiculeGISMat, (System.Collections.IEnumerable)ViewBag.ListVehiculesGIS, "MatriculeVehicule", "MatriculeVehicule").Title("Véhicule GIS");//.Template;                                                                                                                                             
+        columns.Bound(e => e.VehiculeGISMat).Title("Véhicule GIS").EditorTemplateName("gisDropDownEditor").ClientTemplate("#:VehiculeGISMat#");//.Template;
+
+    })
+    .ToolBar(t => {
+       // t.Save();
+        t.Template("<a class='k-button k-grid-save k-primary' onclick='sendData()' href='#'></span>Enregistrer</a>");
+    })
+    .Editable(e => e
+    .Mode(GridEditMode.InCell)//.TemplateName("VehiculeEditView")
+    )
+    .Pageable(pageable => pageable.Refresh(true))
+    .Sortable()
+    .Selectable()
+    .Navigatable()
+    .Filterable()
+    .Filterable(filterable => filterable
+    .Extra(false)
+    .Operators(operators => operators
+    .ForString(str => str.Clear()
+    .StartsWith("Commence avec")
+    .IsEqualTo("Est égale à")
+    .IsNotEqualTo("N'est pas égale à")
+    ))
+    )
+    .Events(e =>
+    {
+        e.Edit("onEdit");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Events(events => events.Error("onError"))
+    .Model(m =>
+    {
+        m.Id(f => f.IdGisGpa);
+        m.Field(p => p.IdGisGpa).Editable(false);
+        m.Field(p => p.VehiculeGPAId).Editable(false);
+        // m.Field(p => p.VehiculeGISMat).Editable(true).DefaultValue("");
+    })
+    .Read(read => read.Action("Read", "GISGPA").Data("filterData"))
+    .Destroy("Delete", "GISGPA")
+    .Update("Update", "GISGPA")
+    .Create("Create", "GISGPA")
+    )
+  )
+
+
+
+          
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    var list = [];
+    function sendData() {
+        var grid = $("#Grid").data("kendoGrid"),
+            parameterMap = grid.dataSource.transport.parameterMap;
+
+        //get the new and the updated records
+        var currentData = grid.dataSource.data();
+        var updatedRecords = [];
+        var newRecords = [];
+
+        for (var i = 0; i < currentData.length; i++) {
+            if (currentData[i].isNew()) {
+                if (currentData[i].VehiculeGISMat != null) {
+                    newRecords.push(currentData[i].toJSON());
+                }
+                //this record is new
+                
+            } else if (currentData[i].dirty) {
+                updatedRecords.push(currentData[i].toJSON());
+            }
+        }
+
+        //this records are deleted
+        var deletedRecords = [];
+        for (var i = 0; i < grid.dataSource._destroyed.length; i++) {
+            deletedRecords.push(grid.dataSource._destroyed[i].toJSON());
+        }
+
+        var data = {};
+        $.extend(data, parameterMap({ updated: updatedRecords }), parameterMap({ deleted: deletedRecords }), parameterMap({ new: newRecords }));
+
+        $.ajax({
+            url: '@Url.Action("UpdateCreateDelete" ,"GISGPA" )',
+            data: data,
+            type: "POST",
+            error: function () {
+                //Handle the server errors using the approach from the previous example
+            },
+            success: function () {
+                alert("update on server is completed");
+
+                grid.dataSource._destroyed = [];
+                //refresh the grid - optional
+                grid.dataSource.read();
+            }
+        })
+    }
+    function onChange(event) {
+        //var dd = $("#VehiculeGISMat").data("kendoDropDownList");
+        //var selecteddd = this.dataSource.view()[this.selectedIndex - 1];
+        //list.push(selecteddd.MatriculeVehicule);
+        //var grid = $("#Grid").data("kendoGrid");
+        //var selectedgrid = grid.dataSource.data();
+
+        //selectedgrid.VehiculeGISId = selecteddd.IdVehicule;
+        //selectedgrid.VehiculeGISMat = selecteddd.MatriculeVehicule;
+        var mat = event.sender.text();
+        var id = event.sender.value();
+        var grid = $("#Grid").data("kendoGrid");
+        var dataItem = grid.dataItem($(event.sender.wrapper).closest("tr"));
+        dataItem.VehiculeGISMat = mat;
+        dataItem.VehiculeGISId = id;
+    }
+ 
+    function onChangeDepartement() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function onEdit(e) {
+    }
+
+    function EditRow(e) {
+    }
+
+    function AddRow(e) {
+    }
+
+    function filterData() {
+        var departement = 0;
+        var client = 0;
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }       
+        return { departement: departement, client: client };
+    }
+    function additionalData() {
+        var client = 2;
+        return {list: list, client: client}
+    }
+    function onError(e) {
+        if (e.errors) {
+            var message = "Il y a des erreurs:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+            var grid = $("#grid").data("kendoGrid");
+            grid.cancelChanges();
+        }
+    }
+</script>

@@ -1,0 +1,3 @@
+D:\SVN\GPA\trunk\GPA\obj\Release\GPA.csprojResolveAssemblyReference.cache
+D:\SVN\GPA\trunk\GPA\obj\Release\RdlCompile.cache
+D:\SVN\GPA\trunk\GPA\obj\Release\RdlCompile.compiled

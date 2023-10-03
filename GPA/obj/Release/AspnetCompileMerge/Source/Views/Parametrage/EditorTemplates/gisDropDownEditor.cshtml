@@ -1,0 +1,19 @@
+﻿@using System.Collections;
+@using Kendo.Mvc.UI;
+
+@(Html.Kendo().DropDownListFor(i => i)
+           .ValuePrimitive(true)
+            .Name("VehiculeGISMat")
+             //.HtmlAttributes(new { @id = "IdVehicule" }) //eg. row id
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            //.DataSource(s => s
+            // .Read(read => read.Action("GetGIS", "GISGPA").Data("additionalData")))
+            .BindTo((System.Collections.IEnumerable)ViewBag.ListVehiculesGIS)
+            .OptionLabel("Select véhicule gis")
+            .Events(events => events
+            .Change("onChange")
+            //.Select("onSelect")
+           )
+
+)

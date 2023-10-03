@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "Historique";
+    Layout = "~/Views/Shared/_LayoutAdministration.cshtml";
+}
+
+<title>Historique de Connexions</title>
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div id="div0">
+    <br />
+    <h2 style="font-size: 16px; font-weight: bold; font-family: Verdana;margin-left:10px">Historique de connexions</h2>
+
+    <table style="margin:10px;margin-top:30px;">
+        <tr>
+            <td style="width:100px">
+                <label>Année</label>
+            </td>
+            <td style="width:300px">
+                @(Html.Kendo().DropDownList()
+                  .Name("dropdownAnnee")
+                  .DataTextField("Text").OptionLabel("Sélectionnez...").Value(DateTime.Now.Year.ToString())
+          .DataValueField("Value")
+                  .Events(e => e.Change("onChangeAnnee"))
+          .BindTo(new List<SelectListItem>() {
+            
+              new SelectListItem() {
+                  Text = "2017",
+                  Value = "2017"
+              },
+               new SelectListItem() {
+                  Text = "2018",
+                  Value = "2018"
+              },
+                new SelectListItem() {
+                  Text = "2019",
+                  Value = "2019"
+              },
+               new SelectListItem() {
+                  Text = "2020",
+                  Value = "2020"
+              }
+          })
+          .HtmlAttributes(new { style = "width: 100%" })
+                )
+            </td>
+            <td style="width:100px">
+                <label style="margin-left:10px">Mois</label>
+            </td>
+            <td style="width:300px">
+                @(Html.Kendo().DropDownList()
+                  .Name("dropdownMois")
+                          .DataTextField("Text").OptionLabel("Sélectionnez...").Value(DateTime.Now.Month.ToString())
+                  .DataValueField("Value")
+                  .Events(e => e.Change("onChangeMois"))
+                  .BindTo(new List<SelectListItem>() {
+                      new SelectListItem() {
+                          Text = "Janvier",
+                          Value = "1"
+                      },
+                      new SelectListItem() {
+                          Text = "Février",
+                          Value = "2"
+                      },
+                      new SelectListItem() {
+                          Text = "Mars",
+                          Value = "3"
+                      },
+                      new SelectListItem() {
+                          Text = "Avril",
+                          Value = "4"
+                      },
+                      new SelectListItem() {
+                          Text = "Mai",
+                          Value = "5"
+                      },
+                      new SelectListItem() {
+                          Text = "Juin",
+                          Value = "6"
+                      },
+                      new SelectListItem() {
+                          Text = "Juillet",
+                          Value = "7"
+                      },
+                      new SelectListItem() {
+                          Text = "Aout",
+                          Value = "8"
+                      },
+                      new SelectListItem() {
+                          Text = "Septembre",
+                          Value = "9"
+                      },
+                      new SelectListItem() {
+                          Text = "Octobre",
+                          Value = "10"
+                      },
+                      new SelectListItem() {
+                          Text = "Novembre",
+                          Value = "11"
+                      },
+                      new SelectListItem() {
+                          Text = "Décembre",
+                          Value = "12"
+                      }
+                  })
+                  .HtmlAttributes(new { style = "width: 100%" })
+                )
+            </td>
+        </tr>
+
+    </table>
+
+    @(Html.Kendo().Grid<GPA.Models.HistoriqueConnexionViewModel>().Name("grid")
+                               .Columns(columns =>
+                               {
+                                   columns.Bound(e => e.Utilisateur).Title("Utilisateur");
+                                   columns.Bound(e => e.Role).Title("Rôle");
+                                   columns.Bound(e => e.DateToDisplay).Title("Date de Connexion (UTC)").Filterable(false);
+                                   columns.Bound(e => e.TempsActivite).Title("Temps d'activité").Filterable(false);
+                                   columns.Bound(e => e.AdresseIP);
+                                   //   columns.Bound(e => e.Etat).Title("Etat").Filterable(false);
+
+
+                               }).Pageable().Filterable().Sortable().Events(e => e.DataBound("onDataBound"))
+                                        .DataSource(dataSource => dataSource
+                                        .Ajax()
+                                        .Model(m =>
+                                        {
+                                            m.Id(e => e.Id);
+
+                                        })
+                                        .Read(read => read.Action("GetHistorique", "HistoriqueConnexion").Data("gridData"))
+
+                                        )
+                                        .Scrollable().Editable(e => e.Mode(GridEditMode.InLine))
+                                        .HtmlAttributes(new { style = "margin:10px;height:auto" }))
+
+    <br />
+</div>
+
+
+¨<script>
+    function onChangeMois() {
+        $("#grid").data("kendoGrid").dataSource.read();
+    }
+
+    function onChangeAnnee() {
+        $("#grid").data("kendoGrid").dataSource.read();
+    }
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var gridData = grid.dataSource.view();
+        for (var i = 0; i < gridData.length; i++) {
+            var currentUid = gridData[i].uid;
+            if (!gridData[i].CanEdit) {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                var editButton = $(currenRow).find(".k-grid-Modifier");
+                var deleteButton = $(currenRow).find(".k-grid-delete");
+                deleteButton.hide();
+                editButton.hide();
+            }
+        }
+    }
+    function gridData() {
+        return {
+            annee: $("#dropdownAnnee").val(),
+            mois: $("#dropdownMois").val()
+        }
+    }
+    
+</script>
+
+
+
+<style>
+    *, :before, :after {
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+    }
+
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+</style>

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+@{
+    var myUser = new KPIPrincipal();
+
+}
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+<html lang="fr">
+
+<head>
+    @RenderSection("styles", required: false)
+    @Html.Partial("_head")
+
+    <title> </title>
+
+
+
+</head>
+
+<body class="full-height" style="background-color: #EEF9FE">
+    @RenderSection("stylesOfPage", required: false)
+    <!--debut page-->
+
+    <div class="content-page forced" id="wrapper">
+        <!-- header-->
+        @Html.Partial("_PartialHead", new ViewDataDictionary { { "Module", "Carburant" }, { "Color", "#ebb424" } })
+
+        <div class="main-container" id="#page">
+            <div class="sidebar">
+                <div class="sidebar-content ">
+                    <ul class="navigation">
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.CARBURANT))
+                        {
+                            <li>
+                                <a href="~/GestionCarburant/Carburant">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-gas-station"></i></small>
+                                    <span class="left-menu-text">Pleins d'essence</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <!-- /main navigation -->
+
+                </div>
+            </div>
+            <div class="page-content clearfix">
+                <div class="inner-content">
+
+
+                    <section class="content-wrapper main-content clear-fix">
+                        @RenderSection("scriptsOfPage", required: false)
+                        @RenderBody()
+                        <!--tu ajoute ce code-->
+                        <script type="text/javascript">
+                                    $('.navigation').find('li').has('ul').children('a').on('click', function (e) {
+                                        e.preventDefault();
+
+                                        if ($('body').hasClass('sidebar-narrow')) {
+                                            $(this).parent('li > ul li').not('.disabled').toggleClass('active').children('ul').slideToggle(250);
+                                            $(this).parent('li > ul li').not('.disabled').siblings().removeClass('active').children('ul').slideUp(250);
+                                        }
+
+                                        else {
+                                            $(this).parent('li').not('.disabled').toggleClass('active').children('ul').slideToggle(250);
+                                            $(this).parent('li').not('.disabled').siblings().removeClass('active').children('ul').slideUp(250);
+                                        }
+                                    });
+                        </script>
+                    </section>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
+@RenderSection("scripts", required: false)

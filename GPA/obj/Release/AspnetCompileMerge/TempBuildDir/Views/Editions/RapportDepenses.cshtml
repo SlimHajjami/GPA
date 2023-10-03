@@ -1,0 +1,427 @@
+﻿@{
+    ViewBag.Title = "Rapport dépenses";
+    Layout = "~/Views/Shared/_LayoutEditions.cshtml";
+}
+
+@using GPB.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>  rapport dépenses</h5>
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+                    <div class="row" style="margin:1px;">
+
+                        <div class="col-md-6">
+                            <label>Projet </label>
+                            @(Html.Kendo().DropDownList()
+                                      .Name("projetFilter")
+                                      .DataTextField("LIBELLE").OptionLabel("Sélectionnez...")
+                                      .DataValueField("ID_PROJET")
+                                      .DataSource(source =>
+                                      {
+                                          source.Read(read =>
+                                          {
+                                              read.Action("GetProjects", "CmbBoxs");
+                                          });
+                                      })
+                                      .HtmlAttributes(new { style = "width: 100%" })
+                                      .Events(e =>
+                                      {
+                                          e.Change("onChangeProjetFilter");
+                                      })
+                            )
+                        </div>
+                        <div class="col-md-3">
+                            <label>Année</label>
+                            @(Html.Kendo().DropDownList()
+                                            .Name("dropdownAnnee")
+                                            .DataTextField("Text").OptionLabel("Sélectionnez...").Value(DateTime.Now.Year.ToString())
+                                    .DataValueField("Value")
+                                            .Events(e => e.Change("onChangeAnnee"))
+                                    .BindTo(new List<SelectListItem>() {
+                                        new SelectListItem() {
+                                            Text = "2013",
+                                            Value = "2013"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2014",
+                                            Value = "2014"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2015",
+                                            Value = "2015"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2016",
+                                            Value = "2016"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2017",
+                                            Value = "2017"
+                                        }
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                            )
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Mois</label>
+                            @(Html.Kendo().DropDownList()
+                                       .Name("dropdownMois")
+                                       .DataTextField("Text").OptionLabel("Sélectionnez...").Value(DateTime.Now.Month.ToString())
+                                       .DataValueField("Value")
+                                       .Events(e => e.Change("onChangeMois"))
+                                       .BindTo(new List<SelectListItem>() {
+                                           new SelectListItem() {
+                                               Text = "Janvier",
+                                               Value = "1"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Février",
+                                               Value = "2"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Mars",
+                                               Value = "3"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Avril",
+                                               Value = "4"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Mai",
+                                               Value = "5"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Juin",
+                                               Value = "6"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Juillet",
+                                               Value = "7"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Aout",
+                                               Value = "8"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Septembre",
+                                               Value = "9"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Octobre",
+                                               Value = "10"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Novembre",
+                                               Value = "11"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Décembre",
+                                               Value = "12"
+                                           }
+                                       })
+                                       .HtmlAttributes(new { style = "width: 100%" })
+                            )
+                        </div>
+                    </div>
+                    <div id="div0">
+
+                        @(Html.Kendo().ToolBar()
+                                .Name("ToolBarPrj")
+                                .HtmlAttributes(new { style = "margin:10px;margin-top:30px;" })
+                                .Items(items =>
+                                {
+                                    items.Add().Type(CommandType.Button).Text("Exporter").Click("PDF").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold ;background-color: #fff;" }).SpriteCssClass("k-icon pdf-file");
+                                    items.Add().Type(CommandType.Button).Text("Exporter").Click("EXCEL").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold; background-color: #fff;" }).SpriteCssClass("k-icon excel-file");
+                                })
+                        )
+
+
+                        @(Html.Kendo().Grid<GPB.Models.SuiviFinancier.DepenseViewModel>()
+    .Name("Grid").HtmlAttributes(new { style = "margin:10px" })
+    .Columns(columns =>
+    {
+        columns.Bound(e => e.Projet).Filterable(false).Title("Projet");
+        columns.ForeignKey(e => e.TypeDepense, (System.Collections.IEnumerable)ViewBag.ListTypes, "Value", "Text").Title("Type").Filterable(false);
+        columns.Bound(e => e.DateDepense).Filterable(false);
+        columns.Bound(e => e.MontantDepense).Filterable(false);
+        columns.Command(commands =>
+        {
+            commands.Custom("Details").Click("showdetails");
+        }).Width(150);
+    })
+    .Pageable(pageable => pageable.Refresh(true))
+    .Sortable()
+    .Selectable()
+    .Navigatable()
+    .Filterable()
+    .Filterable(filterable => filterable
+    .Extra(false)
+    .Operators(operators => operators
+    .ForString(str => str.Clear()
+    .StartsWith("Commence avec")
+    .IsEqualTo("Est égale à")
+    .IsNotEqualTo("N'est pas égale à")
+    ))
+    )
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(m =>
+    {
+        m.Id(f => f.IdDepense);
+    })
+            .Read(read => read.Action("GetDepenses", "SuiviFinancier").Data("additionalParams"))
+    )
+                        )
+
+
+                        @(Html.Kendo().Window()
+    .Name("windowDetails").Title("Détails")
+    .Content(@<text>
+        <form id="details_form" class="row" style="margin:15px;">
+            <div class="col-md-6">
+                <label>Projet </label>
+                @(Html.Kendo().DropDownList().Enable(false)
+                 .Name("projetDetails")
+                 .DataTextField("LIBELLE").OptionLabel("Sélectionnez...")
+                 .DataValueField("ID_PROJET")
+                 .DataSource(source =>
+                 {
+                     source.Read(read =>
+                     {
+                         read.Action("GetProjects", "CmbBoxs");
+                     });
+                 })
+                 .HtmlAttributes(new { style = "width: 100%;" })
+                 .Events(e =>
+                 {
+                     e.Change("onChangeProjet");
+                 })
+                )
+            </div>
+            <div class="col-md-6">
+                <label>Type </label>
+                @(Html.Kendo().DropDownList().Enable(false)
+                  .Name("TypeDepenseDetails")
+                          .DataTextField("Text").OptionLabel("Sélectionnez...")
+                  .DataValueField("Value")
+                  .DataSource(source =>
+                  {
+                      source.Read(read =>
+                      {
+                          read.Action("GetTypesDepenses", "CmbBoxs");
+                      });
+                  })
+                  .HtmlAttributes(new { style = "width: 100%;" })
+                )
+            </div>
+            <div class="col-md-6" style="margin-top:15px;">
+                <label>Lot </label>
+                <input type="text" id="lotDetails" name="lotDetails" class="k-textbox" style="width: 100%;" disabled />
+            </div>
+            <div class="col-md-6" style="margin-top:15px;">
+                <label>Activité </label>
+                <input type="text" id="activiteDetails" name="activiteDetails" class="k-textbox" style="width: 100%;" disabled />
+            </div>
+            <div class="col-md-6" style="margin-top:15px;">
+                <label>Date </label>
+                @(Html.Kendo().DatePicker().Name("DateDepenseDetails").Enable(false).HtmlAttributes(new { style = "width: 100%" }))
+            </div>
+            <br />
+            <div class="col-md-6" style="margin-top:15px;">
+                <label>Montant </label>
+                <input type="number" id="MontantDepenseDetails" name="MontantDepenseDetails" class="k-textbox" style="width: 100%;" disabled />
+            </div>
+            <br />
+            <div class="col-md-6" style="margin-top:15px;">
+                <label>Description </label>
+                <textarea id="DescriptionDepenseDetails" name="DescriptionDepenseDetails" class="k-textbox" style="width: 100%;" disabled></textarea>
+            </div>
+        </form>
+    </text>)
+                                    .Draggable()
+                                    .Resizable()
+                                    .Modal(true)
+                                    .Width(800)
+                                    .Visible(false)
+                                    .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+                        )
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var activityEditValue=0;
+
+    function onChangeProjetFilter(e) {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+    function onChangeMois() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function onChangeAnnee() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function onChangeProjet(e) {
+        var projetId = 0;
+        if ($("#projet").val() != null && $("#projet").val() != '') {
+            projetId=$("#projet").val();
+        }
+        $("#Grid").data("kendoGrid").dataSource.read();
+        $("#LotId").data("kendoDropDownList").dataSource.read({ projet: projetId });
+        $("#ActiviteId").data("kendoDropDownList").dataSource.read({ projet: projetId, lot: 0 });
+    }
+
+    function additionalParams() {
+        return {
+            projet: $("#projetFilter").val(),
+            annee: $("#dropdownAnnee").val(),
+            mois: $("#dropdownMois").val()
+        };
+    }
+
+    function additionalParamsForCombo() {
+        if ($("#projet").val() != null && $("#projet").val() != '') {
+            return { projet: $("#projet").val() };
+        } else {
+            return { projet: 0 };
+        }
+    }
+
+    function showdetails(e) {
+        var grid = $("#Grid").data("kendoGrid");
+        var row = grid.select();
+        var currentDataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var projetId = currentDataItem.ProjetId;
+        $("#IdDepenseDetails").val(currentDataItem.IdDepense);
+        $("#TypeDepenseDetails").data("kendoDropDownList").value(currentDataItem.TypeDepense);
+        $("#ProjetIdDetails").val(projetId);
+        $("#projetDetails").data("kendoDropDownList").value(currentDataItem.ProjetId);
+        $("#lotDetails").val(currentDataItem.LotLibelle);
+        $("#activiteDetails").val(currentDataItem.ActiviteLibelle);
+        $("#DateDepenseDetails").data("kendoDatePicker").value(currentDataItem.DateDepense);
+        $("#MontantDepenseDetails").val(currentDataItem.MontantDepense);
+        $("#DescriptionDepenseDetails").val(currentDataItem.DescriptionDepense);
+        $("#windowDetails").data("kendoWindow").center().open();
+    }
+
+    function additionalParamsActivite() {
+        if ($("#LotId").val() != null && $("#LotId").val() != '') {
+            return { projet: 0, lot: $("#LotId").val() };
+        } else if ($("#projet").val() != null && $("#projet").val() != '') {
+            return { projet: $("#projet").val(), lot: 0 };
+        } else {
+            return { projet: 0, lot: 0 };
+        }
+    }
+
+
+    function OnChangeLot() {
+        $("#ActiviteId").data("kendoDropDownList").dataSource.read();
+    }
+
+
+
+    function PDF() {
+        var model = {
+            projet: $("#projetFilter").val(),
+            annee: $("#dropdownAnnee").val(),
+            mois: $("#dropdownMois").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetReglementsParameters", "SuiviFinancier")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(model),
+            dataType: "json",
+            success: function (result) {
+                 window.open('@Url.Action("DepensesReport", "SuiviFinancier")' + "?type=PDF");
+            },
+            error: function (result) {
+                alert('Oh no :(');
+            }
+        });
+    }
+
+    function EXCEL() {
+        var model = {
+            projet: $("#projetFilter").val(),
+            annee: $("#dropdownAnnee").val(),
+            mois: $("#dropdownMois").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetReglementsParameters", "SuiviFinancier")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(model),
+            dataType: "json",
+            success: function (result) {
+                  window.open('@Url.Action("DepensesReport", "SuiviFinancier")' + "?type=EXCEL");
+            },
+            error: function (result) {
+                alert('Oh no :(');
+            }
+        });
+    }
+</script>
+
+
+<style>
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+
+    input.k-textbox {
+        padding: 0;
+    }
+
+    .k-window div.k-window-content {
+        overflow: hidden;
+    }
+</style>
+

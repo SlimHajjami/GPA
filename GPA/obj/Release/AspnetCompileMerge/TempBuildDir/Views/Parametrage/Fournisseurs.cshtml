@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "Gestion des fournisseurs";
+    Layout = "~/Views/Shared/_LayoutParametrage.cshtml";
+
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>Gestion des fournisseurs</h5>
+                    </span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+@if (myUser.Profile == 1)
+{
+    <div style="margin:1px" class="row">
+        <div class="col-md-2"><label>Client</label></div>
+        <div class="col-md-4">
+@(Html.Kendo().DropDownList().Name("ClientFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeFilter");
+        })
+)
+        </div>
+    </div><br />
+}
+                    <div id="div0">
+@(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .HtmlAttributes(new { style = "margin:10px;" })
+    .Items(items =>
+    {
+        items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRow").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+    })
+)
+
+@(Html.Kendo().Grid<FournisseurModel>()
+    .Name("Grid").HtmlAttributes(new { style = "margin:10px;height:auto" })
+    .Columns(columns =>
+    {
+        if (myUser.Profile == 1)
+        {
+            columns.ForeignKey(e => e.ClientId, (System.Collections.IEnumerable)ViewBag.ListClients, "IdClient", "NomClient");
+        }
+        columns.Bound(e => e.NomFournisseur);
+        columns.ForeignKey(e => e.TypeFournisseur, (System.Collections.IEnumerable)ViewBag.ListTypes, "Value", "Text");
+        columns.Bound(e => e.ContactFournisseur);
+        columns.Bound(e => e.Tel1Fournisseur);
+        columns.Bound(e => e.FaxFournisseur);
+        columns.Bound(e => e.EmailFournisseur);
+
+        columns.Command(commands =>
+        {
+            commands.Custom("Modifier").Click("EditRow").Text("Modifier");
+            commands.Destroy().Text("Supp.");
+        }).Width(210);
+    })
+    .Editable(e => e
+    .Mode(GridEditMode.PopUp).TemplateName("FournisseurEditView")
+    .Window(w => w.Title("Fournisseur").Width(600))
+    .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+    )
+    .Pageable(pageable => pageable.Refresh(true))
+    .Sortable()
+    .Selectable()
+    .Navigatable()
+    .Filterable()
+    .Filterable(filterable => filterable
+    .Extra(false)
+    .Operators(operators => operators
+    .ForString(str => str.Clear()
+    .StartsWith("Commence avec")
+    .IsEqualTo("Est égale à")
+    .IsNotEqualTo("N'est pas égale à")
+    ))
+    )
+    .Events(e =>
+    {
+        e.Edit("onEdit");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(m =>
+    {
+        m.Id(f => f.IdFournisseur);
+        m.Field(p => p.IdFournisseur).Editable(false);
+    })
+    .Read(read => read.Action("Read", "Fournisseur").Data("filterData"))
+    .Destroy("Delete", "Fournisseur")
+    .Update("Update", "Fournisseur")
+    .Create("Create", "Fournisseur")
+    )
+)
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function AddRow() {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.addRow();
+    }
+
+    function EditRow(e) {
+        var grid = $("#Grid").getKendoGrid(),
+        selectedRow = this.dataItem($(e.currentTarget).closest("tr"));
+        grid.editRow(selectedRow);
+    }
+
+    function onEdit(e) {
+        $("a.k-grid-update")[0].innerHTML = "<span class='k-icon k-update'></span>Enregistrer";
+        if (e.model.isNew()) {
+            $('.k-window-title').text("Nouveau Fournisseur");
+        }
+        else {
+            $('.k-window-title').text("Modifier Fournisseur");
+        }
+    }
+
+    function filterData() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { client: client };
+    }
+
+    function onChangeFilter() {
+        $("#Grid").data("kendoGrid").dataSource.read();
+    }
+</script>
+
+<style>
+    .k-edit-form-container {
+        width: 600px !important;
+    }
+
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+
+    input.k-textbox {
+        padding: 0;
+    }
+
+    .k-window div.k-window-content {
+        overflow: hidden;
+    }
+</style>

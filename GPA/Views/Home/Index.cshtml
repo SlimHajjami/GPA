@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_LayoutAutentification.cshtml";
+}
+
+@{
+    var myUser = new KPIPrincipal();
+}
+@using GPA.Models;
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Aceuil</title>
+
+    <!-- bootstrap  -->
+    <link rel="stylesheet" href="~/Content/belive/css/bootstrap.min.css" type="text/css">
+
+    <!-- icons Fonts -->
+    <link rel="stylesheet" href="~/Content/belive/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/belive/css/material-design-iconic-font.min.css" type="text/css">
+    <!-- general CSS -->
+    <link rel="stylesheet" href="~/Content/belive/css/style.css" type="text/css">
+
+
+
+    <!-- responsive CSS -->
+    <link rel="stylesheet" href="~/Content/belive/css/responsive.css" type="text/css">
+
+</head>
+
+
+<body class="full-height">
+
+
+    <div class="content">
+
+        <!--debut page-->
+        <div class="main-container menu-bg">
+
+            <div class="container">
+                <div class="row row-centered">
+                    <div class="col-md-10 col-centered mag-top-80">
+                        <div class="row">
+                            @if (myUser.Rights.Contains(Enumerators.AccessRights.MODULES_ADMINISTRATION))
+                            {
+                                <div class="col-md-3 col-xs-6 col-sm-3 padd">
+                                    <div class="box-menu">
+                                        <a href="~/Administration/Utilisateurs" id="administration" class="ripple-btn">
+                                            <i class="zmdi zmdi-view-dashboard"></i>
+                                            <p>Administration</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            @if (myUser.Rights.Contains(Enumerators.AccessRights.MODULES_PARAMETRAGE))
+                            {
+                                <div class="col-md-3 col-xs-6 col-sm-3 padd">
+                                    <div class="box-menu">
+                                        <a href="~/Parametrage/Fournisseurs" id="parametrage" class="ripple-btn">
+                                            <i class="zmdi zmdi-settings"></i>
+                                            <p>Paramétrage</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            @if (myUser.Rights.Contains(Enumerators.AccessRights.MODULES_GESTION_VEHICULES))
+                            {
+                                <div class="col-md-3 col-xs-12 col-sm-3 padd">
+                                    <div class="box-menu">
+                                        <a href="~/GestionVehicules/Vehicules" id="vehicules" class="ripple-btn">
+                                            <i class="zmdi zmdi-car"></i>
+                                            <p>Gestion Véhicules</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            @if (myUser.Rights.Contains(Enumerators.AccessRights.MODULES_ENTRETIENS))
+                            {
+
+                                <div class="col-md-3 col-xs-12 col-sm-3 padd">
+                                    <div class="box-menu">
+                                        <a href="~/GestionEntretiens/Entretiens" id="entretiens" class="ripple-btn">
+                                            <i class="zmdi zmdi-format-color-fill"></i>
+                                            <p>Entretiens</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            @if (myUser.Rights.Contains(Enumerators.AccessRights.MODULES_REPARATIONS))
+                            {
+                                <div class="col-md-3 col-xs-12 col-sm-3 padd">
+                                    <div class="box-menu">
+                                        <a href="~/GestionReparations/Reparations" id="reparations" class="ripple-btn">
+                                            <i class="zmdi zmdi-wrench"></i>
+                                            <p>Réparations</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            @if (myUser.Rights.Contains(Enumerators.AccessRights.MODULES_CARBURANT))
+                            {
+                                <div class="col-md-3 col-xs-6 col-sm-3 padd">
+                                    <div class="box-menu">
+                                        <a href="~/GestionCarburant/Carburant" id="carburant" class="ripple-btn">
+                                            <i class="zmdi zmdi-gas-station"></i>
+                                            <p>Carburant</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            @if (myUser.Rights.Contains(Enumerators.AccessRights.MODULES_EDITIONS))
+                            {
+                                <div class="col-md-3 col-xs-6 col-sm-3 padd">
+                                    <div class="box-menu">
+                                        <a href="~/Edition/RapportDepenses" id="editions" class="ripple-btn">
+                                            <i class="zmdi zmdi-collection-text"></i>
+                                            <p>Editions</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="logout-btn">
+            <a href="~/Account/LogOut"><i class="zmdi zmdi-lock"></i></a>
+        </div>
+        <!--fin page-->
+        <!-- jquery -->
+        <script src="~/Content/belive/js/jquery-2.2.2.min.js"></script>
+        <script src="~/Content/belive/js/bootstrap.min.js"></script>
+        <script src="~/Content/belive/js/script.js"></script>
+
+
+
+    </div>
+
+
+
+
+</body>
+</html>

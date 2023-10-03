@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "RapportRecapitulatifSuiviFinancier";
+    Layout = "~/Views/Shared/_LayoutEditions.cshtml";
+}
+
+@using GPB.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>  Rapport récapitulatif</h5>
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+
+                    <div class="row" style="margin:1px;">
+
+                        <div class="col-md-4">
+                            <label>Projet</label>
+                            @(Html.Kendo().DropDownList()
+                               .Name("projet")
+                               .DataTextField("LIBELLE").OptionLabel("Sélectionnez...")
+                               .DataValueField("ID_PROJET")
+                               .DataSource(source =>
+                               {
+                                   source.Read(read =>
+                                   {
+                                       read.Action("GetProjects", "CmbBoxs");
+                                   });
+                               })
+                                   .HtmlAttributes(new { style = "width: 100%;" })
+                            )
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <label>Année</label>
+                            @(Html.Kendo().DropDownList()
+                                    .Name("dropdownAnnee")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value").Value(DateTime.Now.Year.ToString())
+                                    .BindTo(new List<SelectListItem>() {
+                                        new SelectListItem() {
+                                            Text = "2013",
+                                            Value = "2013"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2014",
+                                            Value = "2014"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2015",
+                                            Value = "2015"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2016",
+                                            Value = "2016"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2017",
+                                            Value = "2017"
+                                        }
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                            )
+                        </div>
+
+
+                        <div class="col-md-12" style="margin-top:15px;">
+                            @(Html.Kendo().Button()
+                                        .Name("EXCEL")
+                                        .Content("Exporter")
+                                                        .HtmlAttributes(new { type = "button", style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold; background-color: #fff;float:right;" })
+                                        .Events(ev => ev.Click("EXCEL"))
+                                        .SpriteCssClass("k-icon excel-file")
+                            )
+
+                            @(Html.Kendo().Button()
+                                        .Name("PDF")
+                                        .Content("Exporter")
+                                                        .HtmlAttributes(new { type = "button", style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold; background-color: #fff;float:right;" })
+                                        .Events(ev => ev.Click("PDF"))
+                                                .SpriteCssClass("k-icon pdf-file")
+                            )
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function PDF() {
+        var model = {
+            projet: $("#projet").val(),
+            annee: $("#dropdownAnnee").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetReglementsParameters", "SuiviFinancier")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(model),
+            dataType: "json",
+            success: function (result) {
+                window.open('@Url.Action("RecapitulatifReport", "SuiviFinancier")' + "?type=PDF");
+            },
+            error: function (result) {
+                alert('Oh no :(');
+            }
+        });
+    }
+
+    function EXCEL() {
+        var model = {
+            projet: $("#projet").val(),
+            annee: $("#dropdownAnnee").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetReglementsParameters", "SuiviFinancier")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(model),
+            dataType: "json",
+            success: function (result) {
+                window.open('@Url.Action("RecapitulatifReport", "SuiviFinancier")' + "?type=EXCEL");
+            },
+            error: function (result) {
+                alert('Oh no :(');
+            }
+        });
+    }
+</script>

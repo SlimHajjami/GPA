@@ -1,0 +1,459 @@
+﻿@{
+    ViewBag.Title = "KilometragesMensuels";
+    Layout = "~/Views/Shared/_LayoutGestionVehicules.cshtml";
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+    <div class="col-md-12">
+        <div class="box-content mag-top-40">
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <div class="pull-left">
+                    <h5>Kilometrage Mensuel</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="content-box">
+                <div class="table-responsive">
+                    @if (myUser.Profile == 1)
+                    {
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-2"><label>Client</label></div>
+                            <div class="col-md-4">
+                                @(Html.Kendo().DropDownList().Name("ClientFiltre")
+                                 .ValuePrimitive(true)
+                                 .OptionLabel("Sélectionner client...")
+                                 .DataTextField("NomClient")
+                                 .DataValueField("IdClient")
+                                 .DataSource(dataSource =>
+                                 {
+                                     dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+                                 })
+                                 .HtmlAttributes(new { style = "width: 100%" })
+                                 .Events(e =>
+                                 {
+                                     e.Change("onChangeClient");
+                                 })
+                                )
+                            </div>
+                        </div>
+                        <br />
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-2"><label>Département</label></div>
+                            <div class="col-md-3">
+                                @(Html.Kendo().DropDownList().Name("DepartementFiltre")
+                         .ValuePrimitive(true)
+                         .OptionLabel("Sélectionner département...")
+                         .DataTextField("NomDepartement")
+                         .DataValueField("IdDepartement")
+                         .CascadeFrom("ClientFiltre")
+                         .DataSource(dataSource =>
+                         {
+                             dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs").Data("ClientData"))
+                                 .ServerFiltering(true);
+                         })
+                         .HtmlAttributes(new { style = "width: 100%" })
+                         .Events(e =>
+                         {
+                             e.Change("onChangeDepartement");
+                         })
+                                )
+                            </div>
+                            <div class="col-md-2"><label>Véhicule</label></div>
+                            <div class="col-md-3">
+                                @(Html.Kendo().DropDownList().Name("VehiculeFiltre")
+                            .ValuePrimitive(true)
+                            .OptionLabel("Sélectionner véhicule...")
+                            .DataTextField("MatriculeVehicule")
+                            .DataValueField("IdVehicule")
+
+                            // .CascadeFrom("ClientFiltre")
+                            .DataSource(dataSource =>
+                            {
+                                dataSource.Read(read => read.Action("GetVehiculesParDep", "CmbBoxs").Data("ClientDepData"))
+                                .ServerFiltering(true);
+                            })
+                            .HtmlAttributes(new { style = "width: 100%" })
+                      .Events(e =>
+                      {
+                          e.Change("onChangeFilter");
+                      })
+                                )
+                            </div>
+                        </div><br />
+                    }
+                    else
+                    {
+                        <div style="margin:1px" class="row" id="myDiv" data=@myUser.Client>
+                            <div class="col-md-2"><label>Département</label></div>
+                            <div class="col-md-3">
+                                @(Html.Kendo().DropDownList().Name("DepartementFiltre")
+                         .ValuePrimitive(true)
+                         .OptionLabel("Sélectionner département...")
+                         .DataTextField("NomDepartement")
+                         .DataValueField("IdDepartement")
+                         .DataSource(dataSource =>
+                         {
+                             dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs", new { client = myUser.Client }));
+                         })
+                         .HtmlAttributes(new { style = "width: 100%" })
+                         .Events(e =>
+                         {
+                             e.Change("onChangeDepartement");
+                         })
+                                )
+                            </div>
+                            <div class="col-md-2"><label>Véhicule</label></div>
+                            <div class="col-md-3">
+                                @(Html.Kendo().DropDownList().Name("VehiculeFiltre")
+                        .ValuePrimitive(true)
+                        .OptionLabel("Sélectionner vehicule...")
+                        .DataTextField("MatriculeVehicule")
+                        .DataValueField("IdVehicule")
+                        //  .CascadeFrom("DepartementFiltre")
+                        .DataSource(dataSource =>
+                        {
+                            dataSource.Read(read => read.Action("GetVehiculesParDep", "CmbBoxs").Data("DepData"));
+                        })
+                        .HtmlAttributes(new { style = "width: 100%" })
+                        .Events(e =>
+                        {
+                            e.Change("onChangeFilter");
+                        })
+                                )
+                            </div>
+                        </div>
+                        <br />
+                    }
+
+
+                    <div style="margin:1px" class="row">
+
+                        <div class="col-md-2"><label>Année</label></div>
+
+                        <div class="col-md-3">
+                            @(Html.Kendo().DropDownList().Name("AnneeFiltre")
+                             .ValuePrimitive(true)
+                             .OptionLabel("Sélectionner année...")
+                             .DataTextField("Text")
+                             .DataValueField("Value")
+                             .DataSource(dataSource =>
+                             {
+                                 dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "ANNEE" }));
+                             })
+                             .Value(DateTime.Now.Year.ToString())
+                             .HtmlAttributes(new { style = "width: 100%" })
+                             .Events(e =>
+                             {
+                                 e.Change("onChangeFilter");
+                             })
+                            )
+                        </div>
+                        <div class="col-md-2"><label>Mois</label></div>
+                        <div class="col-md-3">
+                            @(Html.Kendo().DropDownList().Name("MoisFiltre")
+                            .ValuePrimitive(true)
+                            .OptionLabel("Sélectionner mois...")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(dataSource =>
+                            {
+                                dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "MOIS" }));
+                            })
+                            .Value(DateTime.Now.Month.ToString())
+                            .HtmlAttributes(new { style = "width: 100%" })
+                            .Events(e =>
+                            {
+                                e.Change("onChangeFilter");
+                            })
+                            )
+                        </div>
+                    </div>
+                    <br />
+                    <div id="div0">
+                        @(Html.Kendo().ToolBar()
+                                        .Name("toolbar")
+                                        .HtmlAttributes(new { style = "margin:10px;" })
+                                        .Items(items =>
+                                        {
+                                            items.Add().Type(CommandType.Button).Text("Mise à jour manuelle").Click("AddRow").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+
+                                            if (myUser.Rights.Contains(Enumerators.AccessRights.IMPORT_KILOMETRAGE_MENSUEL))
+                                            {
+                                                items.Add().Type(CommandType.Button).Text("Importer").Click("Import").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" }).SpriteCssClass("k-icon excel-file");
+                                            }
+
+                                            items.Add().Type(CommandType.Button).Text("Supp. tout").Click("DeleteAll").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold;float:right" });
+                                        }))
+
+                        @(Html.Kendo().Grid<KilometrageMensuelModel>()
+                                        .Name("Grid")
+                                        .HtmlAttributes(new { style = "margin:10px;height:auto" })
+                                        .Columns(columns =>
+                                        {
+                                            if (myUser.Profile == 1)
+                                            {
+                                                columns.ForeignKey(e => e.ClientId, (System.Collections.IEnumerable)ViewBag.ListClients, "IdClient", "NomClient");
+                                            }
+                                            columns.ForeignKey(e => e.VehiculeId, (System.Collections.IEnumerable)ViewBag.ListVehicules, "IdVehicule", "MatriculeVehicule");
+                                            columns.Bound(e => e.DateKilometrageMensuel);
+                                            columns.Bound(e => e.Kilometrage);
+                                            //  columns.Bound(e => e.Note).Title("Note ");
+
+                                            columns.Command(commands =>
+                                            {
+                                                commands.Destroy().Text("Supp.");
+                                            }).Width(210);
+                                        })
+                                        .Editable(e => e
+                                            .Mode(GridEditMode.PopUp).TemplateName("KilometrageMensuelEditView")
+                                            .Window(w => w.Title("Kilométrage mensuel")
+                                            .Width(400)
+                                            )
+                                            .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+                                        )
+                                        .Pageable(pageable => pageable.Refresh(true))
+                                        .Sortable()
+                                        .Selectable()
+                                        .Navigatable()
+                                        .Filterable(filterable => filterable
+                                        .Extra(false)
+                                        .Operators(operators => operators
+                                        .ForString(str => str.Clear()
+                                        .StartsWith("Commence avec")
+                                        .IsEqualTo("Est égale à")
+                                        .IsNotEqualTo("N'est pas égale à")
+                                        ))
+                                        )
+
+                                        .DataSource(dataSource => dataSource
+                                        .Ajax()
+                                        .Events(events => events.Error("onError"))
+                                        .Model(m =>
+                                        {
+                                            m.Id(f => f.IdKilometrageMensuel);
+                                            //  m.Field(p => p.IdVehicule).Editable(false);
+                                        })
+                                        .Read(read => read.Action("ReadMensuel", "Kilometrage").Data("filterData"))
+                                        .Destroy("DeleteMensuel", "Kilometrage")
+                                        .Update("UpdateMensuel", "Kilometrage")
+                                        .Create("CreateMensuel", "Kilometrage")
+                                        ))
+
+
+
+
+
+
+                        @(Html.Kendo().Window()
+                                .Name("importerWindow")
+                                .Actions(actions => actions
+                                    .Close()
+                                )
+                                .Title("Importer Kilometrage mensuel")
+                                .Draggable()
+                                .Width(500)
+                                .Height(150)
+                                .Modal(true)
+                                .Visible(false)
+                                .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+                        )
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function AddRow() {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.addRow();
+    }
+    function onError(e) {
+        if (e.errors) {
+            var message = "Il y a des erreurs:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+            var grid = $("#grid").data("kendoGrid");
+            grid.cancelChanges();
+        }
+    }
+    function onChangeFltr() {
+        var dropdown = $("#VehiculeId").data("kendoDropDownList");
+        dropdown.dataSource.read();
+    }
+    function editClientData() {
+        var client = 0;
+        if ($("#ClientId").val() != null && $("#ClientId").val() != '') {
+            client = $("#ClientId").val();
+        }
+        return { client: client };
+    }
+    function ClientData2() {
+        var client = 0;
+        var departement = 0;
+        if ($("#ClientId").val() != null && $("#ClientId").val() != '') {
+            client = $("#ClientId").val();
+        }
+        if ($("#DepartementE").val() != null && $("#DepartementE").val() != '') {
+            departement = $("#DepartementE").val();
+        }
+
+        return { client: client, departement: departement };
+    }
+    function DepData2() {
+        var client = 0;
+        var departement = 0;
+
+        if ($("#DepartementE").val() != null && $("#DepartementE").val() != '') {
+            departement = $("#DepartementE").val();
+        }
+        return { client: client, departement: departement };
+    }
+
+    function onChangeFilter() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function onChangeClient() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        var dropdown = $("#VehiculeFiltre").data("kendoDropDownList");
+        dropdown.dataSource.read();
+        $("#Grid").data("kendoGrid").dataSource.read({ departement: 0, client: client });
+    }
+
+    function onChangeDepartement() {
+        var dropdown = $("#VehiculeFiltre").data("kendoDropDownList");
+        dropdown.dataSource.read();
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function ClientData() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { client: client };
+    }
+    function ClientDepData() {
+        var client = 0;
+        var departement = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        return { client: client, departement: departement };
+    }
+
+    function DepData() {
+        var client = 0;
+        var departement = 0;
+
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        return { client: client, departement: departement };
+    }
+
+    function filterData() {
+        var departement = 0;
+        var client = 0;
+        var mois = 0;
+        var annee = 0;
+        var vehicule = 0;
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+
+        if ($("#VehiculeFiltre").val() != null && $("#VehiculeFiltre").val() != '') {
+            vehicule = $("#VehiculeFiltre").val();
+        }
+
+        return { departement: departement, client: client, annee: annee, mois: mois, vehicule: vehicule };
+    }
+
+
+    function Import() {
+        $("#importerWindow").data("kendoWindow").content("<input type='file' id='FichierImport' name='FichierImport' /><div id='file_columns'></div>");
+
+        $("#FichierImport").kendoUpload({
+            async: {
+                saveUrl: "../Kilometrage/Import",
+                autoUpload: true
+            },
+            multiple: false,
+            files: [],
+            success: onFileUploaded,
+            validation: {
+                allowedExtensions: [".csv"]
+            }
+        });
+
+        $("#importerWindow").data("kendoWindow").title("Importer Kilometrage mensuel");
+        $("#importerWindow").data("kendoWindow").center();
+        $("#importerWindow").data("kendoWindow").open();
+    }
+
+    function onFileUploaded(e) {
+        if (e.response.message == "1") {
+            $("#Grid").data("kendoGrid").dataSource.read();
+            alert(e.response.importedRows + " enregistrement importés avec succès.");
+        } else {
+            alert(e.response.message);
+        }
+    }
+
+    function DeleteAll() {
+        var client = 0;
+        //var myUser = KPIPrincipal();///not defined
+
+        if (document.getElementById('myDiv') != null && document.getElementById('myDiv') != '') {
+            var myClient = document.getElementById('myDiv');
+            client = myClient.getAttribute("data");
+            //client = id;
+        } else
+            if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+                client = $("#ClientFiltre").val();
+            }
+
+        $.ajax({
+            url: '@Url.Action("DeleteAllMensuel", "Kilometrage")',
+            type: "POST",
+
+            data: JSON.stringify({ clientId: client }),
+
+            contentType: "application/json; charset=utf-8",
+
+            success: function (response) {
+
+                $("#Grid").data("kendoGrid").dataSource.read();
+            }
+        });
+    }
+</script>

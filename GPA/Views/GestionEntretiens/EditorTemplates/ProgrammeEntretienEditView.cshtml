@@ -1,0 +1,164 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.EntretienProgrammeModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdEntretienProgramme" name="IdEntretienProgramme" type="hidden">
+
+@if (myUser.Profile == 1)
+{
+    <div class="col-md-12">
+        <label>Client</label>
+        @(Html.Kendo().DropDownListFor(m => m.ClientId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Véhicule</label>
+        @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner véhicule...")
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            .CascadeFrom("ClientId")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetVehicules", "CmbBoxs").Data("editClientData"))
+                    .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Entretien Maître</label>
+        @(Html.Kendo().DropDownListFor(m => m.EntretienMaitreId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner entretien...")
+            .DataTextField("DescriptionEntretienMaitre")
+            .DataValueField("IdEntretienMaitre")
+            .CascadeFrom("ClientId")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetEntretienMaitres", "CmbBoxs").Data("editClientData"))
+                    .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+            .Events(e =>
+            {
+                e.Change("onEntretienMaitre");
+            })
+        )
+    </div>
+}
+else
+{
+    <div class="col-md-6">
+        <label>Véhicule</label>
+        @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner véhicule...")
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetVehicules", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="col-md-6">
+        <label>Entretien Maître</label>
+        @(Html.Kendo().DropDownListFor(m => m.EntretienMaitreId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner entretien...")
+            .DataTextField("DescriptionEntretienMaitre")
+            .DataValueField("IdEntretienMaitre")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetEntretienMaitres", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+            .Events(e =>
+            {
+                e.Change("onEntretienMaitre");
+            })
+        )
+    </div>
+}
+
+<div class="clearfix"></div>
+
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Répéter Toutes</label><br />
+    @Html.Kendo().IntegerTextBox().Name("RepeterNb").HtmlAttributes(new { style = "width: 100px" })
+    @(Html.Kendo().DropDownListFor(m => m.RepeterPeriode)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "PERIODE" }));
+        })
+        .HtmlAttributes(new { style = "width: 150px" })
+    )
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Ou</label><br />
+    @Html.Kendo().IntegerTextBox().Name("RepeterKilometrage").HtmlAttributes(new { style = "width: 100px" })
+    <label>kilométres</label>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="Prochain_div">
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Prochain Entretien</label><br />
+        @Html.Kendo().DatePicker().Name("ProchaineDate").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Ou</label><br />
+        @Html.Kendo().IntegerTextBox().Name("ProchaineKilometrage").HtmlAttributes(new { style = "width: 100px" })
+        <label>kilométres</label>
+    </div>
+
+    <div class="clearfix"></div>
+
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Rappel avant</label><br />
+    @Html.Kendo().IntegerTextBox().Name("RappelNb").HtmlAttributes(new { style = "width: 100px" })
+    @(Html.Kendo().DropDownListFor(m => m.RappelPeriode)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "PERIODE" }));
+        })
+        .HtmlAttributes(new { style = "width: 150px" })
+    )
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Ou</label><br />
+    @Html.Kendo().IntegerTextBox().Name("RappelKilometrage").HtmlAttributes(new { style = "width: 100px" })
+    <label>kilométres</label>
+</div>

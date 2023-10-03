@@ -1,0 +1,14 @@
+﻿
+@using Kendo.Mvc.UI;
+@model GPA.Models.ParametresDepenseModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="Id" name="Id" type="hidden">
+<input id="ClientId" name="ClientId" type="hidden">
+
+
+<div class="col-md-6">
+    <label>Dépense</label>
+    @Html.Kendo().TextBox().Name("Depense").HtmlAttributes(new { style = "width: 100%" })
+</div>
+

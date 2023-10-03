@@ -1,0 +1,433 @@
+﻿@{
+    ViewBag.Title = "Gestion des véhicules";
+    Layout = "~/Views/Shared/_LayoutGestionVehicules.cshtml";
+
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>Gestion des véhicules</h5>
+                    </span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+@if (myUser.Profile == 1)
+{
+                    <div style="margin:1px" class="row">
+                        <div class="col-md-2"><label>Client</label></div>
+                        <div class="col-md-4">
+@(Html.Kendo().DropDownList().Name("ClientFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeClient");
+        })
+)
+                        </div>
+                        <div class="col-md-2"><label>Département</label></div>
+                        <div class="col-md-4">
+@(Html.Kendo().DropDownList().Name("DepartementFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner département...")
+        .DataTextField("NomDepartement")
+        .DataValueField("IdDepartement")
+        .CascadeFrom("ClientFiltre")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs").Data("ClientData"))
+                .ServerFiltering(true);
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeDepartement");
+        })
+)
+                        </div>
+                    </div><br />
+}
+else
+{
+    <div style="margin:1px" class="row">
+        <div class="col-md-2"><label>Département</label></div>
+        <div class="col-md-4">
+@(Html.Kendo().DropDownList().Name("DepartementFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner département...")
+        .DataTextField("NomDepartement")
+        .DataValueField("IdDepartement")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs", new { client = myUser.Client }));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeDepartement");
+        })
+)
+        </div>
+    </div><br />
+}
+
+                    <div id="div0">
+@(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .HtmlAttributes(new { style = "margin:10px;" })
+    .Items(items =>
+    {
+        items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRow").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+        items.Add().Type(CommandType.Button).Text("Importer").Click("Import").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" }).SpriteCssClass("k-icon excel-file");
+        items.Add().Type(CommandType.Button).Text("Exporter").Click("ExportPDF").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold ;background-color: #fff;" }).SpriteCssClass("k-icon pdf-file");
+
+        items.Add().Type(CommandType.Button).Text("Supp. cochés").Click("DeleteAll").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold;float:right" });
+        items.Add().Type(CommandType.Button).Text("Cocher tout").Click("SelectAll").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold;float:right" });
+        items.Add().Type(CommandType.Button).Text("Décocher tout").Click("UnselectAll").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold;float:right" });
+
+
+    })
+)
+
+@(Html.Kendo().Grid<VehiculeModel>()
+    .Name("Grid").HtmlAttributes(new { style = "margin:10px;height:auto" })
+    .Columns(columns =>
+    {
+    if (myUser.Profile == 1)
+    {
+        columns.ForeignKey(e => e.ClientId, (System.Collections.IEnumerable)ViewBag.ListClients, "IdClient", "NomClient");
+    }
+
+    columns.Bound(e => e.MatriculeVehicule);
+    columns.ForeignKey(e => e.DepartementId, (System.Collections.IEnumerable)ViewBag.ListDepartements, "IdDepartement", "NomDepartement");
+    columns.ForeignKey(e => e.ConducteurId, (System.Collections.IEnumerable)ViewBag.ListConducteurs, "IdConducteur", "NomPrenomConducteur");
+    columns.Bound(e => e.MarqueVehicule);
+    columns.Bound(e => e.ModeleVehicule);
+    columns.Template(@<text></text>).ClientTemplate("<input type='checkbox' class='checkbox' />").Width(25);
+
+        columns.Command(commands =>
+        {
+            commands.Custom("Modifier").Click("EditRow").Text("Modifier");
+            commands.Destroy().Text("Supp.");
+        }).Width(210);
+    })
+    .Editable(e => e
+    .Mode(GridEditMode.PopUp).TemplateName("VehiculeEditView")
+    .Window(w => w.Title("Véhicule").Width(600))
+//    .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+    )
+    .Pageable(pageable => pageable.Refresh(true))
+    .Sortable()
+    .Selectable()
+    .Navigatable()
+    .Filterable()
+    .Filterable(filterable => filterable
+    .Extra(false)
+    .Operators(operators => operators
+    .ForString(str => str.Clear()
+    .StartsWith("Commence avec")
+    .IsEqualTo("Est égale à")
+    .IsNotEqualTo("N'est pas égale à")
+    ))
+    )
+    .Events(e =>
+    {
+        e.Edit("onEdit");
+        e.Save("onSave");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Events(events => events.Error("onError"))
+    .Model(m =>
+    {
+        m.Id(f => f.IdVehicule);
+        m.Field(p => p.IdVehicule).Editable(false);
+    })
+    .Read(read => read.Action("Read", "Vehicule").Data("filterData"))
+    .Destroy("Delete", "Vehicule")
+    .Update("Update", "Vehicule")
+    .Create("Create", "Vehicule")
+    )
+)
+
+@(Html.Kendo().Window()
+    .Name("importerWindow")
+    .Actions(actions => actions
+        .Close()
+    )
+    .Title("Importer Véhicules")
+    .Draggable()
+    .Width(500)
+    .Height(450)
+    .Modal(true)
+    .Visible(false)
+    .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function onSave(e) {
+        e.sender.one("dataBound", function () {
+            e.sender.dataSource.read();
+        });
+    }
+    function SelectAll() {
+        $(".k-grid .k-selectable input").prop("checked", true).trigger("change");
+    }
+
+    function UnselectAll() {
+        $(".k-grid .k-selectable input").prop("checked", false).trigger("change");
+    }
+
+    function DeleteAll() {
+        var grid = $("#Grid").data("kendoGrid");
+        $("#Grid").find("input:checked").each(function () {
+            grid.removeRow($(this).closest('tr'));
+        })
+        $("#Grid").data("kendoGrid").dataSource.read();
+
+    }
+
+    function AddRow() {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.addRow();
+
+    }
+    function getMarque() {
+        return {
+            codRef: $("#codeRefMarque").data("kendoDropDownList").value()
+        }
+    }
+
+    function EditRow(e) {
+        var grid = $("#Grid").getKendoGrid(),
+        selectedRow = this.dataItem($(e.currentTarget).closest("tr"));
+        grid.editRow(selectedRow);
+    }
+
+    function onEdit(e) {
+        $("a.k-grid-update")[0].innerHTML = "<span class='k-icon k-update'></span>Enregistrer";
+        if (e.model.isNew()) {
+            $('.k-window-title').text("Nouveau Véhicule");
+        }
+        else {
+            $('.k-window-title').text("Modifier Véhicule");
+        }
+    }
+
+    function onError(e) {
+        if (e.errors) {
+            var message = "Il y a des erreurs:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+            var grid = $("#grid").data("kendoGrid");
+            grid.cancelChanges();
+        }
+    }
+
+    function ClientData() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { client: client };
+    }
+
+    function filterData() {
+        var departement = 0;
+        var client = 0;
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { departement: departement, client: client };
+    }
+
+    function onChangeClient() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        $("#Grid").data("kendoGrid").dataSource.read({ departement: 0, client: client });
+    }
+
+    function onChangeDepartement() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function editClientData() {
+        var client = 0;
+        if ($("#ClientId").val() != null && $("#ClientId").val() != '') {
+            client = $("#ClientId").val();
+        }
+        return { client: client };
+    }
+
+    function ExportPDF() {
+        var departement = 0;
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        window.open('@Url.Action("Export", "Vehicule")' + "?type=PDF&departement=" + departement + "&client=" + client);
+    }
+
+    function Import() {
+        var grid = $("#Grid").getKendoGrid();
+        var row = grid.select();
+        var currentDataItem = grid.dataItem(row);
+        $("#importerWindow").data("kendoWindow").content("<input type='file' id='FichierImport' name='FichierImport' /><div id='file_columns'></div>");
+
+        $("#FichierImport").kendoUpload({
+            async: {
+                saveUrl: "../Vehicule/Upload",
+                autoUpload: true
+            },
+            multiple: false,
+            files: [],
+            success: onFileUploaded,
+            validation: {
+                allowedExtensions: [".xls", ".xlsx"]
+            }
+        });
+
+        $("#importerWindow").data("kendoWindow").title("Importer Véhicules");
+        $("#importerWindow").data("kendoWindow").center();
+        $("#importerWindow").data("kendoWindow").open();
+    }
+
+    function onFileUploaded(e) {
+        if (e.response.message == "1") {
+            var columns = "";
+            for (i = 0; i < e.response.columns.length; i++) {
+                columns += '<option value="' + e.response.columns[i] + '">' + e.response.columns[i] + '</option>';
+            }
+
+            var content = '';
+
+            content += '<div class="col-md-6"><label>Matricule* </label><br /><select id="MatriculeAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6"><label>Département </label><br /><select id="DepartementAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Conducteur </label><br /><select id="ConducteurAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Marque </label><br /><select id="MarqueAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Modèle </label><br /><select id="ModeleAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Couleur </label><br /><select id="CouleurAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>N° Série </label><br /><select id="NumeroSerieAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Mise en circulation </label><br /><select id="MiseCirculationAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Carburant </label><br /><select id="CarburantAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Type </label><br /><select id="TypeAssoc"><option value=""></value>' + columns + '</select></div>';
+
+            content += '<div class="col-md-12"></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"></div><div class="col-md-6" style="margin-top:15px;text-align:right;"><a class="k-button k-button-icontext k-primary" onclick="saveImporter(\'' + e.response.file + '\')"><span class="k-icon k-update"></span>Enregistrer</a><div>';
+
+            $("#file_columns").append(content);
+        } else {
+            alert(e.response.message);
+        }
+    }
+
+    function saveImporter(file, format) {
+        if ($("#MatriculeAssoc").val() != '') {
+            var columns = {
+                Matricule: $("#MatriculeAssoc").val(),
+                Marque: $("#MarqueAssoc").val(),
+                Modele: $("#ModeleAssoc").val(),
+                Couleur: $("#CouleurAssoc").val(),
+                NumeroSerie: $("#NumeroSerieAssoc").val(),
+                MiseCirculation: $("#MiseCirculationAssoc").val(),
+                Carburant: $("#CarburantAssoc").val(),
+                Type: $("#TypeAssoc").val(),
+                Departement: $("#DepartementAssoc").val(),
+                Conducteur: $("#ConducteurAssoc").val(),
+            };
+            $.ajax({
+                type: 'post',
+                cache: false,
+                url: "../Vehicule/Import",
+                data: JSON.stringify({ file: file, columns: columns }),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#importerWindow").data("kendoWindow").close();
+                    $("#Grid").data("kendoGrid").dataSource.read();
+                }
+            });
+        } else {
+            alert("Tous les champs marqués par * sont obligatoires.");
+        }
+    }
+</script>
+
+<style>
+    .k-edit-form-container {
+        width: 600px !important;
+    }
+
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+
+    input.k-textbox {
+        padding: 0;
+    }
+
+    .k-window div.k-window-content {
+        overflow: hidden;
+    }
+</style>

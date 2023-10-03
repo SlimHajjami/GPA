@@ -1,0 +1,555 @@
+Information : 12/01/2018 11:48:08 -- Connexion au serveur réussie
+Information : 12/01/2018 11:48:08 -- Database mise à jour
+Information : 12/01/2018 11:48:08 -- Database mise à jour
+Information : 12/01/2018 11:48:08 -- Database mise à jour
+Information : 12/01/2018 11:48:12 -- Sending mail...
+Information : 12/01/2018 11:48:15 -- Sending mail...
+Information : 12/01/2018 11:48:18 -- Sending mail...
+Information : 12/01/2018 11:48:21 -- Sending mail...
+Information : 18/01/2018 11:02:00 -- Connexion au serveur réussie
+Information : 18/01/2018 11:02:01 -- Database mise à jour
+Information : 18/01/2018 11:02:01 -- Database mise à jour
+Information : 18/01/2018 11:02:01 -- Database mise à jour
+Information : 18/01/2018 11:02:01 -- Database mise à jour
+Information : 18/01/2018 11:02:03 -- Sending Assurance mail...
+Information : 18/01/2018 11:02:04 -- Sending Assurance mail...
+Information : 18/01/2018 11:02:06 -- Sending Taxe mail...
+Information : 18/01/2018 11:02:08 -- Sending Visite Technique mail...
+Information : 22/01/2018 12:48:42 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 22/01/2018 12:48:43 -- Connexion au serveur réussie 
+Information : 22/01/2018 12:48:44 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 22/01/2018 12:48:44 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 22/01/2018 12:48:44 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 22/01/2018 12:48:44 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 22/01/2018 12:48:44 -- Database mise à jour
+Information : 22/01/2018 12:48:48 -- Sending Assurance mail...
+Information : 22/01/2018 12:48:51 -- Sending Assurance mail...
+Information : 22/01/2018 12:48:54 -- Sending Taxe mail...
+Information : 22/01/2018 12:48:57 -- Sending Visite Technique mail...
+Information : 23/01/2018 14:53:39 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 23/01/2018 14:54:00 -- Connexion au serveur réussie 
+Information : 23/01/2018 14:59:38 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 23/01/2018 14:59:39 -- Connexion au serveur réussie 
+Information : 23/01/2018 15:00:35 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 23/01/2018 15:00:47 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 23/01/2018 15:00:58 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 23/01/2018 15:00:58 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 23/01/2018 15:01:12 -- Database mise à jour; 4 lectures effectuées.
+Information : 23/01/2018 15:01:17 -- Sending Assurance mail...
+Information : 23/01/2018 15:01:19 -- Sending Assurance mail...
+Information : 23/01/2018 15:01:22 -- Sending Taxe mail...
+Information : 23/01/2018 15:01:25 -- Sending Visite Technique mail...
+Information : 23/01/2018 15:08:21 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 23/01/2018 15:08:22 -- Connexion au serveur réussie 
+Information : 23/01/2018 15:09:01 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 23/01/2018 15:09:06 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 23/01/2018 15:09:15 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 23/01/2018 15:09:17 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 23/01/2018 15:09:17 -- Database mise à jour; 8 lectures effectuées.
+Information : 23/01/2018 15:09:21 -- Sending Assurance mail...
+Information : 23/01/2018 15:09:23 -- Sending Assurance mail...
+Information : 23/01/2018 15:09:26 -- Sending Taxe mail...
+Information : 23/01/2018 15:09:30 -- Sending Visite Technique mail...
+Information : 23/01/2018 15:16:13 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 23/01/2018 15:16:14 -- Connexion au serveur réussie 
+Information : 23/01/2018 15:16:14 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 23/01/2018 15:16:14 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 23/01/2018 15:16:15 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 23/01/2018 15:16:15 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 23/01/2018 15:16:15 -- Database mise à jour; 8 lectures effectuées.
+Information : 23/01/2018 15:16:18 -- Sending Assurance mail...
+Information : 23/01/2018 15:16:21 -- Sending Assurance mail...
+Information : 23/01/2018 15:16:24 -- Sending Taxe mail...
+Information : 23/01/2018 15:16:27 -- Sending Visite Technique mail...
+Information : 23/01/2018 15:39:34 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 23/01/2018 15:39:35 -- Connexion au serveur réussie 
+Information : 23/01/2018 15:39:35 -- Received data: [{"IdVeh":1173,"Cph":"8563 TU 187         ","Km":54.01},{"IdVeh":818,"Cph":"1459 TU 173         ","Km":310.53},{"IdVeh":815,"Cph":"8562 TU 187         ","Km":107.48},{"IdVeh":816,"Cph":"816 TU 173          ","Km":14.98},{"IdVeh":822,"Cph":"9273 TU 165         ","Km":328.65},{"IdVeh":819,"Cph":"8564 TU 187         ","Km":530.84},{"IdVeh":1507,"Cph":"1487 TU 196         ","Km":41.11},{"IdVeh":1512,"Cph":"1486 TU 196         ","Km":103.18},{"IdVeh":1598,"Cph":"1488 TU 196         ","Km":41.88},{"IdVeh":795,"Cph":"9405 TU 165         ","Km":178.31},{"IdVeh":714,"Cph":"1410 TU 173         ","Km":67.12},{"IdVeh":737,"Cph":"8522 TU 187         ","Km":29.83}]
+Information : 23/01/2018 15:39:35 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 23/01/2018 15:39:35 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 23/01/2018 15:39:35 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 23/01/2018 15:39:35 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 23/01/2018 15:39:35 -- Database mise à jour; 8 lectures effectuées.
+Information : 23/01/2018 15:39:39 -- Sending Assurance mail...
+Information : 23/01/2018 15:39:41 -- Sending Assurance mail...
+Information : 23/01/2018 15:39:45 -- Sending Taxe mail...
+Information : 23/01/2018 15:39:48 -- Sending Visite Technique mail...
+Information : 23/01/2018 15:48:10 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 23/01/2018 15:48:12 -- Connexion au serveur réussie 
+Information : 23/01/2018 15:48:12 -- Received data: [{"IdVeh":1173,"Cph":"8563 TU 187         ","Km":54.01},{"IdVeh":818,"Cph":"1459 TU 173         ","Km":310.53},{"IdVeh":815,"Cph":"8562 TU 187         ","Km":107.48},{"IdVeh":816,"Cph":"816 TU 173          ","Km":14.98},{"IdVeh":822,"Cph":"9273 TU 165         ","Km":328.65},{"IdVeh":819,"Cph":"8564 TU 187         ","Km":530.84},{"IdVeh":1507,"Cph":"1487 TU 196         ","Km":41.11},{"IdVeh":1512,"Cph":"1486 TU 196         ","Km":103.18},{"IdVeh":1598,"Cph":"1488 TU 196         ","Km":41.88},{"IdVeh":795,"Cph":"9405 TU 165         ","Km":178.31},{"IdVeh":714,"Cph":"1410 TU 173         ","Km":67.12},{"IdVeh":737,"Cph":"8522 TU 187         ","Km":29.83}]
+Information : 23/01/2018 15:48:12 -- Total data: 12
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 8563 TU 187         
+Information : 23/01/2018 15:48:12 -- vehicule GPA: 262
+Information : 23/01/2018 15:48:12 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 1459 TU 173         
+Information : 23/01/2018 15:48:12 -- vehicule GPA: 315
+Information : 23/01/2018 15:48:12 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 8562 TU 187         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 816 TU 173          
+Information : 23/01/2018 15:48:12 -- vehicule GPA: 267
+Information : 23/01/2018 15:48:12 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 9273 TU 165         
+Information : 23/01/2018 15:48:12 -- vehicule GPA: 261
+Information : 23/01/2018 15:48:12 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 8564 TU 187         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 1487 TU 196         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 1486 TU 196         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 1488 TU 196         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 9405 TU 165         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 1410 TU 173         
+Information : 23/01/2018 15:48:12 -- --------Received GIS Item: 8522 TU 187         
+Information : 23/01/2018 15:48:12 -- Database mise à jour; 8 lectures effectuées.
+Information : 23/01/2018 15:48:16 -- Sending Assurance mail...
+Information : 23/01/2018 15:48:18 -- Sending Assurance mail...
+Information : 23/01/2018 15:48:21 -- Sending Taxe mail...
+Information : 23/01/2018 15:48:24 -- Sending Visite Technique mail...
+Information : 23/01/2018 16:43:31 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 23/01/2018 16:43:33 -- Connexion au serveur réussie 
+Information : 23/01/2018 16:43:33 -- Received data: [{"IdVeh":1173,"Cph":"8563 TU 187         ","Km":68.27},{"IdVeh":818,"Cph":"1459 TU 173         ","Km":310.53},{"IdVeh":815,"Cph":"8562 TU 187         ","Km":108.73},{"IdVeh":816,"Cph":"816 TU 173          ","Km":21.16},{"IdVeh":822,"Cph":"9273 TU 165         ","Km":331.17},{"IdVeh":819,"Cph":"8564 TU 187         ","Km":615.06},{"IdVeh":1507,"Cph":"1487 TU 196         ","Km":43.52},{"IdVeh":1512,"Cph":"1486 TU 196         ","Km":127.39},{"IdVeh":1598,"Cph":"1488 TU 196         ","Km":41.88},{"IdVeh":795,"Cph":"9405 TU 165         ","Km":202.71},{"IdVeh":714,"Cph":"1410 TU 173         ","Km":76.47},{"IdVeh":737,"Cph":"8522 TU 187         ","Km":36.70}]
+Information : 23/01/2018 16:43:33 -- Total data: 12
+Information : 23/01/2018 16:43:33 -- --------Received GIS Item: 8563 TU 187         
+Information : 23/01/2018 16:43:33 -- vehicule GPA: 262
+Information : 23/01/2018 16:43:59 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 23/01/2018 16:44:00 -- Connexion au serveur réussie 
+Information : 23/01/2018 16:44:00 -- Received data: [{"IdVeh":1173,"Cph":"8563 TU 187         ","Km":68.27},{"IdVeh":818,"Cph":"1459 TU 173         ","Km":310.53},{"IdVeh":815,"Cph":"8562 TU 187         ","Km":108.73},{"IdVeh":816,"Cph":"816 TU 173          ","Km":21.16},{"IdVeh":822,"Cph":"9273 TU 165         ","Km":331.17},{"IdVeh":819,"Cph":"8564 TU 187         ","Km":615.06},{"IdVeh":1507,"Cph":"1487 TU 196         ","Km":43.52},{"IdVeh":1512,"Cph":"1486 TU 196         ","Km":127.39},{"IdVeh":1598,"Cph":"1488 TU 196         ","Km":41.88},{"IdVeh":795,"Cph":"9405 TU 165         ","Km":202.71},{"IdVeh":714,"Cph":"1410 TU 173         ","Km":76.47},{"IdVeh":737,"Cph":"8522 TU 187         ","Km":36.70}]
+Information : 23/01/2018 16:44:00 -- Total data: 12
+Information : 23/01/2018 16:44:00 -- --------Received GIS Item: 8563 TU 187         
+Information : 23/01/2018 16:44:00 -- vehicule GPA: 262
+Information : 24/01/2018 10:33:26 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn
+Information : 24/01/2018 10:33:31 -- Connexion au serveur réussie 
+Information : 24/01/2018 10:33:31 -- Received data: [{"IdVeh":1173,"Cph":"8563 TU 187         ","Km":17.10},{"IdVeh":818,"Cph":"1459 TU 173         ","Km":3.95},{"IdVeh":815,"Cph":"8562 TU 187         ","Km":24.67},{"IdVeh":816,"Cph":"816 TU 173          ","Km":0.45},{"IdVeh":822,"Cph":"9273 TU 165         ","Km":30.34},{"IdVeh":819,"Cph":"8564 TU 187         ","Km":5.88},{"IdVeh":1507,"Cph":"1487 TU 196         ","Km":41.93},{"IdVeh":1512,"Cph":"1486 TU 196         ","Km":16.85},{"IdVeh":1598,"Cph":"1488 TU 196         ","Km":9.16},{"IdVeh":795,"Cph":"9405 TU 165         ","Km":175.95},{"IdVeh":714,"Cph":"1410 TU 173         ","Km":37.01},{"IdVeh":737,"Cph":"8522 TU 187         ","Km":9.57}]
+Information : 24/01/2018 10:33:31 -- Total data: 12
+Information : 24/01/2018 10:33:31 -- --------Received GIS Item: 8563 TU 187         
+Information : 24/01/2018 10:33:31 -- vehicule GPA: 262
+Information : 24/01/2018 10:33:35 -- Total data: 12
+Information : 24/01/2018 10:33:38 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 24/01/2018 10:33:40 -- --------Received GIS Item: 1459 TU 173         
+Information : 24/01/2018 10:33:41 -- vehicule GPA: 315
+Information : 24/01/2018 10:33:46 -- Total data: 12
+Information : 24/01/2018 10:33:46 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 8562 TU 187         
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 816 TU 173          
+Information : 24/01/2018 10:33:46 -- vehicule GPA: 267
+Information : 24/01/2018 10:33:46 -- Total data: 12
+Information : 24/01/2018 10:33:46 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 9273 TU 165         
+Information : 24/01/2018 10:33:46 -- vehicule GPA: 261
+Information : 24/01/2018 10:33:46 -- Total data: 12
+Information : 24/01/2018 10:33:46 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 8564 TU 187         
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 1487 TU 196         
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 1486 TU 196         
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 1488 TU 196         
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 9405 TU 165         
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 1410 TU 173         
+Information : 24/01/2018 10:33:46 -- --------Received GIS Item: 8522 TU 187         
+Information : 24/01/2018 10:33:46 -- Database mise à jour; 4 lectures effectuées.
+Information : 24/01/2018 10:33:51 -- Sending Assurance mail...
+Information : 24/01/2018 10:33:53 -- Sending Assurance mail...
+Information : 24/01/2018 10:33:56 -- Sending Taxe mail...
+Information : 24/01/2018 10:33:59 -- Sending Visite Technique mail...
+Information : 07/02/2018 16:36:37 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn;municipalite@belive.tn;gourmet@belive.tn
+Information : 07/02/2018 16:36:44 -- Connexion au serveur réussie 
+Information : 07/02/2018 16:36:44 -- Received data: [{"IdVeh":1173,"Cph":"8563 TU 187         ","Km":60.05},{"IdVeh":1559,"Cph":"02 - 219750 TATA 4  ","Km":204.05},{"IdVeh":1561,"Cph":"02 - 219617Basculant","Km":75.96},{"IdVeh":1562,"Cph":"02 - 219751 TATA    ","Km":119.38},{"IdVeh":1563,"Cph":"02 - 219752 TATA    ","Km":228.86},{"IdVeh":1564,"Cph":"02 - 219753 TATA    ","Km":63.64},{"IdVeh":1565,"Cph":"02 - 219754 TATA    ","Km":40.52},{"IdVeh":1566,"Cph":"02 - 219616 Echelle ","Km":0.0},{"IdVeh":1569,"Cph":"02-210 888 STAD     ","Km":0.0},{"IdVeh":1325,"Cph":"02-207208 ISUZU     ","Km":0.00},{"IdVeh":1329,"Cph":"02-212090 ISUZU     ","Km":21.45},{"IdVeh":1330,"Cph":"02-216005 Iveco     ","Km":52.01},{"IdVeh":1331,"Cph":"02-215770 partner   ","Km":68.98},{"IdVeh":1333,"Cph":"02-215583 Nissan    ","Km":120.64},{"IdVeh":1507,"Cph":"1487 TU 196         ","Km":46.89},{"IdVeh":1512,"Cph":"1486 TU 196         ","Km":188.09},{"IdVeh":1598,"Cph":"1488 TU 196         ","Km":23.39},{"IdVeh":231,"Cph":"02-210810 Isuzu     ","Km":131.77},{"IdVeh":228,"Cph":"02-214544 CBT Matin ","Km":3.54},{"IdVeh":214,"Cph":"02-215582 PARC      ","Km":123.56},{"IdVeh":330,"Cph":"02-215537 CBT Nuit  ","Km":27.65},{"IdVeh":215,"Cph":"02-213239FordRanger ","Km":69.28},{"IdVeh":224,"Cph":"02-215771Partner    ","Km":60.95},{"IdVeh":230,"Cph":"02-214543 CBT Matin ","Km":26.33},{"IdVeh":227,"Cph":"02-214204 CB        ","Km":38.05},{"IdVeh":222,"Cph":"02-215071Toy        ","Km":18.67},{"IdVeh":221,"Cph":"02-212101 Semi      ","Km":0.0},{"IdVeh":233,"Cph":"02-214581 CBT Matin ","Km":90.94},{"IdVeh":219,"Cph":"02-215539 CBT Nuit  ","Km":19.40},{"IdVeh":220,"Cph":"02-215538 CBT Nuit  ","Km":75.11},{"IdVeh":225,"Cph":"02-216004iveco      ","Km":0.0},{"IdVeh":232,"Cph":"02-212686Kangoo     ","Km":54.61},{"IdVeh":217,"Cph":"02-215584Nissan     ","Km":73.96},{"IdVeh":223,"Cph":"02-215072Toy        ","Km":77.33},{"IdVeh":216,"Cph":"02-211687 Trax      ","Km":2.47},{"IdVeh":229,"Cph":"02-214582 CBT Matin ","Km":17.03},{"IdVeh":668,"Cph":"02-212683 TAXE      ","Km":0.11},{"IdVeh":670,"Cph":"02-214567 Boxer     ","Km":69.25},{"IdVeh":676,"Cph":"02-218295 Technique ","Km":0.00},{"IdVeh":671,"Cph":"02-212684 PARC      ","Km":14.38},{"IdVeh":679,"Cph":"02-218294           ","Km":49.51},{"IdVeh":669,"Cph":"02-216976 JCB       ","Km":18.14},{"IdVeh":678,"Cph":"02-212685 NADHAFA   ","Km":121.96},{"IdVeh":667,"Cph":"02-216116 iveco     ","Km":58.31},{"IdVeh":818,"Cph":"1459 TU 173         ","Km":438.76},{"IdVeh":795,"Cph":"9405 TU 165         ","Km":415.52},{"IdVeh":1369,"Cph":"ISUZU 192  TU  5792.","Km":201.68},{"IdVeh":714,"Cph":"1410 TU 173         ","Km":91.22},{"IdVeh":815,"Cph":"8562 TU 187         ","Km":287.51},{"IdVeh":816,"Cph":"816 TU 173          ","Km":8.43},{"IdVeh":822,"Cph":"9273 TU 165         ","Km":6.08},{"IdVeh":737,"Cph":"8522 TU 187         ","Km":62.07},{"IdVeh":819,"Cph":"8564 TU 187         ","Km":387.08},{"IdVeh":226,"Cph":"02-215073Toy        ","Km":119.90},{"IdVeh":919,"Cph":"Isuzu 172 TU 1594   ","Km":233.49},{"IdVeh":918,"Cph":"Isuzu 178 TU 4429   ","Km":230.18},{"IdVeh":920,"Cph":"Isuzu 168 TU 9175   ","Km":152.26},{"IdVeh":1225,"Cph":"02-218503 Mahindra  ","Km":40.52},{"IdVeh":1226,"Cph":"02-218504 Mahindra  ","Km":0.0}]
+Information : 07/02/2018 16:36:44 -- Total data: 59
+Information : 07/02/2018 16:36:44 -- --------Received GIS Item: 8563 TU 187         
+Information : 07/02/2018 16:37:35 -- vehicule GPA: 269
+Information : 07/02/2018 16:37:35 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 07/02/2018 16:37:35 -- --------Received GIS Item: 02 - 219750 TATA 4  
+Information : 07/02/2018 16:37:59 -- vehicule GPA: 526
+Information : 07/02/2018 16:37:59 -- Total data: 59
+Information : 07/02/2018 16:37:59 -- Nouvelle Lecture vehicule GIS :02 - 219750 TATA 4  
+Information : 07/02/2018 16:37:59 -- --------Received GIS Item: 02 - 219617Basculant
+Information : 07/02/2018 16:38:06 -- vehicule GPA: 528
+Information : 07/02/2018 16:38:08 -- Total data: 59
+Information : 07/02/2018 16:38:08 -- Nouvelle Lecture vehicule GIS :02 - 219617Basculant
+Information : 07/02/2018 16:38:08 -- --------Received GIS Item: 02 - 219751 TATA    
+Information : 07/02/2018 16:38:13 -- vehicule GPA: 530
+Information : 07/02/2018 16:38:13 -- Total data: 59
+Information : 07/02/2018 16:38:13 -- Nouvelle Lecture vehicule GIS :02 - 219751 TATA    
+Information : 07/02/2018 16:38:13 -- --------Received GIS Item: 02 - 219752 TATA    
+Information : 07/02/2018 16:38:17 -- vehicule GPA: 524
+Information : 07/02/2018 16:38:17 -- Total data: 59
+Information : 07/02/2018 16:38:17 -- Nouvelle Lecture vehicule GIS :02 - 219752 TATA    
+Information : 07/02/2018 16:38:17 -- --------Received GIS Item: 02 - 219753 TATA    
+Information : 07/02/2018 16:38:19 -- vehicule GPA: 525
+Information : 07/02/2018 16:38:19 -- Total data: 59
+Information : 07/02/2018 16:38:19 -- Nouvelle Lecture vehicule GIS :02 - 219753 TATA    
+Information : 07/02/2018 16:38:19 -- --------Received GIS Item: 02 - 219754 TATA    
+Information : 07/02/2018 16:38:30 -- vehicule GPA: 514
+Information : 07/02/2018 16:38:30 -- Total data: 59
+Information : 07/02/2018 16:38:30 -- Nouvelle Lecture vehicule GIS :02 - 219754 TATA    
+Information : 07/02/2018 16:38:30 -- --------Received GIS Item: 02 - 219616 Echelle 
+Information : 07/02/2018 16:38:31 -- vehicule GPA: 516
+Information : 07/02/2018 16:38:31 -- Total data: 59
+Information : 07/02/2018 16:38:31 -- Nouvelle Lecture vehicule GIS :02 - 219616 Echelle 
+Information : 07/02/2018 16:38:31 -- --------Received GIS Item: 02-210 888 STAD     
+Information : 07/02/2018 16:38:32 -- --------Received GIS Item: 02-207208 ISUZU     
+Information : 07/02/2018 16:38:32 -- vehicule GPA: 517
+Information : 07/02/2018 16:38:32 -- Total data: 59
+Information : 07/02/2018 16:38:32 -- Nouvelle Lecture vehicule GIS :02-207208 ISUZU     
+Information : 07/02/2018 16:38:32 -- --------Received GIS Item: 02-212090 ISUZU     
+Information : 07/02/2018 16:38:33 -- vehicule GPA: 519
+Information : 07/02/2018 16:38:33 -- Total data: 59
+Information : 07/02/2018 16:38:33 -- Nouvelle Lecture vehicule GIS :02-212090 ISUZU     
+Information : 07/02/2018 16:38:33 -- --------Received GIS Item: 02-216005 Iveco     
+Information : 07/02/2018 16:38:33 -- vehicule GPA: 520
+Information : 07/02/2018 16:38:33 -- Total data: 59
+Information : 07/02/2018 16:38:33 -- Nouvelle Lecture vehicule GIS :02-216005 Iveco     
+Information : 07/02/2018 16:38:33 -- --------Received GIS Item: 02-215770 partner   
+Information : 07/02/2018 16:38:34 -- vehicule GPA: 522
+Information : 07/02/2018 16:38:34 -- Total data: 59
+Information : 07/02/2018 16:38:34 -- Nouvelle Lecture vehicule GIS :02-215770 partner   
+Information : 07/02/2018 16:38:34 -- --------Received GIS Item: 02-215583 Nissan    
+Information : 07/02/2018 16:38:34 -- vehicule GPA: 518
+Information : 07/02/2018 16:38:34 -- Total data: 59
+Information : 07/02/2018 16:38:34 -- Nouvelle Lecture vehicule GIS :02-215583 Nissan    
+Information : 07/02/2018 16:38:34 -- --------Received GIS Item: 1487 TU 196         
+Information : 07/02/2018 16:38:34 -- vehicule GPA: 268
+Information : 07/02/2018 16:38:34 -- Nouvelle Lecture vehicule GIS :1487 TU 196         
+Information : 07/02/2018 16:38:34 -- --------Received GIS Item: 1486 TU 196         
+Information : 07/02/2018 16:38:50 -- --------Received GIS Item: 1488 TU 196         
+Information : 07/02/2018 16:38:53 -- --------Received GIS Item: 02-210810 Isuzu     
+Information : 07/02/2018 16:38:58 -- --------Received GIS Item: 02-214544 CBT Matin 
+Information : 07/02/2018 16:39:01 -- --------Received GIS Item: 02-215582 PARC      
+Information : 07/02/2018 16:39:03 -- --------Received GIS Item: 02-215537 CBT Nuit  
+Information : 07/02/2018 16:39:09 -- vehicule GPA: 531
+Information : 07/02/2018 16:39:09 -- Total data: 59
+Information : 07/02/2018 16:39:09 -- Nouvelle Lecture vehicule GIS :02-215537 CBT Nuit  
+Information : 07/02/2018 16:39:09 -- --------Received GIS Item: 02-213239FordRanger 
+Information : 07/02/2018 16:39:15 -- vehicule GPA: 533
+Information : 07/02/2018 16:39:15 -- Total data: 59
+Information : 07/02/2018 16:39:15 -- Nouvelle Lecture vehicule GIS :02-213239FordRanger 
+Information : 07/02/2018 16:39:15 -- --------Received GIS Item: 02-215771Partner    
+Information : 07/02/2018 16:39:21 -- vehicule GPA: 534
+Information : 07/02/2018 16:39:21 -- Total data: 59
+Information : 07/02/2018 16:39:21 -- Nouvelle Lecture vehicule GIS :02-215771Partner    
+Information : 07/02/2018 16:39:21 -- --------Received GIS Item: 02-214543 CBT Matin 
+Information : 07/02/2018 16:39:27 -- vehicule GPA: 535
+Information : 07/02/2018 16:39:27 -- Total data: 59
+Information : 07/02/2018 16:39:27 -- Nouvelle Lecture vehicule GIS :02-214543 CBT Matin 
+Information : 07/02/2018 16:39:27 -- --------Received GIS Item: 02-214204 CB        
+Information : 07/02/2018 16:39:28 -- vehicule GPA: 537
+Information : 07/02/2018 16:39:28 -- Total data: 59
+Information : 07/02/2018 16:39:28 -- Nouvelle Lecture vehicule GIS :02-214204 CB        
+Information : 07/02/2018 16:39:28 -- --------Received GIS Item: 02-215071Toy        
+Information : 07/02/2018 16:39:29 -- vehicule GPA: 538
+Information : 07/02/2018 16:39:29 -- Total data: 59
+Information : 07/02/2018 16:39:29 -- Nouvelle Lecture vehicule GIS :02-215071Toy        
+Information : 07/02/2018 16:39:29 -- --------Received GIS Item: 02-212101 Semi      
+Information : 07/02/2018 16:39:29 -- vehicule GPA: 540
+Information : 07/02/2018 16:39:29 -- Total data: 59
+Information : 07/02/2018 16:39:29 -- Nouvelle Lecture vehicule GIS :02-212101 Semi      
+Information : 07/02/2018 16:39:29 -- --------Received GIS Item: 02-214581 CBT Matin 
+Information : 07/02/2018 16:39:29 -- vehicule GPA: 541
+Information : 07/02/2018 16:39:29 -- Total data: 59
+Information : 07/02/2018 16:39:29 -- Nouvelle Lecture vehicule GIS :02-214581 CBT Matin 
+Information : 07/02/2018 16:39:29 -- --------Received GIS Item: 02-215539 CBT Nuit  
+Information : 07/02/2018 16:39:30 -- --------Received GIS Item: 02-215538 CBT Nuit  
+Information : 07/02/2018 16:39:30 -- --------Received GIS Item: 02-216004iveco      
+Information : 07/02/2018 16:39:30 -- --------Received GIS Item: 02-212686Kangoo     
+Information : 07/02/2018 16:39:30 -- --------Received GIS Item: 02-215584Nissan     
+Information : 07/02/2018 16:39:31 -- --------Received GIS Item: 02-215072Toy        
+Information : 07/02/2018 16:39:31 -- --------Received GIS Item: 02-211687 Trax      
+Information : 07/02/2018 16:39:35 -- --------Received GIS Item: 02-214582 CBT Matin 
+Information : 07/02/2018 16:39:37 -- --------Received GIS Item: 02-212683 TAXE      
+Information : 07/02/2018 16:39:42 -- --------Received GIS Item: 02-214567 Boxer     
+Information : 07/02/2018 16:39:45 -- --------Received GIS Item: 02-218295 Technique 
+Information : 07/02/2018 16:39:45 -- --------Received GIS Item: 02-212684 PARC      
+Information : 07/02/2018 16:39:45 -- --------Received GIS Item: 02-218294           
+Information : 07/02/2018 16:39:45 -- --------Received GIS Item: 02-216976 JCB       
+Information : 07/02/2018 16:39:45 -- --------Received GIS Item: 02-212685 NADHAFA   
+Information : 07/02/2018 16:39:51 -- --------Received GIS Item: 02-216116 iveco     
+Information : 07/02/2018 16:39:51 -- --------Received GIS Item: 1459 TU 173         
+Information : 07/02/2018 16:39:51 -- vehicule GPA: 315
+Information : 07/02/2018 16:39:51 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 07/02/2018 16:39:51 -- --------Received GIS Item: 9405 TU 165         
+Information : 07/02/2018 16:39:51 -- --------Received GIS Item: ISUZU 192  TU  5792.
+Information : 07/02/2018 16:39:51 -- vehicule GPA: 591
+Information : 07/02/2018 16:39:51 -- Total data: 59
+Information : 07/02/2018 16:39:51 -- Nouvelle Lecture vehicule GIS :ISUZU 192  TU  5792.
+Information : 07/02/2018 16:39:51 -- --------Received GIS Item: 1410 TU 173         
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: 8562 TU 187         
+Information : 07/02/2018 16:39:52 -- vehicule GPA: 267
+Information : 07/02/2018 16:39:52 -- Total data: 59
+Information : 07/02/2018 16:39:52 -- Nouvelle Lecture vehicule GIS :8562 TU 187         
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: 816 TU 173          
+Information : 07/02/2018 16:39:52 -- vehicule GPA: 263
+Information : 07/02/2018 16:39:52 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: 9273 TU 165         
+Information : 07/02/2018 16:39:52 -- vehicule GPA: 264
+Information : 07/02/2018 16:39:52 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: 8522 TU 187         
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: 8564 TU 187         
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: 02-215073Toy        
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: Isuzu 172 TU 1594   
+Information : 07/02/2018 16:39:52 -- vehicule GPA: 596
+Information : 07/02/2018 16:39:52 -- Total data: 59
+Information : 07/02/2018 16:39:52 -- Nouvelle Lecture vehicule GIS :Isuzu 172 TU 1594   
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: Isuzu 178 TU 4429   
+Information : 07/02/2018 16:39:52 -- vehicule GPA: 595
+Information : 07/02/2018 16:39:52 -- Total data: 59
+Information : 07/02/2018 16:39:52 -- Nouvelle Lecture vehicule GIS :Isuzu 178 TU 4429   
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: Isuzu 168 TU 9175   
+Information : 07/02/2018 16:39:52 -- vehicule GPA: 594
+Information : 07/02/2018 16:39:52 -- Total data: 59
+Information : 07/02/2018 16:39:52 -- Nouvelle Lecture vehicule GIS :Isuzu 168 TU 9175   
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: 02-218503 Mahindra  
+Information : 07/02/2018 16:39:52 -- --------Received GIS Item: 02-218504 Mahindra  
+Information : 07/02/2018 16:39:52 -- Database mise à jour; 30 lectures effectuées.
+Information : 07/02/2018 16:40:03 -- Sending Assurance mail...
+Information : 07/02/2018 16:40:09 -- Sending Assurance mail...
+Information : 07/02/2018 16:40:21 -- Sending Taxe mail...
+Information : 19/02/2018 11:38:24 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn;municipalite@belive.tn;gourmet@belive.tn
+Information : 19/02/2018 11:38:29 -- Connexion au serveur réussie 
+Information : 19/02/2018 11:38:29 -- Received data: [{"IdVeh":1173,"Cph":"8563 TU 187         ","Km":70.40},{"IdVeh":1559,"Cph":"02 - 219750 TATA 4  ","Km":238.96},{"IdVeh":1561,"Cph":"02 - 219617Basculant","Km":66.25},{"IdVeh":1562,"Cph":"02 - 219751 TATA    ","Km":94.19},{"IdVeh":1563,"Cph":"02 - 219752 TATA    ","Km":151.75},{"IdVeh":1564,"Cph":"02 - 219753 TATA    ","Km":30.07},{"IdVeh":1565,"Cph":"02 - 219754 TATA    ","Km":18.12},{"IdVeh":1566,"Cph":"02 - 219616 Echelle ","Km":0.0},{"IdVeh":1569,"Cph":"02-210 888 STAD     ","Km":0.0},{"IdVeh":1325,"Cph":"02-207208 ISUZU     ","Km":0.0},{"IdVeh":1329,"Cph":"02-212090 ISUZU     ","Km":61.10},{"IdVeh":1330,"Cph":"02-216005 Iveco     ","Km":53.95},{"IdVeh":1331,"Cph":"02-215770 partner   ","Km":119.57},{"IdVeh":1333,"Cph":"02-215583 Nissan    ","Km":66.17},{"IdVeh":1507,"Cph":"1487 TU 196         ","Km":86.31},{"IdVeh":1512,"Cph":"1486 TU 196         ","Km":90.45},{"IdVeh":1598,"Cph":"1488 TU 196         ","Km":33.61},{"IdVeh":231,"Cph":"02-210810 Isuzu     ","Km":90.84},{"IdVeh":228,"Cph":"02-214544 CBT Matin ","Km":3.54},{"IdVeh":214,"Cph":"02-215582 PARC      ","Km":153.82},{"IdVeh":330,"Cph":"02-215537 CBT Nuit  ","Km":44.04},{"IdVeh":215,"Cph":"02-213239FordRanger ","Km":158.74},{"IdVeh":224,"Cph":"02-215771Partner    ","Km":49.04},{"IdVeh":230,"Cph":"02-214543 CBT Matin ","Km":39.15},{"IdVeh":227,"Cph":"02-214204 CB        ","Km":75.56},{"IdVeh":222,"Cph":"02-215071Toy        ","Km":42.20},{"IdVeh":221,"Cph":"02-212101 Semi      ","Km":15.09},{"IdVeh":233,"Cph":"02-214581 CBT Matin ","Km":71.85},{"IdVeh":219,"Cph":"02-215539 CBT Nuit  ","Km":31.62},{"IdVeh":220,"Cph":"02-215538 CBT Nuit  ","Km":42.81},{"IdVeh":225,"Cph":"02-216004iveco      ","Km":0.0},{"IdVeh":232,"Cph":"02-212686Kangoo     ","Km":1.53},{"IdVeh":217,"Cph":"02-215584Nissan     ","Km":125.95},{"IdVeh":223,"Cph":"02-215072Toy        ","Km":84.66},{"IdVeh":216,"Cph":"02-211687 Trax      ","Km":23.30},{"IdVeh":229,"Cph":"02-214582 CBT Matin ","Km":42.63},{"IdVeh":668,"Cph":"02-212683 TAXE      ","Km":0.0},{"IdVeh":670,"Cph":"02-214567 Boxer     ","Km":93.18},{"IdVeh":676,"Cph":"02-218295 Technique ","Km":100.77},{"IdVeh":671,"Cph":"02-212684 PARC      ","Km":35.11},{"IdVeh":679,"Cph":"02-218294           ","Km":44.36},{"IdVeh":669,"Cph":"02-216976 JCB       ","Km":21.90},{"IdVeh":678,"Cph":"02-212685 NADHAFA   ","Km":35.56},{"IdVeh":667,"Cph":"02-216116 iveco     ","Km":27.00},{"IdVeh":818,"Cph":"1459 TU 173         ","Km":30.21},{"IdVeh":795,"Cph":"9405 TU 165         ","Km":508.39},{"IdVeh":1369,"Cph":"ISUZU 192  TU  5792.","Km":218.16},{"IdVeh":714,"Cph":"1410 TU 173         ","Km":329.30},{"IdVeh":815,"Cph":"8562 TU 187         ","Km":209.47},{"IdVeh":816,"Cph":"816 TU 173          ","Km":1.24},{"IdVeh":822,"Cph":"9273 TU 165         ","Km":427.63},{"IdVeh":737,"Cph":"8522 TU 187         ","Km":94.46},{"IdVeh":819,"Cph":"8564 TU 187         ","Km":30.42},{"IdVeh":226,"Cph":"02-215073Toy        ","Km":130.11},{"IdVeh":919,"Cph":"Isuzu 172 TU 1594   ","Km":209.52},{"IdVeh":918,"Cph":"Isuzu 178 TU 4429   ","Km":228.57},{"IdVeh":920,"Cph":"Isuzu 168 TU 9175   ","Km":158.44},{"IdVeh":1225,"Cph":"02-218503 Mahindra  ","Km":38.51},{"IdVeh":1226,"Cph":"02-218504 Mahindra  ","Km":0.33}]
+Information : 19/02/2018 11:38:29 -- Total data: 59
+Information : 19/02/2018 11:38:29 -- --------Received GIS Item: 8563 TU 187         
+Information : 19/02/2018 11:38:29 -- vehicule GPA: 269
+Information : 19/02/2018 11:38:29 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02 - 219750 TATA 4  
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 526
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02 - 219750 TATA 4  
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02 - 219617Basculant
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 528
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02 - 219617Basculant
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02 - 219751 TATA    
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 530
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02 - 219751 TATA    
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02 - 219752 TATA    
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 524
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02 - 219752 TATA    
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02 - 219753 TATA    
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 525
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02 - 219753 TATA    
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02 - 219754 TATA    
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 514
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02 - 219754 TATA    
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02 - 219616 Echelle 
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 516
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02 - 219616 Echelle 
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-210 888 STAD     
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-207208 ISUZU     
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 517
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-207208 ISUZU     
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-212090 ISUZU     
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 519
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-212090 ISUZU     
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-216005 Iveco     
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 520
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-216005 Iveco     
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-215770 partner   
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 522
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-215770 partner   
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-215583 Nissan    
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 518
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-215583 Nissan    
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 1487 TU 196         
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 268
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :1487 TU 196         
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 1486 TU 196         
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 1488 TU 196         
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-210810 Isuzu     
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-214544 CBT Matin 
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-215582 PARC      
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-215537 CBT Nuit  
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 531
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-215537 CBT Nuit  
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-213239FordRanger 
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 533
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-213239FordRanger 
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-215771Partner    
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 534
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-215771Partner    
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-214543 CBT Matin 
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 535
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-214543 CBT Matin 
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-214204 CB        
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 537
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-214204 CB        
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-215071Toy        
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 538
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-215071Toy        
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-212101 Semi      
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 540
+Information : 19/02/2018 11:38:30 -- Nouvelle Lecture vehicule GIS :02-212101 Semi      
+Information : 19/02/2018 11:38:30 -- --------Received GIS Item: 02-214581 CBT Matin 
+Information : 19/02/2018 11:38:30 -- vehicule GPA: 541
+Information : 19/02/2018 11:38:31 -- Nouvelle Lecture vehicule GIS :02-214581 CBT Matin 
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-215539 CBT Nuit  
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-215538 CBT Nuit  
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-216004iveco      
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-212686Kangoo     
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-215584Nissan     
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-215072Toy        
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-211687 Trax      
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-214582 CBT Matin 
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-212683 TAXE      
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-214567 Boxer     
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-218295 Technique 
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-212684 PARC      
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-218294           
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-216976 JCB       
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-212685 NADHAFA   
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-216116 iveco     
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 1459 TU 173         
+Information : 19/02/2018 11:38:31 -- vehicule GPA: 315
+Information : 19/02/2018 11:38:31 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 9405 TU 165         
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: ISUZU 192  TU  5792.
+Information : 19/02/2018 11:38:31 -- vehicule GPA: 591
+Information : 19/02/2018 11:38:31 -- Nouvelle Lecture vehicule GIS :ISUZU 192  TU  5792.
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 1410 TU 173         
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 8562 TU 187         
+Information : 19/02/2018 11:38:31 -- vehicule GPA: 267
+Information : 19/02/2018 11:38:31 -- Nouvelle Lecture vehicule GIS :8562 TU 187         
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 816 TU 173          
+Information : 19/02/2018 11:38:31 -- vehicule GPA: 263
+Information : 19/02/2018 11:38:31 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 9273 TU 165         
+Information : 19/02/2018 11:38:31 -- vehicule GPA: 264
+Information : 19/02/2018 11:38:31 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 8522 TU 187         
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 8564 TU 187         
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-215073Toy        
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: Isuzu 172 TU 1594   
+Information : 19/02/2018 11:38:31 -- vehicule GPA: 596
+Information : 19/02/2018 11:38:31 -- Nouvelle Lecture vehicule GIS :Isuzu 172 TU 1594   
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: Isuzu 178 TU 4429   
+Information : 19/02/2018 11:38:31 -- vehicule GPA: 595
+Information : 19/02/2018 11:38:31 -- Nouvelle Lecture vehicule GIS :Isuzu 178 TU 4429   
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: Isuzu 168 TU 9175   
+Information : 19/02/2018 11:38:31 -- vehicule GPA: 594
+Information : 19/02/2018 11:38:31 -- Nouvelle Lecture vehicule GIS :Isuzu 168 TU 9175   
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-218503 Mahindra  
+Information : 19/02/2018 11:38:31 -- --------Received GIS Item: 02-218504 Mahindra  
+Information : 19/02/2018 11:38:31 -- Database mise à jour; 30 lectures effectuées.
+Information : 19/02/2018 11:38:43 -- Sending Assurance mail...
+Information : 19/02/2018 11:38:49 -- Sending Assurance mail...
+Information : 19/02/2018 11:39:03 -- Sending Taxe mail...
+Information : 22/02/2018 11:42:33 -- Connexion au serveur... emails: parbranchegabes@belive.tn;parsav@belive.tn;municipalite@belive.tn;gourmet@belive.tn
+Information : 22/02/2018 11:42:37 -- Connexion au serveur réussie 
+Information : 22/02/2018 11:42:37 -- Received data: [{"IdVeh":1173,"Cph":"8563 TU 187         ","Km":231.73},{"IdVeh":1559,"Cph":"02 - 219750 TATA 4  ","Km":215.93},{"IdVeh":1561,"Cph":"02 - 219617Basculant","Km":64.93},{"IdVeh":1562,"Cph":"02 - 219751 TATA    ","Km":148.66},{"IdVeh":1563,"Cph":"02 - 219752 TATA    ","Km":256.26},{"IdVeh":1564,"Cph":"02 - 219753 TATA    ","Km":92.49},{"IdVeh":1565,"Cph":"02 - 219754 TATA    ","Km":69.95},{"IdVeh":1566,"Cph":"02 - 219616 Echelle ","Km":0.0},{"IdVeh":1567,"Cph":"02 - 216004 IVECO   ","Km":0.0},{"IdVeh":1569,"Cph":"02-210 888 STAD     ","Km":40.60},{"IdVeh":1325,"Cph":"02-207208 ISUZU     ","Km":0.0},{"IdVeh":1329,"Cph":"02-212090 ISUZU     ","Km":24.84},{"IdVeh":1330,"Cph":"02-216005 Iveco     ","Km":54.57},{"IdVeh":1331,"Cph":"02-215770 partner   ","Km":117.85},{"IdVeh":1333,"Cph":"02-215583 Nissan    ","Km":88.56},{"IdVeh":1507,"Cph":"1487 TU 196         ","Km":54.34},{"IdVeh":1512,"Cph":"1486 TU 196         ","Km":50.11},{"IdVeh":1598,"Cph":"1488 TU 196         ","Km":54.70},{"IdVeh":231,"Cph":"02-210810 Isuzu     ","Km":49.93},{"IdVeh":228,"Cph":"02-214544 CBT Matin ","Km":19.15},{"IdVeh":214,"Cph":"02-215582 PARC      ","Km":191.02},{"IdVeh":330,"Cph":"02-215537 CBT Nuit  ","Km":26.54},{"IdVeh":215,"Cph":"02-213239FordRanger ","Km":95.03},{"IdVeh":224,"Cph":"02-215771Partner    ","Km":99.66},{"IdVeh":230,"Cph":"02-214543 CBT Matin ","Km":26.58},{"IdVeh":227,"Cph":"02-214204 CB        ","Km":34.90},{"IdVeh":222,"Cph":"02-215071Toy        ","Km":67.47},{"IdVeh":221,"Cph":"02-212101 Semi      ","Km":1.87},{"IdVeh":233,"Cph":"02-214581 CBT Matin ","Km":3.39},{"IdVeh":219,"Cph":"02-215539 CBT Nuit  ","Km":33.30},{"IdVeh":220,"Cph":"02-215538 CBT Nuit  ","Km":72.94},{"IdVeh":232,"Cph":"02-212686Kangoo     ","Km":80.65},{"IdVeh":217,"Cph":"02-215584Nissan     ","Km":51.12},{"IdVeh":223,"Cph":"02-215072Toy        ","Km":145.06},{"IdVeh":216,"Cph":"02-211687 Trax      ","Km":2.83},{"IdVeh":229,"Cph":"02-214582 CBT Matin ","Km":53.73},{"IdVeh":668,"Cph":"02-212683 TAXE      ","Km":0.0},{"IdVeh":670,"Cph":"02-214567 Boxer     ","Km":31.41},{"IdVeh":676,"Cph":"02-218295 Technique ","Km":17.96},{"IdVeh":671,"Cph":"02-212684 PARC      ","Km":15.15},{"IdVeh":679,"Cph":"02-218294           ","Km":0.01},{"IdVeh":669,"Cph":"02-216976 JCB       ","Km":14.48},{"IdVeh":678,"Cph":"02-212685 NADHAFA   ","Km":55.82},{"IdVeh":667,"Cph":"02-216116 iveco     ","Km":23.37},{"IdVeh":818,"Cph":"1459 TU 173         ","Km":52.81},{"IdVeh":795,"Cph":"9405 TU 165         ","Km":405.44},{"IdVeh":1369,"Cph":"ISUZU 192  TU  5792.","Km":159.49},{"IdVeh":714,"Cph":"1410 TU 173         ","Km":38.46},{"IdVeh":815,"Cph":"8562 TU 187         ","Km":102.69},{"IdVeh":816,"Cph":"816 TU 173          ","Km":1.31},{"IdVeh":822,"Cph":"9273 TU 165         ","Km":13.73},{"IdVeh":737,"Cph":"8522 TU 187         ","Km":125.06},{"IdVeh":819,"Cph":"8564 TU 187         ","Km":387.56},{"IdVeh":226,"Cph":"02-215073Toy        ","Km":142.96},{"IdVeh":919,"Cph":"Isuzu 172 TU 1594   ","Km":217.08},{"IdVeh":918,"Cph":"Isuzu 178 TU 4429   ","Km":244.56},{"IdVeh":920,"Cph":"Isuzu 168 TU 9175   ","Km":130.68},{"IdVeh":1225,"Cph":"02-218503 Mahindra  ","Km":54.21},{"IdVeh":1226,"Cph":"02-218504 Mahindra  ","Km":0.18}]
+Information : 22/02/2018 11:42:37 -- Total data: 59
+Information : 22/02/2018 11:42:37 -- --------Received GIS Item: 8563 TU 187         
+Information : 22/02/2018 11:42:38 -- vehicule GPA: 269
+Information : 22/02/2018 11:42:38 -- Nouvelle Lecture vehicule GIS :8563 TU 187         
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02 - 219750 TATA 4  
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 526
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02 - 219750 TATA 4  
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02 - 219617Basculant
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 528
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02 - 219617Basculant
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02 - 219751 TATA    
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 530
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02 - 219751 TATA    
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02 - 219752 TATA    
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 524
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02 - 219752 TATA    
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02 - 219753 TATA    
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 525
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02 - 219753 TATA    
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02 - 219754 TATA    
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 514
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02 - 219754 TATA    
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02 - 219616 Echelle 
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 516
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02 - 219616 Echelle 
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02 - 216004 IVECO   
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-210 888 STAD     
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-207208 ISUZU     
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 517
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-207208 ISUZU     
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-212090 ISUZU     
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 519
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-212090 ISUZU     
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-216005 Iveco     
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 520
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-216005 Iveco     
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215770 partner   
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 522
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-215770 partner   
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215583 Nissan    
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 518
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-215583 Nissan    
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 1487 TU 196         
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 268
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :1487 TU 196         
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 1486 TU 196         
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 1488 TU 196         
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-210810 Isuzu     
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-214544 CBT Matin 
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215582 PARC      
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215537 CBT Nuit  
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 531
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-215537 CBT Nuit  
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-213239FordRanger 
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 533
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-213239FordRanger 
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215771Partner    
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 534
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-215771Partner    
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-214543 CBT Matin 
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 535
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-214543 CBT Matin 
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-214204 CB        
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 537
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-214204 CB        
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215071Toy        
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 538
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-215071Toy        
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-212101 Semi      
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 540
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-212101 Semi      
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-214581 CBT Matin 
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 541
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :02-214581 CBT Matin 
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215539 CBT Nuit  
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215538 CBT Nuit  
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-212686Kangoo     
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215584Nissan     
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-215072Toy        
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-211687 Trax      
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-214582 CBT Matin 
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-212683 TAXE      
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-214567 Boxer     
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-218295 Technique 
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-212684 PARC      
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-218294           
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-216976 JCB       
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-212685 NADHAFA   
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 02-216116 iveco     
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 1459 TU 173         
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 315
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :1459 TU 173         
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 9405 TU 165         
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: ISUZU 192  TU  5792.
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 591
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :ISUZU 192  TU  5792.
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 1410 TU 173         
+Information : 22/02/2018 11:42:39 -- --------Received GIS Item: 8562 TU 187         
+Information : 22/02/2018 11:42:39 -- vehicule GPA: 267
+Information : 22/02/2018 11:42:39 -- Nouvelle Lecture vehicule GIS :8562 TU 187         
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: 816 TU 173          
+Information : 22/02/2018 11:42:40 -- vehicule GPA: 263
+Information : 22/02/2018 11:42:40 -- Nouvelle Lecture vehicule GIS :816 TU 173          
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: 9273 TU 165         
+Information : 22/02/2018 11:42:40 -- vehicule GPA: 264
+Information : 22/02/2018 11:42:40 -- Nouvelle Lecture vehicule GIS :9273 TU 165         
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: 8522 TU 187         
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: 8564 TU 187         
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: 02-215073Toy        
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: Isuzu 172 TU 1594   
+Information : 22/02/2018 11:42:40 -- vehicule GPA: 596
+Information : 22/02/2018 11:42:40 -- Nouvelle Lecture vehicule GIS :Isuzu 172 TU 1594   
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: Isuzu 178 TU 4429   
+Information : 22/02/2018 11:42:40 -- vehicule GPA: 595
+Information : 22/02/2018 11:42:40 -- Nouvelle Lecture vehicule GIS :Isuzu 178 TU 4429   
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: Isuzu 168 TU 9175   
+Information : 22/02/2018 11:42:40 -- vehicule GPA: 594
+Information : 22/02/2018 11:42:40 -- Nouvelle Lecture vehicule GIS :Isuzu 168 TU 9175   
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: 02-218503 Mahindra  
+Information : 22/02/2018 11:42:40 -- --------Received GIS Item: 02-218504 Mahindra  
+Information : 22/02/2018 11:42:40 -- Database mise à jour; 30 lectures effectuées.
+Information : 22/02/2018 11:42:46 -- Sending Assurance mail...
+Information : 22/02/2018 11:42:48 -- Sending Assurance mail...
+Information : 22/02/2018 11:42:51 -- Sending Taxe mail...

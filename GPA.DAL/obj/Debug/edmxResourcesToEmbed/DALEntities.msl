@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GPAModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="AccessRights">
+      <EntityTypeMapping TypeName="GPAModel.AccessRight">
+        <MappingFragment StoreEntitySet="AccessRight">
+          <ScalarProperty Name="IdAccessRight" ColumnName="IdAccessRight" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="AccessRight1" ColumnName="AccessRight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccessRightDepartements">
+      <EntityTypeMapping TypeName="GPAModel.AccessRightDepartement">
+        <MappingFragment StoreEntitySet="AccessRightDepartement">
+          <ScalarProperty Name="IdAccessRightDepartement" ColumnName="IdAccessRightDepartement" />
+          <ScalarProperty Name="DepartementId" ColumnName="DepartementId" />
+          <ScalarProperty Name="UtilisateurId" ColumnName="UtilisateurId" />
+          <ScalarProperty Name="Visualisation" ColumnName="Visualisation" />
+          <ScalarProperty Name="Saisie" ColumnName="Saisie" />
+          <ScalarProperty Name="Validation" ColumnName="Validation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlerteEmails">
+      <EntityTypeMapping TypeName="GPAModel.AlerteEmail">
+        <MappingFragment StoreEntitySet="AlerteEmail">
+          <ScalarProperty Name="IdAlerteEmail" ColumnName="IdAlerteEmail" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="AlerteEmail1" ColumnName="AlerteEmail" />
+          <ScalarProperty Name="TypeAlerteId" ColumnName="TypeAlerteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carburants">
+      <EntityTypeMapping TypeName="GPAModel.Carburant">
+        <MappingFragment StoreEntitySet="Carburant">
+          <ScalarProperty Name="IdCarburant" ColumnName="IdCarburant" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateCarburant" ColumnName="DateCarburant" />
+          <ScalarProperty Name="QuantiteCarburant" ColumnName="QuantiteCarburant" />
+          <ScalarProperty Name="CoutUnitaireCarburant" ColumnName="CoutUnitaireCarburant" />
+          <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+          <ScalarProperty Name="KilometrageDebut" ColumnName="KilometrageDebut" />
+          <ScalarProperty Name="KilometrageFin" ColumnName="KilometrageFin" />
+          <ScalarProperty Name="NoteCarburant" ColumnName="NoteCarburant" />
+          <ScalarProperty Name="CoutTotal" ColumnName="CoutTotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarburantCoutUnitaires">
+      <EntityTypeMapping TypeName="GPAModel.CarburantCoutUnitaire">
+        <MappingFragment StoreEntitySet="CarburantCoutUnitaire">
+          <ScalarProperty Name="IdCoutUnitaireCarburant" ColumnName="IdCoutUnitaireCarburant" />
+          <ScalarProperty Name="Code_refCarburant" ColumnName="Code_refCarburant" />
+          <ScalarProperty Name="CoutUnitaireCarburant" ColumnName="CoutUnitaireCarburant" />
+          <ScalarProperty Name="DateChangementTarif" ColumnName="DateChangementTarif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="GPAModel.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+          <ScalarProperty Name="NomClient" ColumnName="NomClient" />
+          <ScalarProperty Name="AdresseClient" ColumnName="AdresseClient" />
+          <ScalarProperty Name="VilleClient" ColumnName="VilleClient" />
+          <ScalarProperty Name="CodePostalClient" ColumnName="CodePostalClient" />
+          <ScalarProperty Name="ContactClient" ColumnName="ContactClient" />
+          <ScalarProperty Name="Tel1Client" ColumnName="Tel1Client" />
+          <ScalarProperty Name="Tel2Client" ColumnName="Tel2Client" />
+          <ScalarProperty Name="FaxClient" ColumnName="FaxClient" />
+          <ScalarProperty Name="SiteWebClient" ColumnName="SiteWebClient" />
+          <ScalarProperty Name="EmailClient" ColumnName="EmailClient" />
+          <ScalarProperty Name="GisParametres" ColumnName="GisParametres" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Depenses">
+      <EntityTypeMapping TypeName="GPAModel.Depense">
+        <MappingFragment StoreEntitySet="Depense">
+          <ScalarProperty Name="IdDepense" ColumnName="IdDepense" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="EntretienId" ColumnName="EntretienId" />
+          <ScalarProperty Name="ReparationId" ColumnName="ReparationId" />
+          <ScalarProperty Name="QuantiteDepense" ColumnName="QuantiteDepense" />
+          <ScalarProperty Name="CoutUnitaireDepense" ColumnName="CoutUnitaireDepense" />
+          <ScalarProperty Name="PieceId" ColumnName="PieceId" />
+          <ScalarProperty Name="ExpirationGarantie" ColumnName="ExpirationGarantie" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="NoteDepense" ColumnName="NoteDepense" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Entretiens">
+      <EntityTypeMapping TypeName="GPAModel.Entretien">
+        <MappingFragment StoreEntitySet="Entretien">
+          <ScalarProperty Name="IdEntretien" ColumnName="IdEntretien" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+          <ScalarProperty Name="DateEntretien" ColumnName="DateEntretien" />
+          <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+          <ScalarProperty Name="DescriptionEntretien" ColumnName="DescriptionEntretien" />
+          <ScalarProperty Name="CoutEntretien" ColumnName="CoutEntretien" />
+          <ScalarProperty Name="KilometrageEntretien" ColumnName="KilometrageEntretien" />
+          <ScalarProperty Name="NoteEntretien" ColumnName="NoteEntretien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EntretienMaitres">
+      <EntityTypeMapping TypeName="GPAModel.EntretienMaitre">
+        <MappingFragment StoreEntitySet="EntretienMaitre">
+          <ScalarProperty Name="IdEntretienMaitre" ColumnName="IdEntretienMaitre" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="DescriptionEntretienMaitre" ColumnName="DescriptionEntretienMaitre" />
+          <ScalarProperty Name="RepeterNb" ColumnName="RepeterNb" />
+          <ScalarProperty Name="RepeterPeriode" ColumnName="RepeterPeriode" />
+          <ScalarProperty Name="RepeterKilometrage" ColumnName="RepeterKilometrage" />
+          <ScalarProperty Name="RappelNb" ColumnName="RappelNb" />
+          <ScalarProperty Name="RappelPeriode" ColumnName="RappelPeriode" />
+          <ScalarProperty Name="RappelKilometrage" ColumnName="RappelKilometrage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EntretienProgrammes">
+      <EntityTypeMapping TypeName="GPAModel.EntretienProgramme">
+        <MappingFragment StoreEntitySet="EntretienProgramme">
+          <ScalarProperty Name="IdEntretienProgramme" ColumnName="IdEntretienProgramme" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+          <ScalarProperty Name="EntretienMaitreId" ColumnName="EntretienMaitreId" />
+          <ScalarProperty Name="RepeterNb" ColumnName="RepeterNb" />
+          <ScalarProperty Name="RepeterPeriode" ColumnName="RepeterPeriode" />
+          <ScalarProperty Name="RepeterKilometrage" ColumnName="RepeterKilometrage" />
+          <ScalarProperty Name="RappelNb" ColumnName="RappelNb" />
+          <ScalarProperty Name="RappelPeriode" ColumnName="RappelPeriode" />
+          <ScalarProperty Name="RappelKilometrage" ColumnName="RappelKilometrage" />
+          <ScalarProperty Name="DateExecution" ColumnName="DateExecution" />
+          <ScalarProperty Name="KilometrageExecution" ColumnName="KilometrageExecution" />
+          <ScalarProperty Name="ProchaineDate" ColumnName="ProchaineDate" />
+          <ScalarProperty Name="ProchaineKilometrage" ColumnName="ProchaineKilometrage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fournisseurs">
+      <EntityTypeMapping TypeName="GPAModel.Fournisseur">
+        <MappingFragment StoreEntitySet="Fournisseur">
+          <ScalarProperty Name="IdFournisseur" ColumnName="IdFournisseur" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="TypeFournisseur" ColumnName="TypeFournisseur" />
+          <ScalarProperty Name="NomFournisseur" ColumnName="NomFournisseur" />
+          <ScalarProperty Name="AdresseFournisseur" ColumnName="AdresseFournisseur" />
+          <ScalarProperty Name="VilleFournisseur" ColumnName="VilleFournisseur" />
+          <ScalarProperty Name="CodePostalFournisseur" ColumnName="CodePostalFournisseur" />
+          <ScalarProperty Name="ContactFournisseur" ColumnName="ContactFournisseur" />
+          <ScalarProperty Name="Tel1Fournisseur" ColumnName="Tel1Fournisseur" />
+          <ScalarProperty Name="Tel2Fournisseur" ColumnName="Tel2Fournisseur" />
+          <ScalarProperty Name="FaxFournisseur" ColumnName="FaxFournisseur" />
+          <ScalarProperty Name="SiteWebFournisseur" ColumnName="SiteWebFournisseur" />
+          <ScalarProperty Name="EmailFournisseur" ColumnName="EmailFournisseur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GIS_GPA">
+      <EntityTypeMapping TypeName="GPAModel.GIS_GPA">
+        <MappingFragment StoreEntitySet="GIS_GPA">
+          <ScalarProperty Name="IdGisGpa" ColumnName="IdGisGpa" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="VehiculeGPAId" ColumnName="VehiculeGPAId" />
+          <ScalarProperty Name="VehiculeGis" ColumnName="VehiculeGis" />
+          <ScalarProperty Name="VehiculeGisId" ColumnName="VehiculeGisId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GISLastUpdates">
+      <EntityTypeMapping TypeName="GPAModel.GISLastUpdate">
+        <MappingFragment StoreEntitySet="GISLastUpdate">
+          <ScalarProperty Name="IdUpdate" ColumnName="IdUpdate" />
+          <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HISTORIQUE_CONNEXION">
+      <EntityTypeMapping TypeName="GPAModel.HISTORIQUE_CONNEXION">
+        <MappingFragment StoreEntitySet="HISTORIQUE_CONNEXION">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="LogIn_Date" ColumnName="LogIn_Date" />
+          <ScalarProperty Name="LogOut_Date" ColumnName="LogOut_Date" />
+          <ScalarProperty Name="AdresseIP" ColumnName="AdresseIP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LectureKilometrages">
+      <EntityTypeMapping TypeName="GPAModel.LectureKilometrage">
+        <MappingFragment StoreEntitySet="LectureKilometrage">
+          <ScalarProperty Name="IdLectureKilometrage" ColumnName="IdLectureKilometrage" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+          <ScalarProperty Name="DateLectureKilometrage" ColumnName="DateLectureKilometrage" />
+          <ScalarProperty Name="Kilometrage" ColumnName="Kilometrage" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parametres">
+      <EntityTypeMapping TypeName="GPAModel.Parametre">
+        <MappingFragment StoreEntitySet="Parametre">
+          <ScalarProperty Name="ParameterId" ColumnName="ParameterId" />
+          <ScalarProperty Name="KeyWord" ColumnName="KeyWord" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pieces">
+      <EntityTypeMapping TypeName="GPAModel.Piece">
+        <MappingFragment StoreEntitySet="Piece">
+          <ScalarProperty Name="IdPiece" ColumnName="IdPiece" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="NumeroPiece" ColumnName="NumeroPiece" />
+          <ScalarProperty Name="NomPiece" ColumnName="NomPiece" />
+          <ScalarProperty Name="PrixPiece" ColumnName="PrixPiece" />
+          <ScalarProperty Name="DatePrixPiece" ColumnName="DatePrixPiece" />
+          <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+          <ScalarProperty Name="Constructeur" ColumnName="Constructeur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="REFERENTIELs">
+      <EntityTypeMapping TypeName="GPAModel.REFERENTIEL">
+        <MappingFragment StoreEntitySet="REFERENTIEL">
+          <ScalarProperty Name="ID_REFERENTIELS" ColumnName="ID_REFERENTIELS" />
+          <ScalarProperty Name="KEY_REF" ColumnName="KEY_REF" />
+          <ScalarProperty Name="CODE_REF" ColumnName="CODE_REF" />
+          <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reparations">
+      <EntityTypeMapping TypeName="GPAModel.Reparation">
+        <MappingFragment StoreEntitySet="Reparation">
+          <ScalarProperty Name="IdReparation" ColumnName="IdReparation" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+          <ScalarProperty Name="DateReparation" ColumnName="DateReparation" />
+          <ScalarProperty Name="DateMiseService" ColumnName="DateMiseService" />
+          <ScalarProperty Name="HeuresArret" ColumnName="HeuresArret" />
+          <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+          <ScalarProperty Name="DescriptionReparation" ColumnName="DescriptionReparation" />
+          <ScalarProperty Name="CoutReparation" ColumnName="CoutReparation" />
+          <ScalarProperty Name="KilometrageReparation" ColumnName="KilometrageReparation" />
+          <ScalarProperty Name="NoteReparation" ColumnName="NoteReparation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="GPAModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+          <ScalarProperty Name="NomRole" ColumnName="NomRole" />
+          <ScalarProperty Name="DescriptionRole" ColumnName="DescriptionRole" />
+          <ScalarProperty Name="ProfileRole" ColumnName="ProfileRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TYPE_REFERENTIEL">
+      <EntityTypeMapping TypeName="GPAModel.TYPE_REFERENTIEL">
+        <MappingFragment StoreEntitySet="TYPE_REFERENTIEL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="KEY_REF" ColumnName="KEY_REF" />
+          <ScalarProperty Name="LIBELLE" ColumnName="LIBELLE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateurs">
+      <EntityTypeMapping TypeName="GPAModel.Utilisateur">
+        <MappingFragment StoreEntitySet="Utilisateur">
+          <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="NomUtilisateur" ColumnName="NomUtilisateur" />
+          <ScalarProperty Name="PrenomUtilisateur" ColumnName="PrenomUtilisateur" />
+          <ScalarProperty Name="LoginUtilisateur" ColumnName="LoginUtilisateur" />
+          <ScalarProperty Name="PasswordUtilisateur" ColumnName="PasswordUtilisateur" />
+          <ScalarProperty Name="EmailUtilisateur" ColumnName="EmailUtilisateur" />
+          <ScalarProperty Name="FonctionUtilisateur" ColumnName="FonctionUtilisateur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicules">
+      <EntityTypeMapping TypeName="GPAModel.Vehicule">
+        <MappingFragment StoreEntitySet="Vehicule">
+          <ScalarProperty Name="IdVehicule" ColumnName="IdVehicule" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="MatriculeVehicule" ColumnName="MatriculeVehicule" />
+          <ScalarProperty Name="CouleurVehicule" ColumnName="CouleurVehicule" />
+          <ScalarProperty Name="NumeroSerieVehicule" ColumnName="NumeroSerieVehicule" />
+          <ScalarProperty Name="MiseCirculation" ColumnName="MiseCirculation" />
+          <ScalarProperty Name="TypeCarburantId" ColumnName="TypeCarburantId" />
+          <ScalarProperty Name="TypeVehiculeId" ColumnName="TypeVehiculeId" />
+          <ScalarProperty Name="DepartementId" ColumnName="DepartementId" />
+          <ScalarProperty Name="ConducteurId" ColumnName="ConducteurId" />
+          <ScalarProperty Name="IsActif" ColumnName="IsActif" />
+          <ScalarProperty Name="codeRefMarque" ColumnName="codeRefMarque" />
+          <ScalarProperty Name="IdModele" ColumnName="IdModele" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculeAcquisitions">
+      <EntityTypeMapping TypeName="GPAModel.VehiculeAcquisition">
+        <MappingFragment StoreEntitySet="VehiculeAcquisition">
+          <ScalarProperty Name="IdAcquisition" ColumnName="IdAcquisition" />
+          <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+          <ScalarProperty Name="IsLocation" ColumnName="IsLocation" />
+          <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+          <ScalarProperty Name="DateAcquisition" ColumnName="DateAcquisition" />
+          <ScalarProperty Name="KilometrageAcquisition" ColumnName="KilometrageAcquisition" />
+          <ScalarProperty Name="PrixAcquisition" ColumnName="PrixAcquisition" />
+          <ScalarProperty Name="ExpirationGarantie" ColumnName="ExpirationGarantie" />
+          <ScalarProperty Name="PrixVente" ColumnName="PrixVente" />
+          <ScalarProperty Name="NoteAcquisition" ColumnName="NoteAcquisition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculeAcquisitionPaiements">
+      <EntityTypeMapping TypeName="GPAModel.VehiculeAcquisitionPaiement">
+        <MappingFragment StoreEntitySet="VehiculeAcquisitionPaiement">
+          <ScalarProperty Name="IdPaiement" ColumnName="IdPaiement" />
+          <ScalarProperty Name="AcquisitionId" ColumnName="AcquisitionId" />
+          <ScalarProperty Name="ReferencePaiement" ColumnName="ReferencePaiement" />
+          <ScalarProperty Name="DatePaiement" ColumnName="DatePaiement" />
+          <ScalarProperty Name="MontantPaiement" ColumnName="MontantPaiement" />
+          <ScalarProperty Name="NotePaiement" ColumnName="NotePaiement" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculeConducteurs">
+      <EntityTypeMapping TypeName="GPAModel.VehiculeConducteur">
+        <MappingFragment StoreEntitySet="VehiculeConducteur">
+          <ScalarProperty Name="IdConducteur" ColumnName="IdConducteur" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="NomConducteur" ColumnName="NomConducteur" />
+          <ScalarProperty Name="PrenomConducteur" ColumnName="PrenomConducteur" />
+          <ScalarProperty Name="DateNaissanceConducteur" ColumnName="DateNaissanceConducteur" />
+          <ScalarProperty Name="DateEmbaucheConducteur" ColumnName="DateEmbaucheConducteur" />
+          <ScalarProperty Name="NumeroPermisConducteur" ColumnName="NumeroPermisConducteur" />
+          <ScalarProperty Name="AdresseConducteur" ColumnName="AdresseConducteur" />
+          <ScalarProperty Name="VilleConducteur" ColumnName="VilleConducteur" />
+          <ScalarProperty Name="CodePostalConducteur" ColumnName="CodePostalConducteur" />
+          <ScalarProperty Name="Tel1Conducteur" ColumnName="Tel1Conducteur" />
+          <ScalarProperty Name="Tel2Conducteur" ColumnName="Tel2Conducteur" />
+          <ScalarProperty Name="EmailConducteur" ColumnName="EmailConducteur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculeDepartements">
+      <EntityTypeMapping TypeName="GPAModel.VehiculeDepartement">
+        <MappingFragment StoreEntitySet="VehiculeDepartement">
+          <ScalarProperty Name="IdDepartement" ColumnName="IdDepartement" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="NomDepartement" ColumnName="NomDepartement" />
+          <ScalarProperty Name="code" ColumnName="code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculeDocuments">
+      <EntityTypeMapping TypeName="GPAModel.VehiculeDocument">
+        <MappingFragment StoreEntitySet="VehiculeDocuments">
+          <ScalarProperty Name="IdDocuments" ColumnName="IdDocuments" />
+          <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+          <ScalarProperty Name="FournisseurAssuranceId" ColumnName="FournisseurAssuranceId" />
+          <ScalarProperty Name="DateAssurance" ColumnName="DateAssurance" />
+          <ScalarProperty Name="ExpirationAssurance" ColumnName="ExpirationAssurance" />
+          <ScalarProperty Name="RappelAssurance" ColumnName="RappelAssurance" />
+          <ScalarProperty Name="NoteAssurance" ColumnName="NoteAssurance" />
+          <ScalarProperty Name="DateTaxeCirculation" ColumnName="DateTaxeCirculation" />
+          <ScalarProperty Name="ExpirationTaxeCirculation" ColumnName="ExpirationTaxeCirculation" />
+          <ScalarProperty Name="RappelTaxeCirculation" ColumnName="RappelTaxeCirculation" />
+          <ScalarProperty Name="NoteTaxeCirculation" ColumnName="NoteTaxeCirculation" />
+          <ScalarProperty Name="DerniereVisiteTechnique" ColumnName="DerniereVisiteTechnique" />
+          <ScalarProperty Name="ProchaineVisiteTechnique" ColumnName="ProchaineVisiteTechnique" />
+          <ScalarProperty Name="RappelVisiteTechnique" ColumnName="RappelVisiteTechnique" />
+          <ScalarProperty Name="NoteVisiteTechnique" ColumnName="NoteVisiteTechnique" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculeModeles">
+      <EntityTypeMapping TypeName="GPAModel.VehiculeModele">
+        <MappingFragment StoreEntitySet="VehiculeModeles">
+          <ScalarProperty Name="IdModele" ColumnName="IdModele" />
+          <ScalarProperty Name="CodeRefMarque" ColumnName="CodeRefMarque" />
+          <ScalarProperty Name="NomModele" ColumnName="NomModele" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModeleC100KM">
+      <EntityTypeMapping TypeName="GPAModel.ModeleC100KM">
+        <MappingFragment StoreEntitySet="ModeleC100KM">
+          <ScalarProperty Name="C100KM" ColumnName="C100KM" />
+          <ScalarProperty Name="ModeleId" ColumnName="ModeleId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="IdModeleC100KM" ColumnName="IdModeleC100KM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KilometrageMensuels">
+      <EntityTypeMapping TypeName="GPAModel.KilometrageMensuel">
+        <MappingFragment StoreEntitySet="KilometrageMensuel">
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="Kilometrage" ColumnName="Kilometrage" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="IdKilometrageMensuel" ColumnName="IdKilometrageMensuel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DepensesClients">
+      <EntityTypeMapping TypeName="GPAModel.DepensesClient">
+        <MappingFragment StoreEntitySet="DepensesClient">
+          <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+          <ScalarProperty Name="CoutTotal" ColumnName="CoutTotal" />
+          <ScalarProperty Name="NoteDepenses" ColumnName="NoteDepenses" />
+          <ScalarProperty Name="Kilometrage" ColumnName="Kilometrage" />
+          <ScalarProperty Name="DateDepenses" ColumnName="DateDepenses" />
+          <ScalarProperty Name="DepenseId" ColumnName="DepenseId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParametresDepenses">
+      <EntityTypeMapping TypeName="GPAModel.ParametresDepens">
+        <MappingFragment StoreEntitySet="ParametresDepenses">
+          <ScalarProperty Name="Depense" ColumnName="Depense" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

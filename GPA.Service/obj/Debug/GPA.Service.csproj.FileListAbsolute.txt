@@ -1,0 +1,55 @@
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Service.exe.config
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.Properties.Resources.resources
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.csproj.GenerateResource.Cache
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Service.exe
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Service.pdb
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.exe
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.pdb
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.Form_Main.resources
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.csprojResolveAssemblyReference.cache
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.DAL.dll
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Models.dll
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\EntityFramework.dll
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.DAL.pdb
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Models.pdb
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\EntityFramework.xml
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\EntityFramework.SqlServer.dll
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.Service\bin\Debug\EntityFramework.SqlServer.xml
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Service.exe.config
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Service.exe
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Service.pdb
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\EntityFramework.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\EntityFramework.SqlServer.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.DAL.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Models.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\Newtonsoft.Json.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.DAL.pdb
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\GPA.Models.pdb
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\EntityFramework.xml
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\EntityFramework.SqlServer.xml
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\bin\Debug\Newtonsoft.Json.xml
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.csprojResolveAssemblyReference.cache
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.Form_Main.resources
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.Properties.Resources.resources
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.csproj.GenerateResource.Cache
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.exe
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.Service\obj\Debug\GPA.Service.pdb
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\GPA.Service.exe.config
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\GPA.Service.exe
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\GPA.Service.pdb
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\EntityFramework.dll
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\EntityFramework.SqlServer.dll
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\GPA.DAL.dll
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\GPA.Models.dll
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\Newtonsoft.Json.dll
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\GPA.DAL.pdb
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\GPA.Models.pdb
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\EntityFramework.xml
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\EntityFramework.SqlServer.xml
+D:\SVN\GPA\trunk\GPA.Service\bin\Debug\Newtonsoft.Json.xml
+D:\SVN\GPA\trunk\GPA.Service\obj\Debug\GPA.Service.csprojResolveAssemblyReference.cache
+D:\SVN\GPA\trunk\GPA.Service\obj\Debug\GPA.Service.Form_Main.resources
+D:\SVN\GPA\trunk\GPA.Service\obj\Debug\GPA.Service.Properties.Resources.resources
+D:\SVN\GPA\trunk\GPA.Service\obj\Debug\GPA.Service.csproj.GenerateResource.Cache
+D:\SVN\GPA\trunk\GPA.Service\obj\Debug\GPA.Service.exe
+D:\SVN\GPA\trunk\GPA.Service\obj\Debug\GPA.Service.pdb

@@ -1,0 +1,408 @@
+#orders .k-alt {
+    background-color: #f6f9fc;
+}
+
+#orders.k-grid tr td {
+    color: #777;
+    border: none;
+}
+
+
+.k-grid-header, .k-header {
+    background: #f6f9fc !important;
+}
+
+    .k-grid-header .k-header > .k-link {
+        color: #40bbd5 !important;
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+.k-header {
+    border: none !important;
+}
+
+.k-grid {
+    border: none;
+    border-color: transparent !important;
+}
+
+.k-pager-wrap {
+    background-color: transparent !important;
+}
+
+.k-state-selected {
+    background-color: #40bbd5 !important;
+    border-color: #40bbd5 !important;
+}
+
+.k-pager-wrap {
+    margin-top: 20px;
+}
+
+.tab-content.k-content {
+    padding: 15px !important;
+}
+
+    .tab-content.k-content p {
+        font-size: 14px;
+        text-transform: capitalize;
+        font-weight: 400;
+        line-height: 22px;
+    }
+
+.k-tabstrip-items.k-reset {
+    background: #40bbd5;
+}
+
+.k-tabstrip-items .k-state-default .k-link {
+    color: #fff !important;
+    font-size: 16px;
+}
+
+    .k-tabstrip-items .k-state-default .k-link:hover, .k-tabstrip-items .k-state-default .k-link:focus {
+        background-color: #fff !important;
+        color: #222 !important;
+    }
+
+.k-tabstrip-items .k-state-active .k-link {
+    color: #222 !important;
+}
+
+.k-tabstrip-items .k-link {
+    padding: 10px 20px !important;
+}
+
+.k-widget.k-tabstrip {
+    border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    background-clip: padding-box;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02) !important;
+}
+
+.k-tabstrip > .k-content, .k-tabstrip-items.k-reset {
+    border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+}
+
+.k-tabstrip-items.k-reset {
+    border-bottom-right-radius: 0px !important;
+}
+
+.k-tabstrip .k-content.k-state-active, .k-tabstrip-items .k-state-active {
+    border-color: transparent !important;
+}
+
+.k-grid-Modifier span:before {
+    font-family: FontAwesome;
+    content: "\f15c";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+a.k-grid-Modifier {
+    background-color: #77b33d;
+    border-color: #77b33d;
+    color: #fff;
+}
+
+    a.k-grid-Modifier:hover, a.k-grid-Modifier:focus {
+        background-color: rgba(119, 179, 61, 0.72);
+        border-color: rgba(119, 179, 61, 0.72);
+        color: #fff;
+    }
+
+.k-grid-edit span:before {
+    font-family: FontAwesome;
+    content: "\f15c";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+a.k-grid-edit {
+    background-color: #77b33d;
+    border-color: #77b33d;
+    color: #fff;
+}
+
+    a.k-grid-edit:hover, a.k-grid-edit:focus {
+        background-color: rgba(119, 179, 61, 0.72);
+        border-color: rgba(119, 179, 61, 0.72);
+        color: #fff;
+    }
+
+a.k-grid-delete .k-icon.k-delete:before {
+    font-family: FontAwesome;
+    content: "\f014";
+    float: left;
+    font-size: 13px;
+    line-height: 18px;
+    margin-right: 8px;
+    display: block;
+}
+
+a.k-grid-delete:hover, a.k-grid-delete:focus, a.k-grid-delete:active {
+    background-color: rgba(206, 71, 48, 0.96);
+    border-color: rgba(206, 71, 48, 0.96);
+    color: #fff;
+}
+
+a.k-grid-delete .k-icon.k-delete {
+    background-image: none;
+}
+
+a.k-grid-delete {
+    background-color: #db553f;
+    border-color: #db553f;
+    color: #fff;
+}
+
+
+a.k-grid-Details {
+    background-color: #35baf6;
+    border-color: #35baf6;
+    color: #fff;
+}
+
+    a.k-grid-Details:hover, a.k-grid-Details:focus, a.k-grid-Details:active {
+        background-color: rgba(53, 186, 246, 0.74);
+        border-color: rgba(53, 186, 246, 0.74);
+        color: #fff;
+    }
+
+.k-grid-Details span:before {
+    font-family: FontAwesome;
+    content: "\f00e";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+a.k-grid-AccessRights {
+    background-color: #35baf6;
+    border-color: #35baf6;
+    color: #fff;
+}
+
+    a.k-grid-AccessRights:hover, a.k-grid-AccessRights:focus, a.k-grid-AccessRights:active {
+        background-color: rgba(53, 186, 246, 0.74);
+        border-color: rgba(53, 186, 246, 0.74);
+        color: #fff;
+    }
+
+.k-grid-AccessRights span:before {
+    font-family: FontAwesome;
+    content: "\f0c0";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+
+a.k-grid-Historique {
+    background-color: #35baf6;
+    border-color: #35baf6;
+    color: #fff;
+}
+
+    a.k-grid-Historique:hover, a.k-grid-Historique:focus, a.k-grid-Historique:active {
+        background-color: rgba(53, 186, 246, 0.74);
+        border-color: rgba(53, 186, 246, 0.74);
+        color: #fff;
+    }
+
+.k-grid-Historique span:before {
+    font-family: FontAwesome;
+    content: "\f187";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+
+a.k-grid-Attacher {
+    background-color: #35baf6;
+    border-color: #35baf6;
+    color: #fff;
+}
+
+    a.k-grid-Attacher:hover, a.k-grid-Attacher:focus, a.k-grid-Attacher:active {
+        background-color: #1fb4f7;
+        border-color: #1fb4f7;
+        color: #fff;
+    }
+
+.k-grid-Attacher span:before {
+    font-family: FontAwesome;
+    content: "\f0c5";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+a.k-grid-Controler {
+    background-color: #35baf6;
+    border-color: #35baf6;
+    color: #fff;
+}
+
+    a.k-grid-Controler:hover, a.k-grid-Controler:focus, a.k-grid-Controler:active {
+        background-color: #1fb4f7;
+        border-color: #1fb4f7;
+        color: #fff;
+    }
+
+.k-grid-Controler span:before {
+    font-family: FontAwesome;
+    content: "\f06e";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+
+a.k-grid-Valider {
+    background-color: #f68335;
+    border-color: #f68335;
+    color: #fff;
+}
+
+    a.k-grid-Valider:hover, a.k-grid-Valider:focus, a.k-grid-Valider:active {
+        background-color: rgba(246, 131, 53, 0.76);
+        border-color: rgba(246, 131, 53, 0.76);
+        color: #fff;
+    }
+
+.k-grid-Valider span:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+
+a.k-grid-ControlerReglement {
+    background-color: #f68335;
+    border-color: #f68335;
+    color: #fff;
+}
+
+    a.k-grid-ControlerReglement:hover, a.k-grid-ControlerReglement:focus, a.k-grid-ControlerReglement:active {
+        background-color: rgba(246, 131, 53, 0.76);
+        border-color: rgba(246, 131, 53, 0.76);
+        color: #fff;
+    }
+
+.k-grid-ControlerReglement span:before {
+    font-family: FontAwesome;
+    content: "\f06e";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+
+
+a.k-grid-Reglement {
+    background-color: #f68335;
+    border-color: #f68335;
+    color: #fff;
+}
+
+    a.k-grid-Reglement:hover, a.k-grid-Reglement:focus, a.k-grid-Reglement:active {
+        background-color: rgba(246, 131, 53, 0.76);
+        border-color: rgba(246, 131, 53, 0.76);
+        color: #fff;
+    }
+
+.k-grid-Reglement span:before {
+    font-family: FontAwesome;
+    content: "\f0d6";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+
+a.SelectAll {
+    background-color: #f68335;
+    border-color: #f68335;
+    color: #fff;
+}
+
+    a.SelectAll:hover, a.SelectAll:focus, a.SelectAll:active {
+        background-color: rgba(246, 131, 53, 0.76);
+        border-color: rgba(246, 131, 53, 0.76);
+        color: #fff;
+    }
+
+.SelectAll span:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+
+.k-grid-save-changes span:before {
+    font-family: FontAwesome;
+    content: "\f058";
+    float: left;
+    margin-right: 8px;
+    display: block;
+}
+
+a.k-grid-save-changes {
+    background-color: #77b33d;
+    border-color: #77b33d;
+    color: #fff;
+}
+
+    a.k-grid-save-changes:hover, a.k-grid-save-changes:focus {
+        background-color: rgba(119, 179, 61, 0.72);
+        border-color: rgba(119, 179, 61, 0.72);
+        color: #fff;
+    }
+
+    a.k-grid-cancel-changes .k-icon.k-cancel:before {
+    font-family: FontAwesome;
+    content: "\f057";
+    float: left;
+    font-size: 13px;
+    line-height: 18px;
+    margin-right: 8px;
+    display: block;
+}
+
+a.k-grid-cancel-changes:hover, a.k-grid-cancel-changes:focus, a.k-grid-cancel-changes:active {
+    background-color: rgba(206, 71, 48, 0.96);
+    border-color: rgba(206, 71, 48, 0.96);
+    color: #fff;
+}
+
+a.k-grid-cancel-changes .k-icon.k-cancel {
+    background-image: none;
+}
+
+a.k-grid-cancel-changes {
+    background-color: #db553f;
+    border-color: #db553f;
+    color: #fff;
+}
+
+span.pdf-file {
+    background: url(../images/pdf.png) left top no-repeat;
+    background-size: 100%;
+}
+
+span.excel-file {
+    background: url(../images/excel.png) left top no-repeat;
+    background-size: 100%;
+}
+

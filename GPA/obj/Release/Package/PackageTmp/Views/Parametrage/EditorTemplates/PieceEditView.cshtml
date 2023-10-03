@@ -1,0 +1,98 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.PieceModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdPiece" name="IdPiece" type="hidden">
+
+@if (myUser.Profile == 1)
+{
+    <div class="col-md-12">
+        <label>Client</label>
+        @(Html.Kendo().DropDownListFor(m => m.ClientId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Fournisseur</label>
+        @(Html.Kendo().DropDownListFor(m => m.FournisseurId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner fournisseur...")
+            .DataTextField("NomFournisseur")
+            .DataValueField("IdFournisseur")
+            .CascadeFrom("ClientId")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetFournisseursPieces", "CmbBoxs").Data("editClientData"))
+                    .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+    <div class="col-md-6" style="margin-top:15px;">
+        <a class='k-button k-grid-icontext' onclick='ajouterFournisseur()' href='#'>Nouveau fournisseur</a>
+    </div>
+   
+}
+else
+{
+    <div class="col-md-6">
+        <label>Fournisseur</label>
+        @(Html.Kendo().DropDownListFor(m => m.FournisseurId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner fournisseur...")
+            .DataTextField("NomFournisseur")
+            .DataValueField("IdFournisseur")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetFournisseursPieces", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+    <div class="col-md-6" style="margin-top:20px;">
+        <a class='k-button k-grid-icontext' onclick='ajouterFournisseur()' href='#'>Nouveau fournisseur</a>
+    </div>
+    
+}
+
+<div class="clearfix"></div>
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Constructeur</label>
+    @(Html.Kendo().TextBox().Name("Constructeur").HtmlAttributes(new { style = "width: 100%" }))
+</div>
+
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Numéro</label>
+    @Html.Kendo().TextBox().Name("NumeroPiece").HtmlAttributes(new { style = "width: 100%" })
+</div>
+<div class="clearfix"></div>
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Nom</label>
+    @Html.Kendo().TextBox().Name("NomPiece").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Prix
+    </label>
+    @(Html.Kendo().NumericTextBox().Format("n3").Decimals(4).Name("PrixPiece").HtmlAttributes(new { style = "width: 100%" }))<!--.Format("#.000 dt")-->
+   
+</div>
+<div class="clearfix"></div>
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Date Prix</label>
+    @Html.Kendo().DatePicker().Name("DatePrixPiece").HtmlAttributes(new { style = "width: 100%" })
+</div>

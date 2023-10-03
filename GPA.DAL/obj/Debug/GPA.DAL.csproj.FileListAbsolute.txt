@@ -1,0 +1,36 @@
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.DAL.dll.config
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.DAL.dll
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.DAL.pdb
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\bin\Debug\EntityFramework.dll
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.Models.dll
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.Models.pdb
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\bin\Debug\EntityFramework.xml
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\obj\Debug\GPA.DAL.csprojResolveAssemblyReference.cache
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\obj\Debug\GPA.DAL.dll
+E:\Free Projects\Belive\GPA_WEB\trunk\GPA.DAL\obj\Debug\GPA.DAL.pdb
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.DAL.dll.config
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.DAL.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.DAL.pdb
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\bin\Debug\EntityFramework.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.Models.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\bin\Debug\GPA.Models.pdb
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\bin\Debug\EntityFramework.xml
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\bin\Debug\EntityFramework.SqlServer.xml
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\obj\Debug\GPA.DAL.csprojResolveAssemblyReference.cache
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\obj\Debug\GPA.DAL.dll
+D:\WorkSpace\GPA\GPA_WEB\trunk\GPA.DAL\obj\Debug\GPA.DAL.pdb
+D:\SVN\GPA\trunk\GPA.DAL\bin\Debug\GPA.DAL.dll.config
+D:\SVN\GPA\trunk\GPA.DAL\bin\Debug\GPA.DAL.dll
+D:\SVN\GPA\trunk\GPA.DAL\bin\Debug\GPA.DAL.pdb
+D:\SVN\GPA\trunk\GPA.DAL\bin\Debug\EntityFramework.dll
+D:\SVN\GPA\trunk\GPA.DAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\SVN\GPA\trunk\GPA.DAL\bin\Debug\GPA.Models.dll
+D:\SVN\GPA\trunk\GPA.DAL\bin\Debug\GPA.Models.pdb
+D:\SVN\GPA\trunk\GPA.DAL\bin\Debug\EntityFramework.xml
+D:\SVN\GPA\trunk\GPA.DAL\bin\Debug\EntityFramework.SqlServer.xml
+D:\SVN\GPA\trunk\GPA.DAL\obj\Debug\GPA.DAL.csprojResolveAssemblyReference.cache
+D:\SVN\GPA\trunk\GPA.DAL\obj\Debug\GPA.DAL.dll
+D:\SVN\GPA\trunk\GPA.DAL\obj\Debug\GPA.DAL.pdb

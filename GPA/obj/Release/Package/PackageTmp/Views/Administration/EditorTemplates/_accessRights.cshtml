@@ -1,0 +1,64 @@
+﻿@using GPA.Models
+@model RoleModel
+                                            @*@{
+                                                var myUser = (HttpContext.Current.User as Q3Principal);
+                                                var myPosID = myUser != null ? myUser.PosId : string.Empty;
+                                            }*@
+@{
+    int index = 0;
+    foreach (var group in ViewBag.AllAccessRights)
+    {
+        if (group.Value == null)
+        {
+            continue;
+        }
+        if (index % 2 == 0)
+        {
+            @:<div class="row">
+        }
+        <div class="col-sm-6" >
+            <div class="form-group" >
+                <label class="col-sm-4 control-label" style="text-align: center;"><b>@group.Key</b></label>
+                <div class="col-sm-8 icheck minimal" >
+                    @foreach (var right in group.Value)
+                    {
+                        try
+                        {
+                            //if (string.IsNullOrEmpty(myUser.PosId) || (myUser.Rights.Contains(AccessRights.ENGAGEMENT_BO) &&
+                            //                                          myUser.Rights.Contains(right)))
+                            //{
+                                <div class="col-sm-12 icheck ">
+                                    <div class="square-green single-row" >
+                                        <div class="radio">
+                                            <table cellspacing="5">
+                                                <tr>
+                                                    <td style="width:25px; margin:5px">
+                                                        <input  value="@((int)right.Key)" name="rights" id="rights_@((int)right.Key)" type="checkbox" data-toggle="checkbox" @(Model.AccessRights.Contains((Enumerators.AccessRights)right.Key) ? Html.Raw("checked") : Html.Raw("")) >
+                                                    </td>
+                                                    <td style="margin:5px"> @(right.Value)</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            //}
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        if (index % 2 != 0)
+        {
+        @:</div>
+       }
+        index += 1;
+    
+        if (index % 2 != 0)
+        {
+        @:</div>
+        }
+    }
+}

@@ -1,0 +1,58 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.ClientModel
+
+<input id="IdClient" name="IdClient" type="hidden">
+
+<div class="col-md-6">
+    <label>Nom</label>
+    @Html.Kendo().TextBox().Name("NomClient").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6">
+    <label>Adresse</label>
+    @Html.Kendo().TextBox().Name("AdresseClient").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Ville</label>
+    @Html.Kendo().TextBox().Name("VilleClient").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Code Postal</label>
+    @Html.Kendo().TextBox().Name("CodePostalClient").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Contact</label>
+    @Html.Kendo().TextBox().Name("ContactClient").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Tél1</label>
+    @Html.Kendo().TextBox().Name("Tel1Client").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Tél2</label>
+    @Html.Kendo().TextBox().Name("Tel2Client").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Fax</label>
+    @Html.Kendo().TextBox().Name("FaxClient").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Site Web</label>
+    @Html.Kendo().TextBox().Name("SiteWebClient").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Email</label>
+    @Html.Kendo().TextBox().Name("EmailClient").HtmlAttributes(new { style = "width: 100%" })
+</div>
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Paramètres GIS</label>
+    @Html.Kendo().TextBox().Name("ParametresGis").HtmlAttributes(new { style = "width: 100%" })
+</div>

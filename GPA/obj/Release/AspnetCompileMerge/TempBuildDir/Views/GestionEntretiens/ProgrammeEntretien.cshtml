@@ -1,0 +1,537 @@
+﻿@{
+    ViewBag.Title = "Programme d'entretien";
+    Layout = "~/Views/Shared/_LayoutGestionEntretiens.cshtml";
+
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>Programme d'entretien</h5>
+                    </span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+
+@if (myUser.Profile == 1)
+{
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-2"><label>Client</label></div>
+                            <div class="col-md-10">
+                                @(Html.Kendo().DropDownList().Name("ClientFiltre")
+                                        .ValuePrimitive(true)
+                                        .OptionLabel("Sélectionner client...")
+                                        .DataTextField("NomClient")
+                                        .DataValueField("IdClient")
+                                        .DataSource(dataSource =>
+                                        {
+                                            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+                                        })
+                                        .HtmlAttributes(new { style = "width: 100%" })
+                                        .Events(e =>
+                                        {
+                                            e.Change("onChangeFilter");
+                                        })
+                                )
+                            </div>
+                        </div>
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-4"><label>Département</label></div>
+                            <div class="col-md-3"><label>Statut</label></div>
+                            <div class="col-md-2"><label>Année</label></div>
+                            <div class="col-md-3"><label>Mois</label></div>
+
+                            <div class="col-md-4">
+                                @(Html.Kendo().DropDownList().Name("DepartementFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner département...")
+                                    .DataTextField("NomDepartement")
+                                    .DataValueField("IdDepartement")
+                                    .CascadeFrom("ClientFiltre")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs").Data("ClientData"))
+                                            .ServerFiltering(true);
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                    .Events(e =>
+                                    {
+                                        e.Change("onChangeFilter");
+                                    })
+                                )
+                            </div>
+                            <div class="col-md-3">
+                                @(Html.Kendo().DropDownList().Name("StatutFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner statut...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .BindTo(new List<SelectListItem>() {
+                                      new SelectListItem() {
+                                          Text = "Entretien Fait",
+                                          Value = "1"
+                                      },
+                                      new SelectListItem() {
+                                          Text = "Prochain Entretien",
+                                          Value = "2"
+                                      }
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                    .Events(e =>
+                                    {
+                                        e.Change("onChangeFilter");
+                                    })
+                                )
+                            </div>
+                            <div class="col-md-2">
+                                @(Html.Kendo().DropDownList().Name("AnneeFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "ANNEE" }));
+                                    })
+                                    .Value(DateTime.Now.Year.ToString())
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                    .Events(e =>
+                                    {
+                                        e.Change("onChangeFilter");
+                                    })
+                                )
+                            </div>
+                            <div class="col-md-3">
+                                @(Html.Kendo().DropDownList().Name("MoisFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner mois...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "MOIS" }));
+                                    })
+                                    .Value(DateTime.Now.Month.ToString())
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                    .Events(e =>
+                                    {
+                                        e.Change("onChangeFilter");
+                                    })
+                                )
+                            </div>
+                        </div>
+}
+else
+{
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-4"><label>Département</label></div>
+                            <div class="col-md-3"><label>Statut</label></div>
+                            <div class="col-md-2"><label>Année</label></div>
+                            <div class="col-md-3"><label>Mois</label></div>
+
+                            <div class="col-md-4">
+                                @(Html.Kendo().DropDownList().Name("DepartementFiltre")
+                                        .ValuePrimitive(true)
+                                        .OptionLabel("Sélectionner département...")
+                                        .DataTextField("NomDepartement")
+                                        .DataValueField("IdDepartement")
+                                        .DataSource(dataSource =>
+                                        {
+                                            dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs", new { client = myUser.Client }));
+                                        })
+                                        .HtmlAttributes(new { style = "width: 100%" })
+                                        .Events(e =>
+                                        {
+                                            e.Change("onChangeFilter");
+                                        })
+                                )
+                            </div>
+                            <div class="col-md-3">
+                                @(Html.Kendo().DropDownList().Name("StatutFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner statut...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .BindTo(new List<SelectListItem>() {
+                                      new SelectListItem() {
+                                          Text = "Entretien Fait",
+                                          Value = "1"
+                                      },
+                                      new SelectListItem() {
+                                          Text = "Prochain Entretien",
+                                          Value = "2"
+                                      }
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                    .Events(e =>
+                                    {
+                                        e.Change("onChangeFilter");
+                                    })
+                                )
+                            </div>
+                            <div class="col-md-2">
+                                @(Html.Kendo().DropDownList().Name("AnneeFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "ANNEE" }));
+                                    })
+                                    .Value(DateTime.Now.Year.ToString())
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                    .Events(e =>
+                                    {
+                                        e.Change("onChangeFilter");
+                                    })
+                                )
+                            </div>
+                            <div class="col-md-3">
+                                @(Html.Kendo().DropDownList().Name("MoisFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner mois...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "MOIS" }));
+                                    })
+                                    .Value(DateTime.Now.Month.ToString())
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                    .Events(e =>
+                                    {
+                                        e.Change("onChangeFilter");
+                                    })
+                                )
+                            </div>
+                        </div>
+}
+
+                    <br />
+
+                    <div id="div0">
+@(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .HtmlAttributes(new { style = "margin:10px;" })
+    .Items(items =>
+    {
+        items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRow").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+    })
+)
+
+@(Html.Kendo().Grid<EntretienProgrammeModel>()
+    .Name("Grid").HtmlAttributes(new { style = "margin:10px;height:auto" })
+    .Columns(columns =>
+    {
+        if (myUser.Profile == 1)
+        {
+            columns.ForeignKey(e => e.ClientId, (System.Collections.IEnumerable)ViewBag.ListClients, "IdClient", "NomClient");
+        }
+        columns.ForeignKey(e => e.VehiculeId, (System.Collections.IEnumerable)ViewBag.ListVehicules, "IdVehicule", "MatriculeVehicule");
+        columns.ForeignKey(e => e.EntretienMaitreId, (System.Collections.IEnumerable)ViewBag.ListEntretiens, "IdEntretienMaitre", "DescriptionEntretienMaitre");       
+        columns.Bound(e => e.Repeter);
+        columns.Bound(e => e.Execution);
+        columns.Bound(e => e.Prochain);
+        
+        columns.Command(commands =>
+        {
+            commands.Custom("Modifier").Click("EditRow").Text("Modifier");
+            commands.Custom("ExecuterEntretien").Click("ExecuterEntretien").Text("Executer");
+            commands.Destroy().Text("Supp.");
+        }).Width(310);
+    })
+    .Editable(e => e
+    .Mode(GridEditMode.PopUp).TemplateName("ProgrammeEntretienEditView")
+    .Window(w => w.Title("Entretien").Width(600))
+    .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+    )
+    .Pageable(pageable => pageable.Refresh(true))
+    .Sortable()
+    .Selectable()
+    .Navigatable()
+    .Filterable()
+    .Filterable(filterable => filterable
+    .Extra(false)
+    .Operators(operators => operators
+    .ForString(str => str.Clear()
+    .StartsWith("Commence avec")
+    .IsEqualTo("Est égale à")
+    .IsNotEqualTo("N'est pas égale à")
+    ))
+    )
+    .Events(e =>
+    {
+        e.Edit("onEdit");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(m =>
+    {
+        m.Id(f => f.IdEntretienProgramme);
+        m.Field(p => p.IdEntretienProgramme).Editable(false);
+    })
+    .Events(e =>
+    {
+        e.RequestEnd("onRequestEnd");
+    })
+    .Read(read => read.Action("Read", "EntretienProgramme").Data("filterData"))
+    .Destroy("Delete", "EntretienProgramme")
+    .Update(update => update.Action("Update", "EntretienProgramme").Data("convertData"))
+    .Create(create => create.Action("Create", "EntretienProgramme").Data("convertData"))
+    )
+)
+
+@(Html.Kendo().Window()
+.Name("windowEntretien")
+.Title("Détails")
+.Visible(false)
+.Content(
+    @<text>
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Date Entretien</label><br />
+        @Html.Kendo().DatePicker().Name("DateEntretien").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Kilométrage</label><br />
+        @Html.Kendo().IntegerTextBox().Name("KilometrageEntretien").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Description</label>
+        @Html.Kendo().TextBox().Name("DescriptionEntretien").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Fournisseur</label>
+        @(Html.Kendo().DropDownList()
+            .Name("FournisseurEntretien")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner fournisseur...")
+            .DataTextField("NomFournisseur")
+            .DataValueField("IdFournisseur")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetFournisseursEntretiensReparations", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+    <br/>
+    <div class="col-md-6" style="margin-top:15px;"></div>
+    <div class="col-md-6" style="margin-top:15px;text-align:right;">
+        <a class="k-button k-button-icontext k-primary" onclick="SaveExecuterEntretien()"><span class="k-icon k-update"></span>Enregistrer</a>
+    <div>
+    </text>)
+.Draggable()
+.Resizable()
+.Modal(true)
+.Width(600)
+.Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function AddRow() {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.addRow();
+    }
+
+    function EditRow(e) {
+        var grid = $("#Grid").getKendoGrid(),
+        selectedRow = this.dataItem($(e.currentTarget).closest("tr"));
+        grid.editRow(selectedRow);
+    }
+
+    function onEdit(e) {
+        $("a.k-grid-update")[0].innerHTML = "<span class='k-icon k-update'></span>Enregistrer";
+        if (e.model.isNew()) {
+            $('.k-window-title').text("Nouveau Programme");
+            $("#Prochain_div").hide();
+        }
+        else {
+            $('.k-window-title').text("Modifier Programme");
+            $("#Prochain_div").show();
+        }
+    }
+
+    function onRequestEnd(e) {
+        if (e.type == "update" | e.type == "create") {
+            $("#Grid").data("kendoGrid").dataSource.read();
+        }
+    }
+
+    function ClientData() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { client: client };
+    }
+
+    function filterData() {
+        var client = 0;
+        var departement = 0;
+        var statut = 0;
+        var annee = 0;
+        var mois = 0;
+        
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#StatutFiltre").val() != null && $("#StatutFiltre").val() != '') {
+            statut = $("#StatutFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+        return { client: client, departement: departement, statut: statut, annee: annee, mois: mois };
+    }
+
+    function onChangeFilter() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function editClientData() {
+        var client = 0;
+        if ($("#ClientId").val() != null && $("#ClientId").val() != '') {
+            client = $("#ClientId").val();
+        }
+        return { client: client };
+    }
+
+    function onEntretienMaitre() {
+        $.ajax({
+            type: 'post',
+            cache: false,
+            url: "../EntretienMaitre/Get",
+            data: JSON.stringify({ id: $("#EntretienMaitreId").val() }),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $("#RepeterNb").data("kendoNumericTextBox").value(response.RepeterNb);
+                $("#RepeterPeriode").data("kendoDropDownList").value(response.RepeterPeriode);
+                $("#RepeterKilometrage").data("kendoNumericTextBox").value(response.RepeterKilometrage);
+
+                $("#RappelNb").data("kendoNumericTextBox").value(response.RappelNb);
+                $("#RappelPeriode").data("kendoDropDownList").value(response.RappelPeriode);
+                $("#RappelKilometrage").data("kendoNumericTextBox").value(response.RappelKilometrage);
+            }
+        });
+    }
+
+    function convertData(data) {
+        data.RepeterNb = $("#RepeterNb").val();
+        data.RepeterPeriode = $("#RepeterPeriode").val();
+        data.RepeterKilometrage = $("#RepeterKilometrage").val();
+
+        data.RappelNb = $("#RappelNb").val();
+        data.RappelPeriode = $("#RappelPeriode").val();
+        data.RappelKilometrage = $("#RappelKilometrage").val();
+        return data;
+    }
+
+    var idProgramme = 0;
+    var vehiculeId = 0;
+    var clientId = 0;
+    function ExecuterEntretien(e) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        idProgramme = dataItem.IdEntretienProgramme;
+        vehiculeId = dataItem.VehiculeId;
+        clientId = dataItem.ClientId;
+
+        $("#DateEntretien").val('');
+        $("#DescriptionEntretien").val('');
+        $("#KilometrageEntretien").data("kendoNumericTextBox").value('');
+        $("#FournisseurEntretien").data("kendoDropDownList").value('');
+
+        $("#windowEntretien").data("kendoWindow").title("Exécuter Entretien");
+        $("#windowEntretien").data("kendoWindow").open().center();
+    }
+
+    function SaveExecuterEntretien() {
+        var entretien = {
+            ClientId: clientId,
+            VehiculeId: vehiculeId,
+            DateEntretien: $("#DateEntretien").val(),
+            KilometrageEntretien: $("#KilometrageEntretien").val(),
+            DescriptionEntretien: $("#DescriptionEntretien").val(),
+            FournisseurId: $("#FournisseurEntretien").val(),
+            CoutEntretien: 0
+        };
+        $.ajax({
+            type: 'post',
+            cache: false,
+            url: "../EntretienProgramme/Execute",
+            data: JSON.stringify({ idEntretienProgramme: idProgramme, entretien: entretien }),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $("#windowEntretien").data("kendoWindow").close();
+                $("#Grid").data("kendoGrid").dataSource.read();
+            }
+        });
+    }
+</script>
+
+<style>
+    .k-edit-form-container {
+        width: 600px !important;
+    }
+
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+
+    input.k-textbox {
+        padding: 0;
+    }
+
+    .k-window div.k-window-content {
+        overflow: hidden;
+    }
+</style>

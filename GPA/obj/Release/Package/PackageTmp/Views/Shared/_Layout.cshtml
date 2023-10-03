@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    @RenderSection("styles", required: false)
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Aceuil</title>
+    <link href="@Url.Content("~/static/fr/css/site.css")" rel="stylesheet">
+    <link href="@Url.Content("~/static/css/reset.css")" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- bootstrap  -->
+    <link rel="stylesheet" href="~/Content/belive/css/bootstrap.min.css" type="text/css">
+
+    <!-- icons Fonts -->
+    <link rel="stylesheet" href="~/Content/belive/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/belive/css/material-design-iconic-font.min.css" type="text/css">
+    <!-- general CSS -->
+    <link rel="stylesheet" href="~/Content/belive/css/style.css" type="text/css">
+
+
+
+    <!-- responsive CSS -->
+    <link rel="stylesheet" href="~/Content/belive/css/responsive.css" type="text/css">
+
+
+    <!-- kendo CSS -->
+    <link rel="stylesheet" href="~/Content/belive/css/style-kendo.css" type="text/css">
+
+</head>
+
+<body class="full-height">
+    @RenderSection("stylesOfPage", required: false)
+    <!--debut page-->
+    <!-- header-->
+
+    <div class="main-container" id="#page"> 
+        <div class="container"> 
+            <div class="row"> 
+                @*@RenderSection("featured", required: false)*@
+                <section class="content-wrapper main-content clear-fix">
+                    @RenderSection("scriptsOfPage", required: false)
+                    @RenderBody()
+                </section>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.408/styles/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.408/styles/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.408/styles/kendo.dataviz.min.css" />
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.408/styles/kendo.dataviz.bootstrap.min.css" />
+   
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="http://cdn.kendostatic.com/2015.1.408/js/kendo.all.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2015.1.408/js/kendo.timezones.min.js"></script>
+    <link rel="shortcut icon" href="@Url.Content("~/static/image/png/logo_office.png")" />
+
+    <script type="text/javascript">
+        function path(url) {
+            return /(.*\/)[^\/]*$/gi.exec(url)[1];
+        }
+    </script>
+
+    <!--  fin  kenndo appels-->
+    <!-- jquery -->
+    <script src="~/Content/belive/js/jquery-2.2.2.min.js"></script>
+    <script src="~/Content/belive/js/bootstrap.min.js"></script>
+    <script src="~/Content/belive/js/script.js"></script>
+    </body>
+</html>
+@RenderSection("scripts", required: false)

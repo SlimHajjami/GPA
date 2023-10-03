@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+@{
+    var myUser = new KPIPrincipal();
+
+}
+@using GPB.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+<html lang="en">
+
+<head>
+    @RenderSection("styles", required: false)
+    @Html.Partial("_head")
+
+    <title> </title>
+
+
+
+</head>
+
+<body class="full-height" style="background-color: #EEF9FE">
+    @RenderSection("stylesOfPage", required: false)
+    <!--debut page-->
+
+    <div class="content-page forced" id="wrapper">
+        <!-- header-->
+        @Html.Partial("_PartialHead", new ViewDataDictionary { { "Module", "Editions" } })
+
+        <div class="main-container" id="#page">
+            <div class="sidebar">
+                <div class="sidebar-content ">
+                    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                            <button class="btn btn-1" id="tooltip4" data-toggle="tooltip" data-placement="right" data-original-title="test1"></button>
+                            <button class="btn btn-2" id="tooltip2" data-toggle="tooltip" data-placement="right" data-original-title="test2"></button>
+                            <button class="btn btn-3" id="tooltip1" data-toggle="tooltip" data-placement="right" data-original-title="test3"></button>
+                            <button class="btn btn-4" id="tooltip3" data-toggle="tooltip" data-placement="right" data-original-title="test4"></button>
+                            <button class="btn btn-5" id="tooltip3" data-toggle="tooltip" data-placement="left" data-original-title="test4"></button>
+                            <button class="btn btn-6" id="tooltip3" data-toggle="tooltip" data-placement="left" data-original-title="test4"></button>
+                        </div>
+
+                        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                            <span class="btn btn-1"></span>
+                            <span class="btn btn-2"></span>
+                            <span class="btn btn-3"></span>
+                            <span class="btn btn-4"></span>
+                        </div>
+                    </div>
+
+                    <ul class="navigation">
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecapitulatifApprovisionnement))
+                        {
+                            <li class="has-ul">
+                                <a href="#">  <small class="left-menu-icon"><i class="zmdi zmdi-more"></i></small><span>Approvisionnement</span> <i class="zmdi zmdi-caret-down"></i></a>
+                                <ul class="hidden-ul">
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecapitulatifApprovisionnement))
+                                    {
+                                        <li><a href="~/Editions/RapportRecapitulatifApprovisionnement">Rapport récapitulatif</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportEtatDeConsommation))
+                        {
+                            <li class="has-ul">
+                                <a href="#">  <small class="left-menu-icon"><i class="zmdi zmdi-more"></i></small><span>Suivi travaux</span> <i class="zmdi zmdi-caret-down"></i></a>
+                                <ul class="hidden-ul">
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportEtatDeConsommation))
+                                    {
+                                        <li><a href="~/Editions/RapportEtatConsommation">Rapport état de consommation</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportVentesBeton) || myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecapitulatifBeton))
+                        {
+                            <li class="has-ul">
+                                <a href="#">  <small class="left-menu-icon"><i class="zmdi zmdi-more"></i></small><span>Béton</span> <i class="zmdi zmdi-caret-down"></i></a>
+                                <ul class="hidden-ul">
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportVentesBeton))
+                                    {
+                                        <li><a href="~/Editions/RapportVentes">Rapport ventes</a></li>
+                                    }
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecapitulatifBeton))
+                                    {
+                                        <li><a href="~/Editions/RapportRecapitulatifBeton">Rapport récapitulatif</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportVentesBeton) || myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecapitulatifArmature))
+                        {
+                            <li class="has-ul">
+                                <a href="#">  <small class="left-menu-icon"><i class="zmdi zmdi-more"></i></small><span>Atelier d'armature</span> <i class="zmdi zmdi-caret-down"></i></a>
+                                <ul class="hidden-ul">
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportQuantiteEntree))
+                                    {
+                                        <li><a href="~/Editions/RapportQuantiteEntree">Rapport quantité entrée</a></li>
+                                    }
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecapitulatifArmature))
+                                    {
+                                        <li><a href="~/Editions/RapportRecapitulatifArmature">Rapport récapitulatif</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportOutillages) || myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportEngins))
+                        {
+                            <li class="has-ul">
+                                <a href="#">  <small class="left-menu-icon"><i class="zmdi zmdi-more"></i></small><span>Suivi matériels</span> <i class="zmdi zmdi-caret-down"></i></a>
+                                <ul class="hidden-ul">
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportOutillages))
+                                    {
+                                        <li><a href="~/Editions/RapportOutillages">Rapport outillages</a></li>
+                                    }
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportEngins))
+                                    {
+                                        <li><a href="~/Editions/RapportEngins">Rapport engins</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportReglementsEntreprises) 
+                            || myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportDepenses)
+                            || myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecapitulatifSuiviFianacier))
+                        {
+                            <li class="has-ul">
+                                <a href="#">  <small class="left-menu-icon"><i class="zmdi zmdi-more"></i></small><span>Suivi financier</span> <i class="zmdi zmdi-caret-down"></i></a>
+                                <ul class="hidden-ul">
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportReglementsEntreprises))
+                                    {
+                                        <li><a href="~/Editions/RapportReglementEntreprise">Rapport réglements entreprises</a></li>
+                                    }
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportDepenses))
+                                    {
+                                        <li><a href="~/Editions/RapportDepenses">Rapport dépenses</a></li>
+                                    }
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecapitulatifSuiviFianacier))
+                                    {
+                                        <li><a href="~/Editions/RapportRecapitulatifSuiviFinancier">Rapport récapitulatif</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportEmployees)
+                            || myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecrutements))
+                        {
+                            <li class="has-ul">
+                                <a href="#">  <small class="left-menu-icon"><i class="zmdi zmdi-more"></i></small><span>RH</span> <i class="zmdi zmdi-caret-down"></i></a>
+                                <ul class="hidden-ul">
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportEmployees))
+                                    {
+                                        <li><a href="~/Editions/RapportEmployees">Rapport employées</a></li>
+                                    }
+                                    @if (myUser.Rights.Contains(Enumerators.AccessRights.ED_RapportRecrutements))
+                                    {
+                                        <li><a href="~/Editions/RapportRecrutements">Rapport recrutements</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    <!-- /main navigation -->
+
+                </div>
+            </div>
+            <div class="page-content clearfix">
+                <div class="inner-content">
+
+
+                    <section class="content-wrapper main-content clear-fix">
+                        @RenderSection("scriptsOfPage", required: false)
+                        @RenderBody()
+                        <!--tu ajoute ce code-->
+                        <script type="text/javascript">
+                                    $('.navigation').find('li').has('ul').children('a').on('click', function (e) {
+                                        e.preventDefault();
+
+                                        if ($('body').hasClass('sidebar-narrow')) {
+                                            $(this).parent('li > ul li').not('.disabled').toggleClass('active').children('ul').slideToggle(250);
+                                            $(this).parent('li > ul li').not('.disabled').siblings().removeClass('active').children('ul').slideUp(250);
+                                        }
+
+                                        else {
+                                            $(this).parent('li').not('.disabled').toggleClass('active').children('ul').slideToggle(250);
+                                            $(this).parent('li').not('.disabled').siblings().removeClass('active').children('ul').slideUp(250);
+                                        }
+                                    });
+                        </script>
+                    </section>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
+@RenderSection("scripts", required: false)

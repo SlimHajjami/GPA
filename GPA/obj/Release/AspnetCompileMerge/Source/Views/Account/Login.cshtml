@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Authentification";
+    //Layout = "~/Views/Shared/_LayoutAutentification.cshtml";
+    Layout = null;
+}
+@model GPA.Models.UtilisateurModel
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Authentification</title>
+
+    <!-- bootstrap  -->
+    <link href="@Url.Content("~/Content/belive/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+
+    <!-- icons Fonts -->
+    <link href="@Url.Content("~/Content/belive/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/belive/css/material-design-iconic-font.min.css")" rel="stylesheet" type="text/css" />
+    <!-- general CSS -->
+    <link href="@Url.Content("~/Content/belive/css/style.css")" rel="stylesheet" type="text/css" />
+
+
+
+    <!-- responsive CSS -->
+    <link href="@Url.Content("~/Content/belive/css/responsive.css")" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+    <div class="content">
+
+
+
+
+
+        <!--debut page-->
+        <div class="main-container menu-bg">
+            <div class="bg-login">
+
+                <div class="row">
+                    <div class="box-login text-center">
+                        <!--debut formulaire-->
+@using (Html.BeginForm())
+                        {
+    @Html.ValidationSummary(true, "Échec De La Connexion, vérifier vos détails");
+                        <form action="/" method="post">
+
+                            <div class="box-inner clearfix">
+                                <div class="text-titre">
+
+                                    <i class="zmdi zmdi-lock-open"></i>
+                                    <h4>Connexion</h4>
+                                </div>
+
+                                <div class="form-group">
+
+                                    @Html.TextBoxFor(u => u.LoginUtilisateur, new { data_message = "Required", @class = "form-control", placeholder = "Utilisateur" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(u => u.PasswordUtilisateur, new { data_message = "Required", @class = "form-control", placeholder = "Mot de passe", type = "password" })
+                                </div>
+
+                                <font color="red">@ViewBag.Message</font>
+
+                                <div class="form-group  col-md-12 col-xs-12 ">
+                                    <button class="btn btn-login btn-block btn-md" type="submit">Valider</button>
+                                </div>
+                            </div>
+                        </form>     
+}
+                <!--fin formulaire-->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+       <!--fin page-->
+    <!-- jquery -->
+    <script src="@Url.Content("~/Content/belive/js/jquery-2.2.2.min.js")"></script>
+    <script src="@Url.Content("~/Content/belive/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Content/belive/js/script.js")"></script>
+
+
+</body>
+
+</html>

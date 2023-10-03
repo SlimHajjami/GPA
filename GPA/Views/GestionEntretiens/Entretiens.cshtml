@@ -1,0 +1,1170 @@
+﻿@{
+    ViewBag.Title = "Gestion des entretiens";
+    Layout = "~/Views/Shared/_LayoutGestionEntretiens.cshtml";
+
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>Gestion des entretiens</h5>
+                    </span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+
+@if (myUser.Profile == 1)
+{
+    <div style="margin:1px" class="row" id="myDiv" data=@myUser.Client>
+        <div class="col-md-2"><label>Client</label></div>
+        <div class="col-md-10">
+            @(Html.Kendo().DropDownList().Name("ClientFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeFilter");
+        })
+            )
+        </div>
+    </div>
+    <div style="margin:1px" class="row">
+        <div class="col-md-4"><label>Département</label></div>
+        <div class="col-md-4"><label>Année</label></div>
+        <div class="col-md-4"><label>Mois</label></div>
+
+        <div class="col-md-4">
+            @(Html.Kendo().DropDownList().Name("DepartementFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner département...")
+                                    .DataTextField("NomDepartement")
+                                    .DataValueField("IdDepartement")
+                                    .CascadeFrom("ClientFiltre")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs").Data("ClientData"))
+                                            .ServerFiltering(true);
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                    .Events(e =>
+                                    {
+                                        e.Change("onChangeFilter");
+                                    })
+            )
+        </div>
+        <div class="col-md-4">
+            @(Html.Kendo().DropDownList().Name("AnneeFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner année...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "ANNEE" }));
+        })
+        .Value(DateTime.Now.Year.ToString())
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeFilter");
+        })
+            )
+        </div>
+        <div class="col-md-4">
+            @(Html.Kendo().DropDownList().Name("MoisFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner mois...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "MOIS" }));
+        })
+        .Value(DateTime.Now.Month.ToString())
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeFilter");
+        })
+            )
+        </div>
+    </div>
+}
+else
+{
+    <div style="margin:1px" class="row">
+        <div class="col-md-4"><label>Département</label></div>
+        <div class="col-md-4"><label>Année</label></div>
+        <div class="col-md-4"><label>Mois</label></div>
+
+        <div class="col-md-4">
+            @(Html.Kendo().DropDownList().Name("DepartementFiltre")
+                                        .ValuePrimitive(true)
+                                        .OptionLabel("Sélectionner département...")
+                                        .DataTextField("NomDepartement")
+                                        .DataValueField("IdDepartement")
+                                        .DataSource(dataSource =>
+                                        {
+                                            dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs", new { client = myUser.Client }));
+                                        })
+                                        .HtmlAttributes(new { style = "width: 100%" })
+                                        .Events(e =>
+                                        {
+                                            e.Change("onChangeFilter");
+                                        })
+            )
+        </div>
+        <div class="col-md-4">
+            @(Html.Kendo().DropDownList().Name("AnneeFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner année...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "ANNEE" }));
+        })
+        .Value(DateTime.Now.Year.ToString())
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeFilter");
+        })
+            )
+        </div>
+        <div class="col-md-4">
+            @(Html.Kendo().DropDownList().Name("MoisFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner mois...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "MOIS" }));
+        })
+        .Value(DateTime.Now.Month.ToString())
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeFilter");
+        })
+            )
+        </div>
+    </div>
+}
+
+<br />
+
+                    <div id="div0">
+@(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .HtmlAttributes(new { style = "margin:10px;" })
+    .Items(items =>
+    {
+        items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRow").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+        if (myUser.Rights.Contains(Enumerators.AccessRights.IMPORT_ENTRETIENS_REPARATIONS))
+        {
+            items.Add().Type(CommandType.Button).Text("Importer").Click("Import").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" }).SpriteCssClass("k-icon excel-file");
+        }
+        items.Add().Type(CommandType.Button).Text("Supp. tout").Click("DeleteAll").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold;float:right" });
+    })
+)
+
+@(Html.Kendo().Grid<EntretienModel>()
+    .Name("Grid").HtmlAttributes(new { style = "margin:10px;height:auto" })
+    .Columns(columns =>
+    {
+        if (myUser.Profile == 1)
+        {
+            columns.ForeignKey(e => e.ClientId, (System.Collections.IEnumerable)ViewBag.ListClients, "IdClient", "NomClient");
+        }
+        columns.ForeignKey(e => e.VehiculeId, (System.Collections.IEnumerable)ViewBag.ListVehicules, "IdVehicule", "MatriculeVehicule");
+        columns.Bound(e => e.DateEntretien);
+        columns.Bound(e => e.CoutEntretien);
+        columns.ForeignKey(e => e.FournisseurId, (System.Collections.IEnumerable)ViewBag.ListFournisseurs, "IdFournisseur", "NomFournisseur");
+
+        columns.Command(commands =>
+        {
+            commands.Custom("Modifier").Click("EditRow").Text("Modifier");
+            commands.Custom("Depenses").Click("Depenses").Text("Dépenses");
+            commands.Destroy().Text("Supp.");
+        }).Width(310);
+    })
+    .Editable(e => e
+    .Mode(GridEditMode.PopUp).TemplateName("EntretienEditView")
+    .Window(w => w.Title("Entretien").Width(600))
+    .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+    )
+    .Pageable(pageable => pageable.Refresh(true))
+    .Sortable()
+    .Selectable()
+    .Navigatable()
+    .Filterable()
+    .Filterable(filterable => filterable
+    .Extra(false)
+    .Operators(operators => operators
+    .ForString(str => str.Clear()
+    .StartsWith("Commence avec")
+    .IsEqualTo("Est égale à")
+    .IsNotEqualTo("N'est pas égale à")
+    ))
+    )
+    .Events(e =>
+    {
+        e.Edit("onEdit");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(m =>
+    {
+        m.Id(f => f.IdEntretien);
+        m.Field(p => p.IdEntretien).Editable(false);
+    })
+    .Read(read => read.Action("Read", "Entretien").Data("filterData"))
+    .Destroy("Delete", "Entretien")
+    .Update("Update", "Entretien")
+    .Create("Create", "Entretien")
+    )
+)
+
+@(Html.Kendo().Window()
+.Name("windowDepenses")
+.Title("Détails")
+.Visible(false)
+.Content(
+@<text>
+    <div class="row" style="margin:15px;">
+    @(Html.Kendo().ToolBar()
+        .Name("ToolBar2")
+        .HtmlAttributes(new { style = "margin:10px;" })
+        .Items(items =>
+        {
+            items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRowDepense").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+        })
+    )
+    @(Html.Kendo().Grid<DepenseModel>().Name("gridDepenses")
+        .Columns(columns =>
+        {
+            columns.ForeignKey(e => e.TypeId, (System.Collections.IEnumerable)ViewBag.ListTypesDepenses, "Value", "Text");
+            columns.Bound(e => e.QuantiteDepense);
+            columns.Bound(e => e.CoutUnitaireDepense);
+            columns.ForeignKey(e => e.PieceId, (System.Collections.IEnumerable)ViewBag.ListPieces, "IdPiece", "NomPiece");
+
+            columns.Command(commands =>
+            {
+                commands.Custom("Modifier").Click("EditRowDepense").Text("Modifier");
+                commands.Destroy().Text("Supp.");
+            }).Width(210);
+            
+        })
+        .Editable(e => e
+            .Mode(GridEditMode.PopUp).TemplateName("DepenseEditView")
+            .Window(w => w.Title("Dépense"))
+            .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+        )
+        .Pageable(pageable => pageable.Refresh(true)).Filterable()
+        .Events(e =>
+        {
+            e.Edit("onEditDepense");
+            e.Save("onSaveDepense");
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(p => p.IdDepense);
+            m.Field(p => p.IdDepense).Editable(false);
+        })
+        .Read(read => read.Action("Read", "Depense").Data("EntretienData"))
+        .Destroy("Delete", "Depense")
+        .Update(update => update.Action("Update", "Depense").Data("convertData"))
+        .Create(create => create.Action("Create", "Depense").Data("convertData"))
+        ).AutoBind(false)
+       .HtmlAttributes(new { style = "margin:10px;height:auto" })
+    )
+       </div>
+</text>)
+.Draggable()
+.Resizable()
+.Modal(true)
+.Width(800)
+.Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+
+@(Html.Kendo().Window()
+    .Name("importerWindow")
+    .Actions(actions => actions
+        .Close()
+    )
+    .Title("Importer Entretiens Réparations")
+    .Draggable()
+    .Width(500)
+    .Height(150)
+    .Modal(true)
+    .Visible(false)
+    .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+                        @(Html.Kendo().Window()
+.Name("windowDepenses")
+.Title("Détails")
+.Visible(false)
+.Content(
+@<text>
+    <div class="row" style="margin:15px;">
+    @(Html.Kendo().ToolBar()
+        .Name("ToolBar2")
+        .HtmlAttributes(new { style = "margin:10px;" })
+        .Items(items =>
+        {
+            items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRowDepense").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+        })
+    )
+    @(Html.Kendo().Grid<DepenseModel>().Name("gridDepenses")
+        .Columns(columns =>
+        {
+            columns.ForeignKey(e => e.TypeId, (System.Collections.IEnumerable)ViewBag.ListTypesDepenses, "Value", "Text");
+            columns.Bound(e => e.QuantiteDepense);
+            columns.Bound(e => e.CoutUnitaireDepense);
+            columns.ForeignKey(e => e.PieceId, (System.Collections.IEnumerable)ViewBag.ListPieces, "IdPiece", "NomPiece");
+
+            columns.Command(commands =>
+            {
+                commands.Custom("Modifier").Click("EditRowDepense").Text("Modifier");
+                commands.Destroy().Text("Supp.");
+            }).Width(210);
+            
+        })
+        .Editable(e => e
+            .Mode(GridEditMode.PopUp).TemplateName("DepenseEditView")
+            .Window(w => w.Title("Dépense"))
+            .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+        )
+        .Pageable(pageable => pageable.Refresh(true)).Filterable()
+        .Events(e =>
+        {
+            e.Edit("onEditDepense");
+            e.Save("onSaveDepense");
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(p => p.IdDepense);
+            m.Field(p => p.IdDepense).Editable(false);
+        })
+        .Read(read => read.Action("Read", "Depense").Data("EntretienData"))
+        .Destroy("Delete", "Depense")
+        .Update(update => update.Action("Update", "Depense").Data("convertData"))
+        .Create(create => create.Action("Create", "Depense").Data("convertData"))
+        ).AutoBind(false)
+       .HtmlAttributes(new { style = "margin:10px;height:auto" })
+    )
+       </div>
+</text>)
+.Draggable()
+.Resizable()
+.Modal(true)
+.Width(800)
+.Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+
+@(Html.Kendo().Window()
+    .Name("importerWindow")
+    .Actions(actions => actions
+        .Close()
+    )
+    .Title("Importer Entretiens Réparations")
+    .Draggable()
+    .Width(500)
+    .Height(150)
+    .Modal(true)
+    .Visible(false)
+    .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+
+
+
+
+
+
+
+ @(Html.Kendo().Window()
+.Name("windowPieces")
+.Title("Ajouter pièce")
+.Visible(false)
+.Content(
+  @<text>
+                @if (myUser.Profile == 1)
+                {
+                    <div class="col-md-12">
+                        <label>Client</label>
+                        @(Html.Kendo().DropDownList()
+                        .Name("Client")
+                        .ValuePrimitive(true)
+                        .OptionLabel("Sélectionner client...")
+                        .DataTextField("NomClient")
+                        .DataValueField("IdClient")
+                        .DataSource(dataSource =>
+                        {
+                            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+                        })
+                        .HtmlAttributes(new { style = "width: 100%" })
+                        )
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-6" style="margin-top:15px;">
+                        <label>Fournisseur</label>
+                        @(Html.Kendo().DropDownList()
+                        .Name("Fournisseur")
+                        .ValuePrimitive(true)
+                        .OptionLabel("Sélectionner fournisseur...")
+                        .DataTextField("NomFournisseur")
+                        .DataValueField("IdFournisseur")
+                        .CascadeFrom("ClientId")
+                        .DataSource(dataSource =>
+                            {
+                                dataSource.Read(read => read.Action("GetFournisseursPieces", "CmbBoxs").Data("editClientData"))
+                                    .ServerFiltering(true);
+                            })
+                        .HtmlAttributes(new { style = "width: 100%" })
+                        )
+                    </div>
+
+                    <div class="col-md-6" style="margin-top:15px;">
+                       <a class='k-button k-grid-icontext' onclick='ajouterFournisseurPieces()' href='#'>Nouveau fournisseur</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-6">
+                        <label>Fournisseur</label>
+                        @(Html.Kendo().DropDownList()
+                            .Name("Fournisseur")
+                            .ValuePrimitive(true)
+                            .OptionLabel("Sélectionner fournisseur...")
+                            .DataTextField("NomFournisseur")
+                            .DataValueField("IdFournisseur")
+                            .DataSource(dataSource =>
+                            {
+                                dataSource.Read(read => read.Action("GetFournisseursPieces", "CmbBoxs", new { client = myUser.Client }));
+                            })
+                            .HtmlAttributes(new { style = "width: 100%" })
+                        )
+                    </div>
+                    <div class="col-md-6" style="margin-top:20px;">
+                        <a class='k-button k-grid-icontext' onclick='ajouterFournisseurPieces()' href='#'>Nouveau fournisseur</a>
+                    </div>
+                }
+                    <div class="clearfix"></div>
+                    <div class="col-md-6" style="margin-top:15px;">
+                        <label>Constructeur</label>
+                        @(Html.Kendo().TextBox().Name("Constructeur").HtmlAttributes(new { style = "width: 100%" }))
+                    </div>
+                
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Numéro</label>
+                    @(Html.Kendo().TextBox().Name("NumeroPiece").HtmlAttributes(new { style = "width: 100%" }))
+                </div>
+                        <div class="clearfix"></div>
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Nom</label>
+                    @(Html.Kendo().TextBox().Name("NomPiece").HtmlAttributes(new { style = "width: 100%" }))
+                </div>
+                
+                
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>
+                        Prix
+                    </label>
+                    @(Html.Kendo().NumericTextBox().Format("n3").Decimals(4).Name("PrixPiece").HtmlAttributes(new { style = "width: 100%" }))<!--.Format("#.000 dt")-->
+                
+                </div>
+                        <div class="clearfix"></div>
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Date Prix</label>
+                    @(Html.Kendo().DatePicker().Name("DatePrixPiece").HtmlAttributes(new { style = "width: 100%" }))
+                </div>
+                
+                <div class="clearfix"></div>
+
+                        <div class="col-md-6" style="margin-top:15px;">
+                            
+                            <a class='k-button k-button-icontext k-primary k-grid-update' onclick='savePiece()' href='#'> Enregistrer </a>
+                            <a class='k-button k-button-icontext k-grid-cancel' onclick='annuler()' href='#'> Annuler </a>
+                        </div>
+                        
+
+ </text>)
+.Draggable()
+.Resizable()
+.Modal(true)
+.Width(800)
+.Actions(actions => actions.Pin().Minimize().Maximize().Close())
+  )
+
+ @(Html.Kendo().Window()
+.Name("windowFournisseur")
+.Title("Ajouter Fournisseur")
+.Visible(false)
+.Content(
+  @<text>
+               @if (myUser.Profile == 1)
+               {
+                <div class="col-md-12">
+                    <label>Client</label>
+                    @(Html.Kendo().DropDownList()
+                         .Name("ClientF")
+                         .ValuePrimitive(true)
+                         .OptionLabel("Sélectionner client...")
+                         .DataTextField("NomClient")
+                         .DataValueField("IdClient")
+                         .DataSource(dataSource =>
+                         {
+                             dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+                         })
+                         .HtmlAttributes(new { style = "width: 100%" })
+                        )
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-6" style="margin-top:15px;">
+                        <label>Nom</label>
+                        @Html.Kendo().TextBox().Name("NomFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                    </div>
+
+                    <div class="col-md-6" style="margin-top:15px;">
+                        <label>Type</label>
+                        @(Html.Kendo().DropDownList()
+                             .Name("TypeFournisseur")
+                             .ValuePrimitive(true)
+                             .OptionLabel("Sélectionner type...")
+                             .DataTextField("Text")
+                             .DataValueField("Value")
+                             .DataSource(dataSource =>
+                             {
+                                 dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_FOURNISSEUR" }));
+                             })
+                             .Value("5")
+                             .Enable(false)
+                             .HtmlAttributes(new { style = "width: 100%" })
+                        )
+                    </div>
+                   }
+                   else
+                   {
+                    <div class="col-md-6">
+                        <label>Nom</label>
+                        @Html.Kendo().TextBox().Name("NomFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Type</label>
+                        @(Html.Kendo().DropDownList()
+                             .Name("TypeFournisseur")
+                             .ValuePrimitive(true)
+                             .OptionLabel("Sélectionner type...")
+                             .DataTextField("Text")
+                             .DataValueField("Value")
+                             .DataSource(dataSource =>
+                             {
+                                 dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_FOURNISSEUR" }));
+                             })
+                             .Value("5")
+                             .Enable(false)
+                             .HtmlAttributes(new { style = "width: 100%" })
+                        )
+                    </div>
+                   }
+
+                <div class="clearfix"></div>
+
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Adresse</label>
+                    @Html.Kendo().TextBox().Name("AdresseFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                </div>
+
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Ville</label>
+                    @Html.Kendo().TextBox().Name("VilleFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Code Postal</label>
+                    @Html.Kendo().TextBox().Name("CodePostalFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                </div>
+
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Contact</label>
+                    @Html.Kendo().TextBox().Name("ContactFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Tél1</label>
+                    @Html.Kendo().TextBox().Name("Tel1Fournisseur").HtmlAttributes(new { style = "width: 100%" })
+                </div>
+
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Tél2</label>
+                    @Html.Kendo().TextBox().Name("Tel2Fournisseur").HtmlAttributes(new { style = "width: 100%" })
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Fax</label>
+                    @Html.Kendo().TextBox().Name("FaxFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                </div>
+
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Email</label>
+                    @Html.Kendo().TextBox().Name("EmailFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-md-6" style="margin-top:15px;">
+                    <label>Site Web</label>
+                    @Html.Kendo().TextBox().Name("SiteWebFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                </div>
+                
+                <div class="clearfix"></div>
+
+                        <div class="col-md-6" style="margin-top:15px;">
+                            
+                            <a class='k-button k-button-icontext k-primary k-grid-update' onclick='saveFournisseur()' href='#'> Enregistrer </a>
+                            <a class='k-button k-button-icontext k-grid-cancel' onclick='annulerF()' href='#'> Annuler </a>
+                        </div>
+                        
+
+ </text>)
+.Draggable()
+.Resizable()
+.Modal(true)
+.Width(800)
+.Actions(actions => actions.Pin().Minimize().Maximize().Close().Clear())
+  )              
+                        
+                        
+                        @(Html.Kendo().Window()
+                            .Name("windowFournisseurPieces")
+                            .Title("Ajouter Fournisseur")
+                            .Visible(false)
+                            .Content(
+                                                    @<text>
+                                                        @if (myUser.Profile == 1)
+                                                        {
+                                                            <div class="col-md-12">
+                                                                <label>Client</label>
+                                                                @(Html.Kendo().DropDownList()
+                                                                 .Name("ClientF")
+                                                                 .ValuePrimitive(true)
+                                                                 .OptionLabel("Sélectionner client...")
+                                                                 .DataTextField("NomClient")
+                                                                 .DataValueField("IdClient")
+                                                                 .DataSource(dataSource =>
+                                                                 {
+                                                                     dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+                                                                 })
+                                                                 .HtmlAttributes(new { style = "width: 100%" })
+                                                                )
+                                                            </div>
+                            
+                                                            <div class="clearfix"></div>
+                            
+                                                            <div class="col-md-6" style="margin-top:15px;">
+                                                                <label>Nom</label>
+                                                                @Html.Kendo().TextBox().Name("NomFournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                            </div>
+                            
+                                                            <div class="col-md-6" style="margin-top:15px;">
+                                                                <label>Type</label>
+                                                                @(Html.Kendo().DropDownList()
+                                                                    .Name("TypeFournisseurP")
+                                                                    .ValuePrimitive(true)
+                                                                    .OptionLabel("Sélectionner type...")
+                                                                    .DataTextField("Text")
+                                                                    .DataValueField("Value")
+                                                                    .DataSource(dataSource =>
+                                                                    {
+                                                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_FOURNISSEUR" }));
+                                                                    })
+                                                                    .Value("4")
+                                                                    .Enable(false)
+                                                                    .HtmlAttributes(new { style = "width: 100%" })
+                                                                )
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="col-md-6">
+                                                                <label>Nom</label>
+                                                                @Html.Kendo().TextBox().Name("NomFournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                            </div>
+                            
+                                                            <div class="col-md-6">
+                                                                <label>Type</label>
+                                                                @(Html.Kendo().DropDownList()
+                                                                    .Name("TypeFournisseurP")
+                                                                    .ValuePrimitive(true)
+                                                                    .OptionLabel("Sélectionner type...")
+                                                                    .DataTextField("Text")
+                                                                    .DataValueField("Value")
+                                                                    .DataSource(dataSource =>
+                                                                    {
+                                                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_FOURNISSEUR" }));
+                                                                    })
+                                                                    .Value("4")
+                                                                    .Enable(false)
+                                                                    .HtmlAttributes(new { style = "width: 100%" })
+                                                                )
+                                                            </div>
+                                                        }
+                            
+                                                        <div class="clearfix"></div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                                                            <label>Adresse</label>
+                                                            @Html.Kendo().TextBox().Name("AdresseFournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                        </div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                                                            <label>Ville</label>
+                                                            @Html.Kendo().TextBox().Name("VilleFournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                        </div>
+                            
+                                                        <div class="clearfix"></div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                                                            <label>Code Postal</label>
+                                                            @Html.Kendo().TextBox().Name("CodePostalFournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                        </div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                                                            <label>Contact</label>
+                                                            @Html.Kendo().TextBox().Name("ContactFournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                        </div>
+                            
+                                                        <div class="clearfix"></div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                                                            <label>Tél1</label>
+                                                            @Html.Kendo().TextBox().Name("Tel1FournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                        </div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                                                            <label>Tél2</label>
+                                                            @Html.Kendo().TextBox().Name("Tel2FournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                        </div>
+                            
+                                                        <div class="clearfix"></div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                                                            <label>Fax</label>
+                                                            @Html.Kendo().TextBox().Name("FaxFournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                        </div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                                                            <label>Email</label>
+                                                            @Html.Kendo().TextBox().Name("EmailFournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                        </div>
+                            
+                                                        <div class="clearfix"></div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                                                            <label>Site Web</label>
+                                                            @Html.Kendo().TextBox().Name("SiteWebFournisseurP").HtmlAttributes(new { style = "width: 100%" })
+                                                        </div>
+                            
+                                                        <div class="clearfix"></div>
+                            
+                                                        <div class="col-md-6" style="margin-top:15px;">
+                            
+                                                            <a class='k-button k-button-icontext k-primary k-grid-update' onclick='saveFournisseurP()' href='#'> Enregistrer </a>
+                                                            <a class='k-button k-button-icontext k-grid-cancel' onclick='annulerF()' href='#'> Annuler </a>
+                                                        </div>
+                            
+                            
+                                                    </text>)
+                            .Draggable()
+                            .Resizable()
+                            .Modal(true)
+                            .Width(800)
+                            .Actions(actions => actions.Pin().Minimize().Maximize().Close().Clear())
+                        )
+
+                             
+
+</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function ajouterFournisseurEntretien() {
+        $("#windowFournisseur").data("kendoWindow").open().center();
+    }
+    function ajouterFournisseurPieces() {
+        $("#windowFournisseurPieces").data("kendoWindow").open().center();
+    }
+    function annulerF() {
+
+        if ($("#windowFournisseur").data("kendoWindow") != null) {
+            $("#windowFournisseur").data("kendoWindow").close();
+        } else {
+            $("#windowFournisseurPieces").data("kendoWindow").close();
+        }
+    }
+    function saveFournisseur() {
+        $.ajax({
+            type: 'POST',
+            cache: 'false',
+            data: JSON.stringify({
+                client: clientId,
+                nom:$("#NomFournisseur").val(),
+                type:$("#TypeFournisseur").val(),
+                adresse:$("#AdresseFournisseur").val(),
+                ville:$("#VilleFournisseur").val(),
+                codePostal:$("#CodePostalFournisseur").val(),
+                contact:$("#ContactFournisseur").val(),
+                tel1:$("#Tel1Fournisseur").val(),
+                tel2:$("#Tel2Fournisseur").val(),
+                fax:$("#FaxFournisseur").val(),
+                email:$("#EmailFournisseur").val(),
+                siteWeb:$("#SiteWebFournisseur").val(),
+            }),
+            url: '@Url.Action("CreateFromEntretien","Fournisseur")',
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (document.getElementById("Fournisseur")!= null) {
+                    $("#Fournisseur").data("kendoDropDownList").dataSource.read({ client: clientId });
+                }
+                if (document.getElementById("FournisseurId") != null) {
+                    $("#FournisseurId").data("kendoDropDownList").dataSource.read({ client: clientId });
+                }
+                $("#windowFournisseur").data("kendoWindow").close();
+            },
+        });
+    }
+
+    function saveFournisseurP() {
+        $.ajax({
+            type: 'POST',
+            cache: 'false',
+            data: JSON.stringify({
+                client: clientId,
+                nom: $("#NomFournisseurP").val(),
+                type: $("#TypeFournisseurP").val(),
+                adresse: $("#AdresseFournisseurP").val(),
+                ville: $("#VilleFournisseurP").val(),
+                codePostal: $("#CodePostalFournisseurP").val(),
+                contact: $("#ContactFournisseurP").val(),
+                tel1: $("#Tel1FournisseurP").val(),
+                tel2: $("#Tel2FournisseurP").val(),
+                fax: $("#FaxFournisseurP").val(),
+                email: $("#EmailFournisseurP").val(),
+                siteWeb: $("#SiteWebFournisseurP").val(),
+            }),
+            url: '@Url.Action("CreateFromEntretien","Fournisseur")',
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (document.getElementById("Fournisseur") != null) {
+                    $("#Fournisseur").data("kendoDropDownList").dataSource.read({ client: clientId });
+                }
+                if (document.getElementById("FournisseurId") != null) {
+                    $("#FournisseurId").data("kendoDropDownList").dataSource.read({ client: clientId });
+                }
+                $("#windowFournisseurPieces").data("kendoWindow").close();
+            },
+        });
+    }
+
+    function ajouterpieces() {
+        $("#windowPieces").data("kendoWindow").open().center();
+    }
+    function savePiece(e) {
+        //var  clientId = 0;
+        //if ($("#client").val() != null && $("#client").val() != '') {
+        //    clientId = $("#client").val();
+        //}
+        if ($("#DatePrixPiece").val() != null && $("#DatePrixPiece").val() != '')
+        {
+            $.ajax({
+                type: 'POST',
+                cache: 'false',
+                data: JSON.stringify({
+                    client: clientId,
+                    fournisseur: $("#Fournisseur").val(),
+                    constructeur: $("#Constructeur").val(),
+                    numero: $("#NumeroPiece").val(),
+                    nom: $("#NomPiece").val(),
+                    prix: $("#PrixPiece").val(),
+                    datePrix: $("#DatePrixPiece").val(),
+                }),
+                url: '@Url.Action("CreateFromEntretien","Piece")',
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#PieceId").data("kendoDropDownList").dataSource.read({ client: clientId });
+                    $("#windowPieces").data("kendoWindow").close();
+                },
+            });
+        } else {
+            alert("Entrer Date Prix Pièce");
+          //  e.preventDefault();
+        }
+    }
+    function annuler() {
+        $("#windowPieces").data("kendoWindow").close();
+    }
+
+    function AddRow() {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.addRow();
+    }
+
+    function EditRow(e) {
+        var grid = $("#Grid").getKendoGrid(),
+        selectedRow = this.dataItem($(e.currentTarget).closest("tr"));
+        grid.editRow(selectedRow);
+    }
+    //$("#windowDepenses").kendoWindow();
+    //var wdw = $("#windowDepenses").data("kendoWindow");
+    //wdw.bind("close", function (e) {
+    //    $("#Grid").data("kendoGrid").dataSource.page(1);
+    //});
+    function onEdit(e) {
+        $("a.k-grid-update")[0].innerHTML = "<span class='k-icon k-update'></span>Enregistrer";
+        //if (e.model.isNew()) {
+        //    $('.k-window-title').text("Nouveau Entretien");
+        //}
+        //else {
+        //    $('.k-window-title').text("Modifier Entretien");
+        //}
+    }
+
+    function ClientData() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { client: client };
+    }
+
+    function filterData() {
+        var client = 0;
+        var departement = 0;
+        var annee = 0;
+        var mois = 0;
+
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+        return { client: client, departement: departement, annee: annee, mois: mois };
+    }
+
+    function onChangeFilter() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function editClientData() {
+        var client = 0;
+        if ($("#ClientId").val() != null && $("#ClientId").val() != '') {
+            client = $("#ClientId").val();
+        }
+        return { client: client };
+    }
+
+    var idEntretien = 0;
+    var clientId = 0;
+    function Depenses(e) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        idEntretien = dataItem.IdEntretien;
+        clientId = dataItem.ClientId;
+        $("#gridDepenses").data("kendoGrid").dataSource.read();
+        $("#windowDepenses").data("kendoWindow").title("Dépenses");
+        $("#windowDepenses").data("kendoWindow").open().center();
+    }
+
+    function DeleteAll() {
+        var client = 0;
+        //var myUser = KPIPrincipal();///not defined
+
+        if (document.getElementById('myDiv') != null && document.getElementById('myDiv') != '') {
+            var myClient = document.getElementById('myDiv');
+            client = myClient.getAttribute("data");
+            //client = id;
+        } else
+            if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+                client = $("#ClientFiltre").val();
+            }
+        var mois = 0;
+        var annee = 0;
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+
+        $.ajax({
+            url: '@Url.Action("DeleteAll", "Entretien")',
+            type: "POST",
+
+            data: JSON.stringify({ clientId: client, annee: annee, mois: mois }),
+
+            contentType: "application/json; charset=utf-8",
+
+            success: function (response) {
+
+                $("#Grid").data("kendoGrid").dataSource.read();
+            }
+        });
+    }
+
+    function onEditDepense(e) {
+        $("#windowDepenses").data("kendoWindow").close();
+        $("#PieceId").data("kendoDropDownList").dataSource.read({ client: clientId });
+        $("a.k-grid-update")[0].innerHTML = "<span class='k-icon k-update'></span>Enregistrer";
+
+        e.container.data("kendoWindow").bind("deactivate", function () {
+            $("#windowDepenses").data("kendoWindow").open().center();
+        });
+
+        e.container.data("kendoWindow").bind("close", function () {
+            $("#windowDepenses").data("kendoWindow").open().center();
+        });
+    }
+
+    function onSaveDepense(e) {
+        $("#windowDepenses").data("kendoWindow").open().center();
+        e.container.data("kendoWindow").bind("close", function () {
+            $("#Grid").data("kendoGrid").dataSource.page(1);
+        });
+    }
+
+    function EntretienData() {
+        return { entretien: idEntretien, reparation: 0 };
+    }
+
+    function AddRowDepense() {
+        var grid = $("#gridDepenses").data("kendoGrid");
+        grid.addRow();
+    }
+
+    function EditRowDepense(e) {
+        var grid = $("#gridDepenses").getKendoGrid(),
+        selectedRow = this.dataItem($(e.currentTarget).closest("tr"));
+        grid.editRow(selectedRow);
+    }
+
+    function convertData(data) {
+        data.EntretienId = idEntretien;
+        return data;
+    }
+
+    function Import() {
+        $("#importerWindow").data("kendoWindow").content("<input type='file' id='FichierImport' name='FichierImport' /><div id='file_columns'></div>");
+
+        $("#FichierImport").kendoUpload({
+            async: {
+                saveUrl: "../Entretien/Import",
+                autoUpload: true
+            },
+            multiple: false,
+            files: [],
+            success: onFileUploaded,
+            validation: {
+                allowedExtensions: [".csv"]
+            }
+        });
+
+        $("#importerWindow").data("kendoWindow").title("Importer Entretiens Réparations");
+        $("#importerWindow").data("kendoWindow").center();
+        $("#importerWindow").data("kendoWindow").open();
+    }
+
+    function onFileUploaded(e) {
+        if (e.response.message == "1") {
+            $("#Grid").data("kendoGrid").dataSource.read();
+            alert(e.response.importedRows + " enregistrement importés avec succès.");
+        } else {
+            alert(e.response.message);
+        }
+    }
+</script>
+
+<style>
+    .k-edit-form-container {
+        width: 600px !important;
+    }
+
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+
+    input.k-textbox {
+        padding: 0;
+    }
+
+    .k-window div.k-window-content {
+        overflow: hidden;
+    }
+</style>

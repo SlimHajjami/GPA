@@ -1,0 +1,68 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.UtilisateurModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdUtilisateur" name="IdUtilisateur" type="hidden">
+
+<div class="col-md-6">
+    <label>Nom</label>
+    @Html.Kendo().TextBox().Name("NomUtilisateur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6">
+    <label>Prénom</label>
+    @Html.Kendo().TextBox().Name("PrenomUtilisateur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Login</label>
+    @Html.Kendo().TextBox().Name("LoginUtilisateur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Mot de passe</label>
+    <input type="password" id="PasswordUtilisateur" name="PasswordUtilisateur" style="width: 100%" data-val="true" data-val-required="*" class="k-textbox" />
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Email</label>
+    @Html.Kendo().TextBox().Name("EmailUtilisateur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Fonction</label>
+    @Html.Kendo().TextBox().Name("FonctionUtilisateur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+@if (myUser.Profile == 1)
+{
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Client</label>
+        @(Html.Kendo().DropDownListFor(m => m.ClientId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+}
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Rôle</label>
+    @(Html.Kendo().DropDownListFor(m => m.RoleId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner rôle...")
+        .DataTextField("NomRole")
+        .DataValueField("IdRole")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetRoles", "CmbBoxs", new { profile = myUser.Profile }));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+    )
+</div>

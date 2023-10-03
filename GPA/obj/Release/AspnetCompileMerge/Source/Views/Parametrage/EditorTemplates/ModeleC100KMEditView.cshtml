@@ -1,0 +1,16 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.ModeleC100KMModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdModeleC100KM" name="IdModeleC100KM" type="hidden">
+<input id="ClientId" name="ClientId" type="hidden">
+
+<div class="col-md-6">
+    <label>Modèle</label>
+    @Html.Kendo().TextBox().Name("Modele").HtmlAttributes(new { style = "width: 100%" }).Enable(false)
+</div>
+<div class="col-md-6">
+    <label>C/100KM</label>
+    @Html.Kendo().NumericTextBox().Name("C100KM").HtmlAttributes(new { style = "width: 100%" })
+</div>
+

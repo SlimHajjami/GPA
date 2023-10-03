@@ -1,0 +1,385 @@
+﻿@{
+    ViewBag.Title = "Gestion des pièces";
+    Layout = "~/Views/Shared/_LayoutParametrage.cshtml";
+
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>Gestion des pièces</h5>
+                    </span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+@if (myUser.Profile == 1)
+{
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-2"><label>Client</label></div>
+                            <div class="col-md-4">
+@(Html.Kendo().DropDownList().Name("ClientFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeFilter");
+        })
+)
+                            </div>
+                        </div><br />
+}
+                    <div id="div0">
+@(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .HtmlAttributes(new { style = "margin:10px;" })
+    .Items(items =>
+    {
+        items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRow").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+    })
+)
+
+@(Html.Kendo().Grid<PieceModel>()
+    .Name("Grid").HtmlAttributes(new { style = "margin:10px;height:auto" })
+    .Columns(columns =>
+    {
+        if (myUser.Profile == 1)
+        {
+            columns.ForeignKey(e => e.ClientId, (System.Collections.IEnumerable)ViewBag.ListClients, "IdClient", "NomClient");
+        }
+        columns.Bound(e => e.NumeroPiece);
+        columns.Bound(e => e.NomPiece);
+        columns.Bound(e => e.PrixPiece);//.Format("{0:n3}");//0:0.#########.Editor(numberEditor);
+        columns.Bound(e => e.DatePrixPiece);
+        columns.ForeignKey(e => e.FournisseurId, (System.Collections.IEnumerable)ViewBag.ListFournisseurs, "IdFournisseur", "NomFournisseur");
+
+        columns.Command(commands =>
+        {
+            commands.Custom("Modifier").Click("EditRow").Text("Modifier");
+            commands.Destroy().Text("Supp.");
+        }).Width(210);
+    })
+    .Editable(e => e
+        .Mode(GridEditMode.PopUp).TemplateName("PieceEditView")
+        .Window(w => w.Title("Ajouter/Modifier Pièce").Width(600))
+        .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+     )
+    .Pageable(pageable => pageable.Refresh(true))
+    .Sortable()
+    .Selectable()
+    .Navigatable()
+    .Filterable()
+    .Filterable(filterable => filterable
+    .Extra(false)
+    .Operators(operators => operators
+    .ForString(str => str.Clear()
+    .StartsWith("Commence avec")
+    .IsEqualTo("Est égale à")
+    .IsNotEqualTo("N'est pas égale à")
+    ))
+    )
+    .Events(e =>
+    {
+        e.Edit("onEdit");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(m =>
+    {
+        m.Id(f => f.IdPiece);
+        m.Field(p => p.IdPiece).Editable(false);
+    })
+    .Read(read => read.Action("Read", "Piece").Data("filterData"))
+    .Destroy("Delete", "Piece")
+    .Update("Update", "Piece")
+    .Create("Create", "Piece")
+    )
+)
+
+ @(Html.Kendo().Window()
+         .Name("windowFournisseur")
+         .Title("Ajouter Fournisseur")
+         .Visible(false)
+         .Content(
+         @<text>
+             @if (myUser.Profile == 1)
+             {
+                 <div class="col-md-12">
+                     <label>Client</label>
+                     @(Html.Kendo().DropDownList()
+          .Name("ClientF")
+          .ValuePrimitive(true)
+          .OptionLabel("Sélectionner client...")
+          .DataTextField("NomClient")
+          .DataValueField("IdClient")
+          .DataSource(dataSource =>
+          {
+              dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+          })
+          .HtmlAttributes(new { style = "width: 100%" })
+                     )
+                 </div>
+
+                 <div class="clearfix"></div>
+
+                 <div class="col-md-6" style="margin-top:15px;">
+                     <label>Nom</label>
+                     @Html.Kendo().TextBox().Name("NomFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                 </div>
+
+                 <div class="col-md-6" style="margin-top:15px;">
+                     <label>Type</label>
+                     @(Html.Kendo().DropDownList()
+              .Name("TypeFournisseur")
+              .ValuePrimitive(true)
+              .OptionLabel("Sélectionner type...")
+              .DataTextField("Text")
+              .DataValueField("Value")
+              .DataSource(dataSource =>
+              {
+                  dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_FOURNISSEUR" }));
+              })
+              .HtmlAttributes(new { style = "width: 100%" })
+                     )
+                 </div>
+             }
+             else
+             {
+                 <div class="col-md-6">
+                     <label>Nom</label>
+                     @Html.Kendo().TextBox().Name("NomFournisseur").HtmlAttributes(new { style = "width: 100%" })
+                 </div>
+
+                 <div class="col-md-6">
+                     <label>Type</label>
+                     @(Html.Kendo().DropDownList()
+              .Name("TypeFournisseur")
+              .ValuePrimitive(true)
+              .OptionLabel("Sélectionner type...")
+              .DataTextField("Text")
+              .DataValueField("Value")
+              .DataSource(dataSource =>
+              {
+                  dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_FOURNISSEUR" }));
+              })
+              .HtmlAttributes(new { style = "width: 100%" })
+                     )
+                 </div>
+             }
+
+             <div class="clearfix"></div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+                 <label>Adresse</label>
+                 @Html.Kendo().TextBox().Name("AdresseFournisseur").HtmlAttributes(new { style = "width: 100%" })
+             </div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+                 <label>Ville</label>
+                 @Html.Kendo().TextBox().Name("VilleFournisseur").HtmlAttributes(new { style = "width: 100%" })
+             </div>
+
+             <div class="clearfix"></div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+                 <label>Code Postal</label>
+                 @Html.Kendo().TextBox().Name("CodePostalFournisseur").HtmlAttributes(new { style = "width: 100%" })
+             </div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+                 <label>Contact</label>
+                 @Html.Kendo().TextBox().Name("ContactFournisseur").HtmlAttributes(new { style = "width: 100%" })
+             </div>
+
+             <div class="clearfix"></div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+                 <label>Tél1</label>
+                 @Html.Kendo().TextBox().Name("Tel1Fournisseur").HtmlAttributes(new { style = "width: 100%" })
+             </div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+                 <label>Tél2</label>
+                 @Html.Kendo().TextBox().Name("Tel2Fournisseur").HtmlAttributes(new { style = "width: 100%" })
+             </div>
+
+             <div class="clearfix"></div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+                 <label>Fax</label>
+                 @Html.Kendo().TextBox().Name("FaxFournisseur").HtmlAttributes(new { style = "width: 100%" })
+             </div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+                 <label>Email</label>
+                 @Html.Kendo().TextBox().Name("EmailFournisseur").HtmlAttributes(new { style = "width: 100%" })
+             </div>
+
+             <div class="clearfix"></div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+                 <label>Site Web</label>
+                 @Html.Kendo().TextBox().Name("SiteWebFournisseur").HtmlAttributes(new { style = "width: 100%" })
+             </div>
+
+             <div class="clearfix"></div>
+
+             <div class="col-md-6" style="margin-top:15px;">
+
+                 <a class='k-button k-button-icontext k-primary k-grid-update' onclick='saveFournisseur()' href='#'> Enregistrer </a>
+                 <a class='k-button k-button-icontext k-grid-cancel' onclick='annulerF()' href='#'> Annuler </a>
+             </div>
+
+
+         </text>)
+        .Draggable()
+        .Resizable()
+        .Modal(true)
+        .Width(800)
+        .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+
+                        
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function ajouterFournisseur() {
+        $("#windowFournisseur").data("kendoWindow").open().center();
+    }
+    function annulerF() {
+        $("#windowFournisseur").data("kendoWindow").close();
+    }
+    function saveFournisseur() {
+        var clientId = 0
+        if ($("#ClientF").val() != null && $("#ClientF").val() != '') {
+            clientId = $("#ClientF").val();
+        }
+        $.ajax({
+            type: 'POST',
+            cache: 'false',
+            data: JSON.stringify({
+                client: clientId,
+                nom: $("#NomFournisseur").val(),
+                type: $("#TypeFournisseur").val(),
+                adresse: $("#AdresseFournisseur").val(),
+                ville: $("#VilleFournisseur").val(),
+                codePostal: $("#CodePostalFournisseur").val(),
+                contact: $("#ContactFournisseur").val(),
+                tel1: $("#Tel1Fournisseur").val(),
+                tel2: $("#Tel2Fournisseur").val(),
+                fax: $("#FaxFournisseur").val(),
+                email: $("#EmailFournisseur").val(),
+                siteWeb: $("#SiteWebFournisseur").val(),
+            }),
+            url: '@Url.Action("CreateFromEntretien","Fournisseur")',
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $("#FournisseurId").data("kendoDropDownList").dataSource.read({ client: clientId });
+                $("#windowFournisseur").data("kendoWindow").close();
+            },
+        });
+    }
+    function AddRow() {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.addRow();
+    }
+
+    function EditRow(e) {
+        var grid = $("#Grid").getKendoGrid(),
+        selectedRow = this.dataItem($(e.currentTarget).closest("tr"));
+        grid.editRow(selectedRow);
+    }
+
+    function onEdit(e) {
+        $("a.k-grid-update")[0].innerHTML = "<span class='k-icon k-update'></span>Enregistrer";
+        //if (e.model.isNew()) {
+        //    $('.k-window-title').text("Nouvelle Pièce");
+        //}
+        //else {
+        //    $('.k-window-title').text("Modifier Pièce");
+        //}
+    }
+
+    function filterData() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { client: client };
+    }
+
+    function onChangeFilter() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function editClientData() {
+        var client = 0;
+        if ($("#ClientId").val() != null && $("#ClientId").val() != '') {
+            client = $("#ClientId").val();
+        }
+        return { client: client };
+    }
+</script>
+
+<style>
+    .k-edit-form-container {
+        width: 600px !important;
+    }
+
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+
+    input.k-textbox {
+        padding: 0;
+    }
+
+    .k-window div.k-window-content {
+        overflow: hidden;
+    }
+</style>

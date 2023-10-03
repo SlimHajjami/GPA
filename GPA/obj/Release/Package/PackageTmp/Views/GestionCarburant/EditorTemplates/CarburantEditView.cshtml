@@ -1,0 +1,152 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.CarburantModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdCarburant" name="IdCarburant" type="hidden">
+
+@if (myUser.Profile == 1)
+{
+    <div class="col-md-12">
+        <label>Client</label>
+        @(Html.Kendo().DropDownListFor(m => m.ClientId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Véhicule</label>
+        @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner véhicule...")
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            .CascadeFrom("ClientId")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetVehicules", "CmbBoxs").Data("editClientData"))
+                    .ServerFiltering(true);
+            })
+            .Events(e => e
+            .Change("GetCoutCarburantAndKm"))
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Fournisseur</label>
+        @(Html.Kendo().DropDownListFor(m => m.FournisseurId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner fournisseur...")
+            .DataTextField("NomFournisseur")
+            .DataValueField("IdFournisseur")
+            .CascadeFrom("ClientId")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetFournisseursCarburant", "CmbBoxs").Data("editClientData"))
+                    .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+}
+else
+{
+    <div class="col-md-6">
+        <label>Véhicule</label>
+        @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner véhicule...")
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetVehicules", "CmbBoxs", new { client = myUser.Client }));
+            })
+               .Events(e => e
+            .Change("GetCoutCarburantAndKm"))
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="col-md-6">
+        <label>Fournisseur</label>
+        @(Html.Kendo().DropDownListFor(m => m.FournisseurId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner fournisseur...")
+            .DataTextField("NomFournisseur")
+            .DataValueField("IdFournisseur")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetFournisseursCarburant", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+}
+
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Description</label>
+    @Html.Kendo().TextBox().Name("Description").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Date</label>
+    @(Html.Kendo().DatePicker().Name("DateCarburant").HtmlAttributes(new { style = "width: 100%" }).Events(e => e
+            .Change("GetCoutCarburantAndKm")))
+</div>
+
+<div class="clearfix"></div>
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Prix total</label>
+    @(Html.Kendo().NumericTextBox()
+        .Name("CoutTotalCarburant")
+        .Format("n3")
+        .Decimals(4)
+        //.Events(e => e
+        //    .Change("CoutTotalCarburantChange")
+        //)
+        .HtmlAttributes(new { style = "width: 100%" }))
+</div>
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Quantité Litres</label>
+    @Html.Kendo().NumericTextBox().Name("QuantiteCarburant").Format("n3").Decimals(4).HtmlAttributes(new { style = "width: 100%" })@*.Events(e => e.Change("QuantiteCarburantChange"))*@
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Coût/Litre</label>
+    @Html.Kendo().NumericTextBox().Name("CoutUnitaireCarburant").Format("n3").Decimals(4).HtmlAttributes(new { style = "width: 100%" })
+</div>
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Dernier Plein Carburant</label>
+    @Html.Kendo().IntegerTextBox().Name("KilometrageDebut").HtmlAttributes(new { style = "width: 100%" })
+</div>
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Dernière Lecture Odomètre</label>
+    @Html.Kendo().IntegerTextBox().Name("OdometreActuel").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Odomètre Actuel</label>
+    @Html.Kendo().IntegerTextBox().Name("KilometrageFin").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Note</label>
+    @Html.Kendo().TextBox().Name("NoteCarburant").HtmlAttributes(new { style = "width: 100%" })
+</div>

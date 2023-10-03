@@ -1,0 +1,136 @@
+
+@media (min-width: 1500px) {
+
+	.mag-top{
+		margin-top: 320px;
+	}
+
+}
+
+@media (min-width: 768px)and (max-width: 991px)  {
+    
+.mag-top-80 {
+    margin-top: 300px;
+}
+
+.mag-top{
+    margin-top: 250px;
+	}
+}
+@media (max-width: 767px) {
+
+ header .topbar .dropdown-menu.dropdown-profile{
+        right: 0;
+    }
+    .navabar-menu .navbar-header{
+        margin-right: 0;
+        margin-left: 0;
+    }
+    header .topbar .nav.navbar-nav  li.notif-list .dropdown-menu:before{
+            right: 53%;
+    }
+
+    header .navabar-menu ul.width-li li a{
+        width: 100%!important;
+    }
+.navabar-menu .navbar-nav.nav > li{
+    position: relative;
+}
+.navabar-menu .navbar-nav.nav  li{
+    display: block;
+        float: none;
+}
+.navabar-menu .navbar-nav.nav > li a  i{
+    float: left;
+    padding-right: 8px;
+    font-size: 18px;
+}
+.navabar-menu .navbar-nav.nav > li a p{
+    text-align: left;
+}
+
+}
+
+
+
+
+
+@media (max-width: 991px) {
+
+
+
+    .navbar-nav>li{
+        padding-right: 0;
+    }
+    .navbar-toggle{
+        margin-right: 0;
+    }
+    .nav.navbar-nav {
+            margin-right: 30px;
+    }
+
+    .nav.navbar-nav li a
+    {
+        font-size: 12px;
+    }
+.box-menu a p{
+       font-size: 15px; 
+}
+.navbar-nav .open .dropdown-menu{
+    position: absolute;
+    background-color: #fff;
+     box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+}
+.dropdown.notif-list  .dropdown-menu{
+right: -130px;
+    left: auto;
+ }
+ .nav.navbar-nav  li.notif-list .dropdown-menu:before{
+        right:50%;
+ }
+ .dropdown-menu.dropdown-profile {
+   right: 0;
+}
+.menu-navigation {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    display: none;
+    z-index: 999;
+    height: auto;
+    padding-bottom: 0;
+    overflow: auto;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    background-color: #ffffff;
+}
+
+.menu-navigation ul{
+	    float: none;
+    max-height: 400px;
+}
+.menu-navigation ul > li {
+    float: none;
+    width: 100%;
+}
+.menu-navigation ul > li a{
+    color: #2b3d51;
+    text-align:left;
+    padding: 5px 25px 5px 25px;
+}
+.menu-navigation ul > li a i{
+	float:left;
+	margin-right: 12px;
+}
+.menu-navigation ul > li a p{
+	line-height:25px;
+}
+}
+
+@media (min-width: 992px){
+.topnav .navbar-toggle {
+    display: none;
+}
+
+}

@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+@{
+    var myUser = new KPIPrincipal();
+
+}
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+<html lang="en">
+
+<head>
+    @RenderSection("styles", required: false)
+    @Html.Partial("_head")
+
+    <title> </title>
+</head>
+
+<body class="full-height" style="background-color: #EEF9FE">
+    @RenderSection("stylesOfPage", required: false)
+    <!--debut page-->
+
+    <div class="content-page forced" id="wrapper">
+        <!-- header-->
+        @Html.Partial("_PartialHead", new ViewDataDictionary { { "Module", "Gestion Véhicules" }, { "Color", "#e47501" } })
+
+        <div class="main-container" id="#page">
+            <div class="sidebar">
+                <div class="sidebar-content ">
+                    <ul class="navigation">
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.CONDUCTEURS))
+                        {
+                            <li>
+                                <a href="~/GestionVehicules/Conducteurs">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-car"></i></small>
+                                    <span class="left-menu-text">Conducteurs</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.DEPARTEMENTS))
+                        {
+                            <li>
+                                <a href="~/GestionVehicules/Departements">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-car"></i></small>
+                                    <span class="left-menu-text">Départements</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.VEHICULES))
+                        {
+                            <li>
+                                <a href="~/GestionVehicules/Vehicules">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-car"></i></small>
+                                    <span class="left-menu-text">Véhicules</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.ACQUISITIONS))
+                        {
+                            <li>
+                                <a href="~/GestionVehicules/Acquisitions">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-car"></i></small>
+                                    <span class="left-menu-text">Achats / Locations</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.DOCUMENTS))
+                        {
+                            <li>
+                                <a href="~/GestionVehicules/Documents">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-car"></i></small>
+                                    <span class="left-menu-text">Assurances / Taxes / Visites</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.AUTRES_DEPENSES))
+                        {
+                            <li>
+                                <a href="~/GestionVehicules/AutresDepenses">
+                                    <small class="left-menu-icon"> <i class="zmdi zmdi-car"></i></small>
+                                    <span class="left-menu-text">Dépenses</span>
+                                </a>
+                            </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.KILOMETRAGES))
+                        {
+                        <li>
+                            <a href="~/GestionVehicules/Kilometrages">
+                                <small class="left-menu-icon"> <i class="zmdi zmdi-car"></i></small>
+                                <span class="left-menu-text">Kilométrage Journalier</span>
+                            </a>
+                        </li>
+                        }
+                        @if (myUser.Rights.Contains(Enumerators.AccessRights.KILOMETRAGE_MENSUEL))
+                        { 
+                        <li>
+                            <a href="~/GestionVehicules/KilometragesMensuels">
+                                <small class="left-menu-icon"> <i class="zmdi zmdi-car"></i></small>
+                                <span class="left-menu-text">Kilométrage Mensuel</span>
+                            </a>
+                        </li>
+                        }
+                    </ul>
+                    <!-- /main navigation -->
+
+                </div>
+            </div>
+            <div class="page-content clearfix">
+                <div class="inner-content">
+
+
+                    <section class="content-wrapper main-content clear-fix">
+                        @RenderSection("scriptsOfPage", required: false)
+                        @RenderBody()
+                        <!--tu ajoute ce code-->
+                        <script type="text/javascript">
+                                    $('.navigation').find('li').has('ul').children('a').on('click', function (e) {
+                                        e.preventDefault();
+
+                                        if ($('body').hasClass('sidebar-narrow')) {
+                                            $(this).parent('li > ul li').not('.disabled').toggleClass('active').children('ul').slideToggle(250);
+                                            $(this).parent('li > ul li').not('.disabled').siblings().removeClass('active').children('ul').slideUp(250);
+                                        }
+
+                                        else {
+                                            $(this).parent('li').not('.disabled').toggleClass('active').children('ul').slideToggle(250);
+                                            $(this).parent('li').not('.disabled').siblings().removeClass('active').children('ul').slideUp(250);
+                                        }
+                                    });
+                        </script>
+                    </section>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
+@RenderSection("scripts", required: false)

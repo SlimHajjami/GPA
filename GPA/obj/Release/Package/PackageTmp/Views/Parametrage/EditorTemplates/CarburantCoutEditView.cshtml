@@ -1,0 +1,20 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.CarburantCoutUnitaireModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdCarburant" name="IdCarburant" type="hidden">
+@*<input id="ClientId" name="ClientId" type="hidden">*@
+
+<div class="col-md-6">
+    <label>Type Carburant</label>
+    @Html.Kendo().TextBox().Name("TypeCarburant").HtmlAttributes(new { style = "width: 100%" }).Enable(false)
+</div>
+<div class="col-md-6">
+    <label>Coût unitaire</label>
+    @Html.Kendo().NumericTextBox().Name("CoutUnitaireCarburant").HtmlAttributes(new { style = "width: 100%" })
+</div>
+<div class="col-md-6">
+    <label>Date d'application du tarif</label>
+    @Html.Kendo().DatePicker().Name("DateChangementTarif").HtmlAttributes(new { style = "width: 100%" })
+</div>
+

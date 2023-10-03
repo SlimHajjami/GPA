@@ -1,0 +1,1362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GPAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessRight">
+          <Key>
+            <PropertyRef Name="IdAccessRight" />
+          </Key>
+          <Property Name="IdAccessRight" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="AccessRight" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccessRightDepartement">
+          <Key>
+            <PropertyRef Name="IdAccessRightDepartement" />
+          </Key>
+          <Property Name="IdAccessRightDepartement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartementId" Type="int" Nullable="false" />
+          <Property Name="UtilisateurId" Type="int" Nullable="false" />
+          <Property Name="Visualisation" Type="bit" Nullable="false" />
+          <Property Name="Saisie" Type="bit" Nullable="false" />
+          <Property Name="Validation" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AlerteEmail">
+          <Key>
+            <PropertyRef Name="IdAlerteEmail" />
+          </Key>
+          <Property Name="IdAlerteEmail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="AlerteEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeAlerteId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Carburant">
+          <Key>
+            <PropertyRef Name="IdCarburant" />
+          </Key>
+          <Property Name="IdCarburant" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="VehiculeId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="DateCarburant" Type="datetime" Nullable="false" />
+          <Property Name="QuantiteCarburant" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="CoutUnitaireCarburant" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="FournisseurId" Type="int" />
+          <Property Name="KilometrageDebut" Type="int" />
+          <Property Name="KilometrageFin" Type="int" />
+          <Property Name="NoteCarburant" Type="ntext" />
+          <Property Name="CoutTotal" Type="decimal" Precision="18" Scale="3" />
+        </EntityType>
+        <EntityType Name="CarburantCoutUnitaire">
+          <Key>
+            <PropertyRef Name="IdCoutUnitaireCarburant" />
+          </Key>
+          <Property Name="IdCoutUnitaireCarburant" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code_refCarburant" Type="int" Nullable="false" />
+          <Property Name="CoutUnitaireCarburant" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="DateChangementTarif" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="IdClient" />
+          </Key>
+          <Property Name="IdClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomClient" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="AdresseClient" Type="nvarchar" MaxLength="255" />
+          <Property Name="VilleClient" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodePostalClient" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactClient" Type="nvarchar" MaxLength="255" />
+          <Property Name="Tel1Client" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tel2Client" Type="nvarchar" MaxLength="50" />
+          <Property Name="FaxClient" Type="nvarchar" MaxLength="50" />
+          <Property Name="SiteWebClient" Type="nvarchar" MaxLength="255" />
+          <Property Name="EmailClient" Type="nvarchar" MaxLength="255" />
+          <Property Name="GisParametres" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Depense">
+          <Key>
+            <PropertyRef Name="IdDepense" />
+          </Key>
+          <Property Name="IdDepense" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="EntretienId" Type="int" />
+          <Property Name="ReparationId" Type="int" />
+          <Property Name="QuantiteDepense" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="CoutUnitaireDepense" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="PieceId" Type="int" />
+          <Property Name="ExpirationGarantie" Type="datetime" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="NoteDepense" Type="ntext" />
+        </EntityType>
+        <EntityType Name="DepensesClient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepenseId" Type="int" Nullable="false" />
+          <Property Name="DateDepenses" Type="datetime" Nullable="false" />
+          <Property Name="Kilometrage" Type="int" />
+          <Property Name="NoteDepenses" Type="ntext" />
+          <Property Name="CoutTotal" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="VehiculeId" Type="int" />
+        </EntityType>
+        <EntityType Name="Entretien">
+          <Key>
+            <PropertyRef Name="IdEntretien" />
+          </Key>
+          <Property Name="IdEntretien" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="VehiculeId" Type="int" Nullable="false" />
+          <Property Name="DateEntretien" Type="datetime" Nullable="false" />
+          <Property Name="FournisseurId" Type="int" />
+          <Property Name="DescriptionEntretien" Type="nvarchar(max)" />
+          <Property Name="CoutEntretien" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="KilometrageEntretien" Type="int" />
+          <Property Name="NoteEntretien" Type="ntext" />
+        </EntityType>
+        <EntityType Name="EntretienMaitre">
+          <Key>
+            <PropertyRef Name="IdEntretienMaitre" />
+          </Key>
+          <Property Name="IdEntretienMaitre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="DescriptionEntretienMaitre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RepeterNb" Type="int" />
+          <Property Name="RepeterPeriode" Type="int" />
+          <Property Name="RepeterKilometrage" Type="int" />
+          <Property Name="RappelNb" Type="int" />
+          <Property Name="RappelPeriode" Type="int" />
+          <Property Name="RappelKilometrage" Type="int" />
+        </EntityType>
+        <EntityType Name="EntretienProgramme">
+          <Key>
+            <PropertyRef Name="IdEntretienProgramme" />
+          </Key>
+          <Property Name="IdEntretienProgramme" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="VehiculeId" Type="int" Nullable="false" />
+          <Property Name="EntretienMaitreId" Type="int" Nullable="false" />
+          <Property Name="RepeterNb" Type="int" />
+          <Property Name="RepeterPeriode" Type="int" />
+          <Property Name="RepeterKilometrage" Type="int" />
+          <Property Name="RappelNb" Type="int" />
+          <Property Name="RappelPeriode" Type="int" />
+          <Property Name="RappelKilometrage" Type="int" />
+          <Property Name="DateExecution" Type="datetime" />
+          <Property Name="KilometrageExecution" Type="int" />
+          <Property Name="ProchaineDate" Type="datetime" />
+          <Property Name="ProchaineKilometrage" Type="int" />
+        </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="IdFournisseur" />
+          </Key>
+          <Property Name="IdFournisseur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="TypeFournisseur" Type="int" Nullable="false" />
+          <Property Name="NomFournisseur" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="AdresseFournisseur" Type="nvarchar" MaxLength="255" />
+          <Property Name="VilleFournisseur" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodePostalFournisseur" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactFournisseur" Type="nvarchar" MaxLength="255" />
+          <Property Name="Tel1Fournisseur" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tel2Fournisseur" Type="nvarchar" MaxLength="50" />
+          <Property Name="FaxFournisseur" Type="nvarchar" MaxLength="50" />
+          <Property Name="SiteWebFournisseur" Type="nvarchar" MaxLength="255" />
+          <Property Name="EmailFournisseur" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="GIS_GPA">
+          <Key>
+            <PropertyRef Name="IdGisGpa" />
+          </Key>
+          <Property Name="IdGisGpa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="VehiculeGPAId" Type="int" Nullable="false" />
+          <Property Name="VehiculeGis" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="VehiculeGisId" Type="int" />
+        </EntityType>
+        <EntityType Name="GISLastUpdate">
+          <Key>
+            <PropertyRef Name="IdUpdate" />
+          </Key>
+          <Property Name="IdUpdate" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateUpdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HISTORIQUE_CONNEXION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="int" Nullable="false" />
+          <Property Name="LogIn_Date" Type="datetime" Nullable="false" />
+          <Property Name="LogOut_Date" Type="datetime" />
+          <Property Name="AdresseIP" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="KilometrageMensuel">
+          <Key>
+            <PropertyRef Name="IdKilometrageMensuel" />
+          </Key>
+          <Property Name="IdKilometrageMensuel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="VehiculeId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Kilometrage" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="LectureKilometrage">
+          <Key>
+            <PropertyRef Name="IdLectureKilometrage" />
+          </Key>
+          <Property Name="IdLectureKilometrage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="VehiculeId" Type="int" Nullable="false" />
+          <Property Name="DateLectureKilometrage" Type="datetime" Nullable="false" />
+          <Property Name="Kilometrage" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="ModeleC100KM">
+          <Key>
+            <PropertyRef Name="IdModeleC100KM" />
+          </Key>
+          <Property Name="IdModeleC100KM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="ModeleId" Type="int" Nullable="false" />
+          <Property Name="C100KM" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parametre">
+          <Key>
+            <PropertyRef Name="ParameterId" />
+          </Key>
+          <Property Name="ParameterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyWord" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="ParametresDepenses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="Depense" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Piece">
+          <Key>
+            <PropertyRef Name="IdPiece" />
+          </Key>
+          <Property Name="IdPiece" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="NumeroPiece" Type="nvarchar" MaxLength="50" />
+          <Property Name="NomPiece" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PrixPiece" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="DatePrixPiece" Type="datetime" Nullable="false" />
+          <Property Name="FournisseurId" Type="int" />
+          <Property Name="Constructeur" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="REFERENTIEL">
+          <Key>
+            <PropertyRef Name="ID_REFERENTIELS" />
+          </Key>
+          <Property Name="ID_REFERENTIELS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KEY_REF" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CODE_REF" Type="int" Nullable="false" />
+          <Property Name="VALUE" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reparation">
+          <Key>
+            <PropertyRef Name="IdReparation" />
+          </Key>
+          <Property Name="IdReparation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="VehiculeId" Type="int" Nullable="false" />
+          <Property Name="DateReparation" Type="datetime" Nullable="false" />
+          <Property Name="DateMiseService" Type="datetime" Nullable="false" />
+          <Property Name="HeuresArret" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="FournisseurId" Type="int" />
+          <Property Name="DescriptionReparation" Type="nvarchar(max)" />
+          <Property Name="CoutReparation" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="KilometrageReparation" Type="int" />
+          <Property Name="NoteReparation" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomRole" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DescriptionRole" Type="nvarchar(max)" />
+          <Property Name="ProfileRole" Type="int" />
+        </EntityType>
+        <EntityType Name="TYPE_REFERENTIEL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KEY_REF" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LIBELLE" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="IdUtilisateur" />
+          </Key>
+          <Property Name="IdUtilisateur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="NomUtilisateur" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PrenomUtilisateur" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="LoginUtilisateur" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PasswordUtilisateur" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailUtilisateur" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FonctionUtilisateur" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Vehicule">
+          <Key>
+            <PropertyRef Name="IdVehicule" />
+          </Key>
+          <Property Name="IdVehicule" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="MatriculeVehicule" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CouleurVehicule" Type="nvarchar" MaxLength="255" />
+          <Property Name="NumeroSerieVehicule" Type="nvarchar" MaxLength="255" />
+          <Property Name="MiseCirculation" Type="datetime" />
+          <Property Name="TypeCarburantId" Type="int" />
+          <Property Name="TypeVehiculeId" Type="int" />
+          <Property Name="DepartementId" Type="int" />
+          <Property Name="ConducteurId" Type="int" />
+          <Property Name="IsActif" Type="bit" Nullable="false" />
+          <Property Name="codeRefMarque" Type="int" />
+          <Property Name="IdModele" Type="int" />
+        </EntityType>
+        <EntityType Name="VehiculeAcquisition">
+          <Key>
+            <PropertyRef Name="IdAcquisition" />
+          </Key>
+          <Property Name="IdAcquisition" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehiculeId" Type="int" Nullable="false" />
+          <Property Name="IsLocation" Type="bit" />
+          <Property Name="FournisseurId" Type="int" />
+          <Property Name="DateAcquisition" Type="datetime" />
+          <Property Name="KilometrageAcquisition" Type="int" />
+          <Property Name="PrixAcquisition" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ExpirationGarantie" Type="datetime" />
+          <Property Name="PrixVente" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="NoteAcquisition" Type="ntext" />
+        </EntityType>
+        <EntityType Name="VehiculeAcquisitionPaiement">
+          <Key>
+            <PropertyRef Name="IdPaiement" />
+          </Key>
+          <Property Name="IdPaiement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AcquisitionId" Type="int" Nullable="false" />
+          <Property Name="ReferencePaiement" Type="nvarchar" MaxLength="255" />
+          <Property Name="DatePaiement" Type="datetime" Nullable="false" />
+          <Property Name="MontantPaiement" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="NotePaiement" Type="ntext" />
+        </EntityType>
+        <EntityType Name="VehiculeConducteur">
+          <Key>
+            <PropertyRef Name="IdConducteur" />
+          </Key>
+          <Property Name="IdConducteur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="NomConducteur" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PrenomConducteur" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="DateNaissanceConducteur" Type="datetime" />
+          <Property Name="DateEmbaucheConducteur" Type="datetime" />
+          <Property Name="NumeroPermisConducteur" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdresseConducteur" Type="nvarchar" MaxLength="255" />
+          <Property Name="VilleConducteur" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodePostalConducteur" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tel1Conducteur" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tel2Conducteur" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailConducteur" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VehiculeDepartement">
+          <Key>
+            <PropertyRef Name="IdDepartement" />
+          </Key>
+          <Property Name="IdDepartement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="NomDepartement" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="code" Type="int" />
+        </EntityType>
+        <EntityType Name="VehiculeDocuments">
+          <Key>
+            <PropertyRef Name="IdDocuments" />
+          </Key>
+          <Property Name="IdDocuments" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehiculeId" Type="int" Nullable="false" />
+          <Property Name="FournisseurAssuranceId" Type="int" />
+          <Property Name="DateAssurance" Type="datetime" />
+          <Property Name="ExpirationAssurance" Type="datetime" />
+          <Property Name="RappelAssurance" Type="int" />
+          <Property Name="NoteAssurance" Type="ntext" />
+          <Property Name="DateTaxeCirculation" Type="datetime" />
+          <Property Name="ExpirationTaxeCirculation" Type="datetime" />
+          <Property Name="RappelTaxeCirculation" Type="int" />
+          <Property Name="NoteTaxeCirculation" Type="ntext" />
+          <Property Name="DerniereVisiteTechnique" Type="datetime" />
+          <Property Name="ProchaineVisiteTechnique" Type="datetime" />
+          <Property Name="RappelVisiteTechnique" Type="int" />
+          <Property Name="NoteVisiteTechnique" Type="ntext" />
+        </EntityType>
+        <EntityType Name="VehiculeModeles">
+          <Key>
+            <PropertyRef Name="IdModele" />
+          </Key>
+          <Property Name="IdModele" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeRefMarque" Type="int" Nullable="false" />
+          <Property Name="NomModele" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="GPAModelStoreContainer">
+          <EntitySet Name="AccessRight" EntityType="Self.AccessRight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccessRightDepartement" EntityType="Self.AccessRightDepartement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlerteEmail" EntityType="Self.AlerteEmail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Carburant" EntityType="Self.Carburant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarburantCoutUnitaire" EntityType="Self.CarburantCoutUnitaire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Depense" EntityType="Self.Depense" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepensesClient" EntityType="Self.DepensesClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entretien" EntityType="Self.Entretien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntretienMaitre" EntityType="Self.EntretienMaitre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntretienProgramme" EntityType="Self.EntretienProgramme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fournisseur" EntityType="Self.Fournisseur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GIS_GPA" EntityType="Self.GIS_GPA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GISLastUpdate" EntityType="Self.GISLastUpdate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HISTORIQUE_CONNEXION" EntityType="Self.HISTORIQUE_CONNEXION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KilometrageMensuel" EntityType="Self.KilometrageMensuel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LectureKilometrage" EntityType="Self.LectureKilometrage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModeleC100KM" EntityType="Self.ModeleC100KM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parametre" EntityType="Self.Parametre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParametresDepenses" EntityType="Self.ParametresDepenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Piece" EntityType="Self.Piece" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REFERENTIEL" EntityType="Self.REFERENTIEL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reparation" EntityType="Self.Reparation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TYPE_REFERENTIEL" EntityType="Self.TYPE_REFERENTIEL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicule" EntityType="Self.Vehicule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiculeAcquisition" EntityType="Self.VehiculeAcquisition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiculeAcquisitionPaiement" EntityType="Self.VehiculeAcquisitionPaiement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiculeConducteur" EntityType="Self.VehiculeConducteur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiculeDepartement" EntityType="Self.VehiculeDepartement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiculeDocuments" EntityType="Self.VehiculeDocuments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiculeModeles" EntityType="Self.VehiculeModeles" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GPAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessRight">
+          <Key>
+            <PropertyRef Name="IdAccessRight" />
+          </Key>
+          <Property Name="IdAccessRight" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="AccessRight1" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccessRightDepartement">
+          <Key>
+            <PropertyRef Name="IdAccessRightDepartement" />
+          </Key>
+          <Property Name="IdAccessRightDepartement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartementId" Type="Int32" Nullable="false" />
+          <Property Name="UtilisateurId" Type="Int32" Nullable="false" />
+          <Property Name="Visualisation" Type="Boolean" Nullable="false" />
+          <Property Name="Saisie" Type="Boolean" Nullable="false" />
+          <Property Name="Validation" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AlerteEmail">
+          <Key>
+            <PropertyRef Name="IdAlerteEmail" />
+          </Key>
+          <Property Name="IdAlerteEmail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="AlerteEmail1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeAlerteId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Carburant">
+          <Key>
+            <PropertyRef Name="IdCarburant" />
+          </Key>
+          <Property Name="IdCarburant" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="VehiculeId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCarburant" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="QuantiteCarburant" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="CoutUnitaireCarburant" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="FournisseurId" Type="Int32" />
+          <Property Name="KilometrageDebut" Type="Int32" />
+          <Property Name="KilometrageFin" Type="Int32" />
+          <Property Name="NoteCarburant" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CoutTotal" Type="Decimal" Precision="18" Scale="3" />
+        </EntityType>
+        <EntityType Name="CarburantCoutUnitaire">
+          <Key>
+            <PropertyRef Name="IdCoutUnitaireCarburant" />
+          </Key>
+          <Property Name="IdCoutUnitaireCarburant" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code_refCarburant" Type="Int32" Nullable="false" />
+          <Property Name="CoutUnitaireCarburant" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="DateChangementTarif" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="IdClient" />
+          </Key>
+          <Property Name="IdClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomClient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdresseClient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VilleClient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodePostalClient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactClient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Tel1Client" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel2Client" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FaxClient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SiteWebClient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmailClient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GisParametres" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Depense">
+          <Key>
+            <PropertyRef Name="IdDepense" />
+          </Key>
+          <Property Name="IdDepense" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="EntretienId" Type="Int32" />
+          <Property Name="ReparationId" Type="Int32" />
+          <Property Name="QuantiteDepense" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="CoutUnitaireDepense" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="PieceId" Type="Int32" />
+          <Property Name="ExpirationGarantie" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NoteDepense" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Entretien">
+          <Key>
+            <PropertyRef Name="IdEntretien" />
+          </Key>
+          <Property Name="IdEntretien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="VehiculeId" Type="Int32" Nullable="false" />
+          <Property Name="DateEntretien" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FournisseurId" Type="Int32" />
+          <Property Name="DescriptionEntretien" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CoutEntretien" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="KilometrageEntretien" Type="Int32" />
+          <Property Name="NoteEntretien" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EntretienMaitre">
+          <Key>
+            <PropertyRef Name="IdEntretienMaitre" />
+          </Key>
+          <Property Name="IdEntretienMaitre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="DescriptionEntretienMaitre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RepeterNb" Type="Int32" />
+          <Property Name="RepeterPeriode" Type="Int32" />
+          <Property Name="RepeterKilometrage" Type="Int32" />
+          <Property Name="RappelNb" Type="Int32" />
+          <Property Name="RappelPeriode" Type="Int32" />
+          <Property Name="RappelKilometrage" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EntretienProgramme">
+          <Key>
+            <PropertyRef Name="IdEntretienProgramme" />
+          </Key>
+          <Property Name="IdEntretienProgramme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="VehiculeId" Type="Int32" Nullable="false" />
+          <Property Name="EntretienMaitreId" Type="Int32" Nullable="false" />
+          <Property Name="RepeterNb" Type="Int32" />
+          <Property Name="RepeterPeriode" Type="Int32" />
+          <Property Name="RepeterKilometrage" Type="Int32" />
+          <Property Name="RappelNb" Type="Int32" />
+          <Property Name="RappelPeriode" Type="Int32" />
+          <Property Name="RappelKilometrage" Type="Int32" />
+          <Property Name="DateExecution" Type="DateTime" Precision="3" />
+          <Property Name="KilometrageExecution" Type="Int32" />
+          <Property Name="ProchaineDate" Type="DateTime" Precision="3" />
+          <Property Name="ProchaineKilometrage" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="IdFournisseur" />
+          </Key>
+          <Property Name="IdFournisseur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="TypeFournisseur" Type="Int32" Nullable="false" />
+          <Property Name="NomFournisseur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdresseFournisseur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VilleFournisseur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodePostalFournisseur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactFournisseur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Tel1Fournisseur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel2Fournisseur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FaxFournisseur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SiteWebFournisseur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmailFournisseur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GIS_GPA">
+          <Key>
+            <PropertyRef Name="IdGisGpa" />
+          </Key>
+          <Property Name="IdGisGpa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="VehiculeGPAId" Type="Int32" Nullable="false" />
+          <Property Name="VehiculeGis" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VehiculeGisId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="GISLastUpdate">
+          <Key>
+            <PropertyRef Name="IdUpdate" />
+          </Key>
+          <Property Name="IdUpdate" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="HISTORIQUE_CONNEXION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="Int32" Nullable="false" />
+          <Property Name="LogIn_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LogOut_Date" Type="DateTime" Precision="3" />
+          <Property Name="AdresseIP" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LectureKilometrage">
+          <Key>
+            <PropertyRef Name="IdLectureKilometrage" />
+          </Key>
+          <Property Name="IdLectureKilometrage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="VehiculeId" Type="Int32" Nullable="false" />
+          <Property Name="DateLectureKilometrage" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Kilometrage" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Parametre">
+          <Key>
+            <PropertyRef Name="ParameterId" />
+          </Key>
+          <Property Name="ParameterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Piece">
+          <Key>
+            <PropertyRef Name="IdPiece" />
+          </Key>
+          <Property Name="IdPiece" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="NumeroPiece" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NomPiece" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrixPiece" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="DatePrixPiece" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FournisseurId" Type="Int32" />
+          <Property Name="Constructeur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="REFERENTIEL">
+          <Key>
+            <PropertyRef Name="ID_REFERENTIELS" />
+          </Key>
+          <Property Name="ID_REFERENTIELS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KEY_REF" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CODE_REF" Type="Int32" Nullable="false" />
+          <Property Name="VALUE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reparation">
+          <Key>
+            <PropertyRef Name="IdReparation" />
+          </Key>
+          <Property Name="IdReparation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="VehiculeId" Type="Int32" Nullable="false" />
+          <Property Name="DateReparation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateMiseService" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HeuresArret" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="FournisseurId" Type="Int32" />
+          <Property Name="DescriptionReparation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CoutReparation" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="KilometrageReparation" Type="Int32" />
+          <Property Name="NoteReparation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DescriptionRole" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProfileRole" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TYPE_REFERENTIEL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KEY_REF" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LIBELLE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="IdUtilisateur" />
+          </Key>
+          <Property Name="IdUtilisateur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="NomUtilisateur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrenomUtilisateur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginUtilisateur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordUtilisateur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailUtilisateur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FonctionUtilisateur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vehicule">
+          <Key>
+            <PropertyRef Name="IdVehicule" />
+          </Key>
+          <Property Name="IdVehicule" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="MatriculeVehicule" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CouleurVehicule" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NumeroSerieVehicule" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MiseCirculation" Type="DateTime" Precision="3" />
+          <Property Name="TypeCarburantId" Type="Int32" />
+          <Property Name="TypeVehiculeId" Type="Int32" />
+          <Property Name="DepartementId" Type="Int32" />
+          <Property Name="ConducteurId" Type="Int32" />
+          <Property Name="IsActif" Type="Boolean" Nullable="false" />
+          <Property Name="codeRefMarque" Type="Int32" />
+          <Property Name="IdModele" Type="Int32" />
+        </EntityType>
+        <EntityType Name="VehiculeAcquisition">
+          <Key>
+            <PropertyRef Name="IdAcquisition" />
+          </Key>
+          <Property Name="IdAcquisition" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehiculeId" Type="Int32" Nullable="false" />
+          <Property Name="IsLocation" Type="Boolean" />
+          <Property Name="FournisseurId" Type="Int32" />
+          <Property Name="DateAcquisition" Type="DateTime" Precision="3" />
+          <Property Name="KilometrageAcquisition" Type="Int32" />
+          <Property Name="PrixAcquisition" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ExpirationGarantie" Type="DateTime" Precision="3" />
+          <Property Name="PrixVente" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="NoteAcquisition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VehiculeAcquisitionPaiement">
+          <Key>
+            <PropertyRef Name="IdPaiement" />
+          </Key>
+          <Property Name="IdPaiement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AcquisitionId" Type="Int32" Nullable="false" />
+          <Property Name="ReferencePaiement" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DatePaiement" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MontantPaiement" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="NotePaiement" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VehiculeConducteur">
+          <Key>
+            <PropertyRef Name="IdConducteur" />
+          </Key>
+          <Property Name="IdConducteur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="NomConducteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrenomConducteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateNaissanceConducteur" Type="DateTime" Precision="3" />
+          <Property Name="DateEmbaucheConducteur" Type="DateTime" Precision="3" />
+          <Property Name="NumeroPermisConducteur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdresseConducteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VilleConducteur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodePostalConducteur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel1Conducteur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tel2Conducteur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConducteur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VehiculeDepartement">
+          <Key>
+            <PropertyRef Name="IdDepartement" />
+          </Key>
+          <Property Name="IdDepartement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="NomDepartement" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="code" Type="Int32" />
+        </EntityType>
+        <EntityType Name="VehiculeDocument">
+          <Key>
+            <PropertyRef Name="IdDocuments" />
+          </Key>
+          <Property Name="IdDocuments" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehiculeId" Type="Int32" Nullable="false" />
+          <Property Name="FournisseurAssuranceId" Type="Int32" />
+          <Property Name="DateAssurance" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationAssurance" Type="DateTime" Precision="3" />
+          <Property Name="RappelAssurance" Type="Int32" />
+          <Property Name="NoteAssurance" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateTaxeCirculation" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationTaxeCirculation" Type="DateTime" Precision="3" />
+          <Property Name="RappelTaxeCirculation" Type="Int32" />
+          <Property Name="NoteTaxeCirculation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DerniereVisiteTechnique" Type="DateTime" Precision="3" />
+          <Property Name="ProchaineVisiteTechnique" Type="DateTime" Precision="3" />
+          <Property Name="RappelVisiteTechnique" Type="Int32" />
+          <Property Name="NoteVisiteTechnique" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VehiculeModele">
+          <Key>
+            <PropertyRef Name="IdModele" />
+          </Key>
+          <Property Name="IdModele" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeRefMarque" Type="Int32" Nullable="false" />
+          <Property Name="NomModele" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessRights" EntityType="Self.AccessRight" />
+          <EntitySet Name="AccessRightDepartements" EntityType="Self.AccessRightDepartement" />
+          <EntitySet Name="AlerteEmails" EntityType="Self.AlerteEmail" />
+          <EntitySet Name="Carburants" EntityType="Self.Carburant" />
+          <EntitySet Name="CarburantCoutUnitaires" EntityType="Self.CarburantCoutUnitaire" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Depenses" EntityType="Self.Depense" />
+          <EntitySet Name="Entretiens" EntityType="Self.Entretien" />
+          <EntitySet Name="EntretienMaitres" EntityType="Self.EntretienMaitre" />
+          <EntitySet Name="EntretienProgrammes" EntityType="Self.EntretienProgramme" />
+          <EntitySet Name="Fournisseurs" EntityType="Self.Fournisseur" />
+          <EntitySet Name="GIS_GPA" EntityType="Self.GIS_GPA" />
+          <EntitySet Name="GISLastUpdates" EntityType="Self.GISLastUpdate" />
+          <EntitySet Name="HISTORIQUE_CONNEXION" EntityType="Self.HISTORIQUE_CONNEXION" />
+          <EntitySet Name="LectureKilometrages" EntityType="Self.LectureKilometrage" />
+          <EntitySet Name="Parametres" EntityType="Self.Parametre" />
+          <EntitySet Name="Pieces" EntityType="Self.Piece" />
+          <EntitySet Name="REFERENTIELs" EntityType="Self.REFERENTIEL" />
+          <EntitySet Name="Reparations" EntityType="Self.Reparation" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="TYPE_REFERENTIEL" EntityType="Self.TYPE_REFERENTIEL" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateur" />
+          <EntitySet Name="Vehicules" EntityType="Self.Vehicule" />
+          <EntitySet Name="VehiculeAcquisitions" EntityType="Self.VehiculeAcquisition" />
+          <EntitySet Name="VehiculeAcquisitionPaiements" EntityType="Self.VehiculeAcquisitionPaiement" />
+          <EntitySet Name="VehiculeConducteurs" EntityType="Self.VehiculeConducteur" />
+          <EntitySet Name="VehiculeDepartements" EntityType="Self.VehiculeDepartement" />
+          <EntitySet Name="VehiculeDocuments" EntityType="Self.VehiculeDocument" />
+          <EntitySet Name="VehiculeModeles" EntityType="Self.VehiculeModele" />
+          <EntitySet Name="ModeleC100KM" EntityType="GPAModel.ModeleC100KM" />
+          <EntitySet Name="KilometrageMensuels" EntityType="GPAModel.KilometrageMensuel" />
+          <EntitySet Name="DepensesClients" EntityType="GPAModel.DepensesClient" />
+          <EntitySet Name="ParametresDepenses" EntityType="GPAModel.ParametresDepens" />
+        </EntityContainer>
+        <EntityType Name="ModeleC100KM">
+          <Key>
+            <PropertyRef Name="IdModeleC100KM" />
+          </Key>
+          <Property Name="IdModeleC100KM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="ModeleId" Type="Int32" Nullable="false" />
+          <Property Name="C100KM" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+        </EntityType>
+        <EntityType Name="KilometrageMensuel">
+          <Key>
+            <PropertyRef Name="IdKilometrageMensuel" />
+          </Key>
+          <Property Name="IdKilometrageMensuel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="VehiculeId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Kilometrage" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="Note" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DepensesClient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepenseId" Type="Int32" Nullable="false" />
+          <Property Name="DateDepenses" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Kilometrage" Type="Int32" />
+          <Property Name="NoteDepenses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CoutTotal" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="VehiculeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ParametresDepens">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="Depense" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GPAModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="AccessRights">
+            <EntityTypeMapping TypeName="GPAModel.AccessRight">
+              <MappingFragment StoreEntitySet="AccessRight">
+                <ScalarProperty Name="IdAccessRight" ColumnName="IdAccessRight" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="AccessRight1" ColumnName="AccessRight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccessRightDepartements">
+            <EntityTypeMapping TypeName="GPAModel.AccessRightDepartement">
+              <MappingFragment StoreEntitySet="AccessRightDepartement">
+                <ScalarProperty Name="IdAccessRightDepartement" ColumnName="IdAccessRightDepartement" />
+                <ScalarProperty Name="DepartementId" ColumnName="DepartementId" />
+                <ScalarProperty Name="UtilisateurId" ColumnName="UtilisateurId" />
+                <ScalarProperty Name="Visualisation" ColumnName="Visualisation" />
+                <ScalarProperty Name="Saisie" ColumnName="Saisie" />
+                <ScalarProperty Name="Validation" ColumnName="Validation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlerteEmails">
+            <EntityTypeMapping TypeName="GPAModel.AlerteEmail">
+              <MappingFragment StoreEntitySet="AlerteEmail">
+                <ScalarProperty Name="IdAlerteEmail" ColumnName="IdAlerteEmail" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="AlerteEmail1" ColumnName="AlerteEmail" />
+                <ScalarProperty Name="TypeAlerteId" ColumnName="TypeAlerteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carburants">
+            <EntityTypeMapping TypeName="GPAModel.Carburant">
+              <MappingFragment StoreEntitySet="Carburant">
+                <ScalarProperty Name="IdCarburant" ColumnName="IdCarburant" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateCarburant" ColumnName="DateCarburant" />
+                <ScalarProperty Name="QuantiteCarburant" ColumnName="QuantiteCarburant" />
+                <ScalarProperty Name="CoutUnitaireCarburant" ColumnName="CoutUnitaireCarburant" />
+                <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+                <ScalarProperty Name="KilometrageDebut" ColumnName="KilometrageDebut" />
+                <ScalarProperty Name="KilometrageFin" ColumnName="KilometrageFin" />
+                <ScalarProperty Name="NoteCarburant" ColumnName="NoteCarburant" />
+                <ScalarProperty Name="CoutTotal" ColumnName="CoutTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarburantCoutUnitaires">
+            <EntityTypeMapping TypeName="GPAModel.CarburantCoutUnitaire">
+              <MappingFragment StoreEntitySet="CarburantCoutUnitaire">
+                <ScalarProperty Name="IdCoutUnitaireCarburant" ColumnName="IdCoutUnitaireCarburant" />
+                <ScalarProperty Name="Code_refCarburant" ColumnName="Code_refCarburant" />
+                <ScalarProperty Name="CoutUnitaireCarburant" ColumnName="CoutUnitaireCarburant" />
+                <ScalarProperty Name="DateChangementTarif" ColumnName="DateChangementTarif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="GPAModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="NomClient" ColumnName="NomClient" />
+                <ScalarProperty Name="AdresseClient" ColumnName="AdresseClient" />
+                <ScalarProperty Name="VilleClient" ColumnName="VilleClient" />
+                <ScalarProperty Name="CodePostalClient" ColumnName="CodePostalClient" />
+                <ScalarProperty Name="ContactClient" ColumnName="ContactClient" />
+                <ScalarProperty Name="Tel1Client" ColumnName="Tel1Client" />
+                <ScalarProperty Name="Tel2Client" ColumnName="Tel2Client" />
+                <ScalarProperty Name="FaxClient" ColumnName="FaxClient" />
+                <ScalarProperty Name="SiteWebClient" ColumnName="SiteWebClient" />
+                <ScalarProperty Name="EmailClient" ColumnName="EmailClient" />
+                <ScalarProperty Name="GisParametres" ColumnName="GisParametres" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Depenses">
+            <EntityTypeMapping TypeName="GPAModel.Depense">
+              <MappingFragment StoreEntitySet="Depense">
+                <ScalarProperty Name="IdDepense" ColumnName="IdDepense" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="EntretienId" ColumnName="EntretienId" />
+                <ScalarProperty Name="ReparationId" ColumnName="ReparationId" />
+                <ScalarProperty Name="QuantiteDepense" ColumnName="QuantiteDepense" />
+                <ScalarProperty Name="CoutUnitaireDepense" ColumnName="CoutUnitaireDepense" />
+                <ScalarProperty Name="PieceId" ColumnName="PieceId" />
+                <ScalarProperty Name="ExpirationGarantie" ColumnName="ExpirationGarantie" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NoteDepense" ColumnName="NoteDepense" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entretiens">
+            <EntityTypeMapping TypeName="GPAModel.Entretien">
+              <MappingFragment StoreEntitySet="Entretien">
+                <ScalarProperty Name="IdEntretien" ColumnName="IdEntretien" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+                <ScalarProperty Name="DateEntretien" ColumnName="DateEntretien" />
+                <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+                <ScalarProperty Name="DescriptionEntretien" ColumnName="DescriptionEntretien" />
+                <ScalarProperty Name="CoutEntretien" ColumnName="CoutEntretien" />
+                <ScalarProperty Name="KilometrageEntretien" ColumnName="KilometrageEntretien" />
+                <ScalarProperty Name="NoteEntretien" ColumnName="NoteEntretien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntretienMaitres">
+            <EntityTypeMapping TypeName="GPAModel.EntretienMaitre">
+              <MappingFragment StoreEntitySet="EntretienMaitre">
+                <ScalarProperty Name="IdEntretienMaitre" ColumnName="IdEntretienMaitre" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="DescriptionEntretienMaitre" ColumnName="DescriptionEntretienMaitre" />
+                <ScalarProperty Name="RepeterNb" ColumnName="RepeterNb" />
+                <ScalarProperty Name="RepeterPeriode" ColumnName="RepeterPeriode" />
+                <ScalarProperty Name="RepeterKilometrage" ColumnName="RepeterKilometrage" />
+                <ScalarProperty Name="RappelNb" ColumnName="RappelNb" />
+                <ScalarProperty Name="RappelPeriode" ColumnName="RappelPeriode" />
+                <ScalarProperty Name="RappelKilometrage" ColumnName="RappelKilometrage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntretienProgrammes">
+            <EntityTypeMapping TypeName="GPAModel.EntretienProgramme">
+              <MappingFragment StoreEntitySet="EntretienProgramme">
+                <ScalarProperty Name="IdEntretienProgramme" ColumnName="IdEntretienProgramme" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+                <ScalarProperty Name="EntretienMaitreId" ColumnName="EntretienMaitreId" />
+                <ScalarProperty Name="RepeterNb" ColumnName="RepeterNb" />
+                <ScalarProperty Name="RepeterPeriode" ColumnName="RepeterPeriode" />
+                <ScalarProperty Name="RepeterKilometrage" ColumnName="RepeterKilometrage" />
+                <ScalarProperty Name="RappelNb" ColumnName="RappelNb" />
+                <ScalarProperty Name="RappelPeriode" ColumnName="RappelPeriode" />
+                <ScalarProperty Name="RappelKilometrage" ColumnName="RappelKilometrage" />
+                <ScalarProperty Name="DateExecution" ColumnName="DateExecution" />
+                <ScalarProperty Name="KilometrageExecution" ColumnName="KilometrageExecution" />
+                <ScalarProperty Name="ProchaineDate" ColumnName="ProchaineDate" />
+                <ScalarProperty Name="ProchaineKilometrage" ColumnName="ProchaineKilometrage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fournisseurs">
+            <EntityTypeMapping TypeName="GPAModel.Fournisseur">
+              <MappingFragment StoreEntitySet="Fournisseur">
+                <ScalarProperty Name="IdFournisseur" ColumnName="IdFournisseur" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="TypeFournisseur" ColumnName="TypeFournisseur" />
+                <ScalarProperty Name="NomFournisseur" ColumnName="NomFournisseur" />
+                <ScalarProperty Name="AdresseFournisseur" ColumnName="AdresseFournisseur" />
+                <ScalarProperty Name="VilleFournisseur" ColumnName="VilleFournisseur" />
+                <ScalarProperty Name="CodePostalFournisseur" ColumnName="CodePostalFournisseur" />
+                <ScalarProperty Name="ContactFournisseur" ColumnName="ContactFournisseur" />
+                <ScalarProperty Name="Tel1Fournisseur" ColumnName="Tel1Fournisseur" />
+                <ScalarProperty Name="Tel2Fournisseur" ColumnName="Tel2Fournisseur" />
+                <ScalarProperty Name="FaxFournisseur" ColumnName="FaxFournisseur" />
+                <ScalarProperty Name="SiteWebFournisseur" ColumnName="SiteWebFournisseur" />
+                <ScalarProperty Name="EmailFournisseur" ColumnName="EmailFournisseur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GIS_GPA">
+            <EntityTypeMapping TypeName="GPAModel.GIS_GPA">
+              <MappingFragment StoreEntitySet="GIS_GPA">
+                <ScalarProperty Name="IdGisGpa" ColumnName="IdGisGpa" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="VehiculeGPAId" ColumnName="VehiculeGPAId" />
+                <ScalarProperty Name="VehiculeGis" ColumnName="VehiculeGis" />
+                <ScalarProperty Name="VehiculeGisId" ColumnName="VehiculeGisId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GISLastUpdates">
+            <EntityTypeMapping TypeName="GPAModel.GISLastUpdate">
+              <MappingFragment StoreEntitySet="GISLastUpdate">
+                <ScalarProperty Name="IdUpdate" ColumnName="IdUpdate" />
+                <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HISTORIQUE_CONNEXION">
+            <EntityTypeMapping TypeName="GPAModel.HISTORIQUE_CONNEXION">
+              <MappingFragment StoreEntitySet="HISTORIQUE_CONNEXION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="LogIn_Date" ColumnName="LogIn_Date" />
+                <ScalarProperty Name="LogOut_Date" ColumnName="LogOut_Date" />
+                <ScalarProperty Name="AdresseIP" ColumnName="AdresseIP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LectureKilometrages">
+            <EntityTypeMapping TypeName="GPAModel.LectureKilometrage">
+              <MappingFragment StoreEntitySet="LectureKilometrage">
+                <ScalarProperty Name="IdLectureKilometrage" ColumnName="IdLectureKilometrage" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+                <ScalarProperty Name="DateLectureKilometrage" ColumnName="DateLectureKilometrage" />
+                <ScalarProperty Name="Kilometrage" ColumnName="Kilometrage" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametres">
+            <EntityTypeMapping TypeName="GPAModel.Parametre">
+              <MappingFragment StoreEntitySet="Parametre">
+                <ScalarProperty Name="ParameterId" ColumnName="ParameterId" />
+                <ScalarProperty Name="KeyWord" ColumnName="KeyWord" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pieces">
+            <EntityTypeMapping TypeName="GPAModel.Piece">
+              <MappingFragment StoreEntitySet="Piece">
+                <ScalarProperty Name="IdPiece" ColumnName="IdPiece" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="NumeroPiece" ColumnName="NumeroPiece" />
+                <ScalarProperty Name="NomPiece" ColumnName="NomPiece" />
+                <ScalarProperty Name="PrixPiece" ColumnName="PrixPiece" />
+                <ScalarProperty Name="DatePrixPiece" ColumnName="DatePrixPiece" />
+                <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+                <ScalarProperty Name="Constructeur" ColumnName="Constructeur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REFERENTIELs">
+            <EntityTypeMapping TypeName="GPAModel.REFERENTIEL">
+              <MappingFragment StoreEntitySet="REFERENTIEL">
+                <ScalarProperty Name="ID_REFERENTIELS" ColumnName="ID_REFERENTIELS" />
+                <ScalarProperty Name="KEY_REF" ColumnName="KEY_REF" />
+                <ScalarProperty Name="CODE_REF" ColumnName="CODE_REF" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reparations">
+            <EntityTypeMapping TypeName="GPAModel.Reparation">
+              <MappingFragment StoreEntitySet="Reparation">
+                <ScalarProperty Name="IdReparation" ColumnName="IdReparation" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+                <ScalarProperty Name="DateReparation" ColumnName="DateReparation" />
+                <ScalarProperty Name="DateMiseService" ColumnName="DateMiseService" />
+                <ScalarProperty Name="HeuresArret" ColumnName="HeuresArret" />
+                <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+                <ScalarProperty Name="DescriptionReparation" ColumnName="DescriptionReparation" />
+                <ScalarProperty Name="CoutReparation" ColumnName="CoutReparation" />
+                <ScalarProperty Name="KilometrageReparation" ColumnName="KilometrageReparation" />
+                <ScalarProperty Name="NoteReparation" ColumnName="NoteReparation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="GPAModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="NomRole" ColumnName="NomRole" />
+                <ScalarProperty Name="DescriptionRole" ColumnName="DescriptionRole" />
+                <ScalarProperty Name="ProfileRole" ColumnName="ProfileRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TYPE_REFERENTIEL">
+            <EntityTypeMapping TypeName="GPAModel.TYPE_REFERENTIEL">
+              <MappingFragment StoreEntitySet="TYPE_REFERENTIEL">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KEY_REF" ColumnName="KEY_REF" />
+                <ScalarProperty Name="LIBELLE" ColumnName="LIBELLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateurs">
+            <EntityTypeMapping TypeName="GPAModel.Utilisateur">
+              <MappingFragment StoreEntitySet="Utilisateur">
+                <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="NomUtilisateur" ColumnName="NomUtilisateur" />
+                <ScalarProperty Name="PrenomUtilisateur" ColumnName="PrenomUtilisateur" />
+                <ScalarProperty Name="LoginUtilisateur" ColumnName="LoginUtilisateur" />
+                <ScalarProperty Name="PasswordUtilisateur" ColumnName="PasswordUtilisateur" />
+                <ScalarProperty Name="EmailUtilisateur" ColumnName="EmailUtilisateur" />
+                <ScalarProperty Name="FonctionUtilisateur" ColumnName="FonctionUtilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicules">
+            <EntityTypeMapping TypeName="GPAModel.Vehicule">
+              <MappingFragment StoreEntitySet="Vehicule">
+                <ScalarProperty Name="IdVehicule" ColumnName="IdVehicule" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="MatriculeVehicule" ColumnName="MatriculeVehicule" />
+                <ScalarProperty Name="CouleurVehicule" ColumnName="CouleurVehicule" />
+                <ScalarProperty Name="NumeroSerieVehicule" ColumnName="NumeroSerieVehicule" />
+                <ScalarProperty Name="MiseCirculation" ColumnName="MiseCirculation" />
+                <ScalarProperty Name="TypeCarburantId" ColumnName="TypeCarburantId" />
+                <ScalarProperty Name="TypeVehiculeId" ColumnName="TypeVehiculeId" />
+                <ScalarProperty Name="DepartementId" ColumnName="DepartementId" />
+                <ScalarProperty Name="ConducteurId" ColumnName="ConducteurId" />
+                <ScalarProperty Name="IsActif" ColumnName="IsActif" />
+                <ScalarProperty Name="codeRefMarque" ColumnName="codeRefMarque" />
+                <ScalarProperty Name="IdModele" ColumnName="IdModele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehiculeAcquisitions">
+            <EntityTypeMapping TypeName="GPAModel.VehiculeAcquisition">
+              <MappingFragment StoreEntitySet="VehiculeAcquisition">
+                <ScalarProperty Name="IdAcquisition" ColumnName="IdAcquisition" />
+                <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+                <ScalarProperty Name="IsLocation" ColumnName="IsLocation" />
+                <ScalarProperty Name="FournisseurId" ColumnName="FournisseurId" />
+                <ScalarProperty Name="DateAcquisition" ColumnName="DateAcquisition" />
+                <ScalarProperty Name="KilometrageAcquisition" ColumnName="KilometrageAcquisition" />
+                <ScalarProperty Name="PrixAcquisition" ColumnName="PrixAcquisition" />
+                <ScalarProperty Name="ExpirationGarantie" ColumnName="ExpirationGarantie" />
+                <ScalarProperty Name="PrixVente" ColumnName="PrixVente" />
+                <ScalarProperty Name="NoteAcquisition" ColumnName="NoteAcquisition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehiculeAcquisitionPaiements">
+            <EntityTypeMapping TypeName="GPAModel.VehiculeAcquisitionPaiement">
+              <MappingFragment StoreEntitySet="VehiculeAcquisitionPaiement">
+                <ScalarProperty Name="IdPaiement" ColumnName="IdPaiement" />
+                <ScalarProperty Name="AcquisitionId" ColumnName="AcquisitionId" />
+                <ScalarProperty Name="ReferencePaiement" ColumnName="ReferencePaiement" />
+                <ScalarProperty Name="DatePaiement" ColumnName="DatePaiement" />
+                <ScalarProperty Name="MontantPaiement" ColumnName="MontantPaiement" />
+                <ScalarProperty Name="NotePaiement" ColumnName="NotePaiement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehiculeConducteurs">
+            <EntityTypeMapping TypeName="GPAModel.VehiculeConducteur">
+              <MappingFragment StoreEntitySet="VehiculeConducteur">
+                <ScalarProperty Name="IdConducteur" ColumnName="IdConducteur" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="NomConducteur" ColumnName="NomConducteur" />
+                <ScalarProperty Name="PrenomConducteur" ColumnName="PrenomConducteur" />
+                <ScalarProperty Name="DateNaissanceConducteur" ColumnName="DateNaissanceConducteur" />
+                <ScalarProperty Name="DateEmbaucheConducteur" ColumnName="DateEmbaucheConducteur" />
+                <ScalarProperty Name="NumeroPermisConducteur" ColumnName="NumeroPermisConducteur" />
+                <ScalarProperty Name="AdresseConducteur" ColumnName="AdresseConducteur" />
+                <ScalarProperty Name="VilleConducteur" ColumnName="VilleConducteur" />
+                <ScalarProperty Name="CodePostalConducteur" ColumnName="CodePostalConducteur" />
+                <ScalarProperty Name="Tel1Conducteur" ColumnName="Tel1Conducteur" />
+                <ScalarProperty Name="Tel2Conducteur" ColumnName="Tel2Conducteur" />
+                <ScalarProperty Name="EmailConducteur" ColumnName="EmailConducteur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehiculeDepartements">
+            <EntityTypeMapping TypeName="GPAModel.VehiculeDepartement">
+              <MappingFragment StoreEntitySet="VehiculeDepartement">
+                <ScalarProperty Name="IdDepartement" ColumnName="IdDepartement" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="NomDepartement" ColumnName="NomDepartement" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehiculeDocuments">
+            <EntityTypeMapping TypeName="GPAModel.VehiculeDocument">
+              <MappingFragment StoreEntitySet="VehiculeDocuments">
+                <ScalarProperty Name="IdDocuments" ColumnName="IdDocuments" />
+                <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+                <ScalarProperty Name="FournisseurAssuranceId" ColumnName="FournisseurAssuranceId" />
+                <ScalarProperty Name="DateAssurance" ColumnName="DateAssurance" />
+                <ScalarProperty Name="ExpirationAssurance" ColumnName="ExpirationAssurance" />
+                <ScalarProperty Name="RappelAssurance" ColumnName="RappelAssurance" />
+                <ScalarProperty Name="NoteAssurance" ColumnName="NoteAssurance" />
+                <ScalarProperty Name="DateTaxeCirculation" ColumnName="DateTaxeCirculation" />
+                <ScalarProperty Name="ExpirationTaxeCirculation" ColumnName="ExpirationTaxeCirculation" />
+                <ScalarProperty Name="RappelTaxeCirculation" ColumnName="RappelTaxeCirculation" />
+                <ScalarProperty Name="NoteTaxeCirculation" ColumnName="NoteTaxeCirculation" />
+                <ScalarProperty Name="DerniereVisiteTechnique" ColumnName="DerniereVisiteTechnique" />
+                <ScalarProperty Name="ProchaineVisiteTechnique" ColumnName="ProchaineVisiteTechnique" />
+                <ScalarProperty Name="RappelVisiteTechnique" ColumnName="RappelVisiteTechnique" />
+                <ScalarProperty Name="NoteVisiteTechnique" ColumnName="NoteVisiteTechnique" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehiculeModeles">
+            <EntityTypeMapping TypeName="GPAModel.VehiculeModele">
+              <MappingFragment StoreEntitySet="VehiculeModeles">
+                <ScalarProperty Name="IdModele" ColumnName="IdModele" />
+                <ScalarProperty Name="CodeRefMarque" ColumnName="CodeRefMarque" />
+                <ScalarProperty Name="NomModele" ColumnName="NomModele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModeleC100KM">
+            <EntityTypeMapping TypeName="GPAModel.ModeleC100KM">
+              <MappingFragment StoreEntitySet="ModeleC100KM">
+                <ScalarProperty Name="C100KM" ColumnName="C100KM" />
+                <ScalarProperty Name="ModeleId" ColumnName="ModeleId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="IdModeleC100KM" ColumnName="IdModeleC100KM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KilometrageMensuels">
+            <EntityTypeMapping TypeName="GPAModel.KilometrageMensuel">
+              <MappingFragment StoreEntitySet="KilometrageMensuel">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Kilometrage" ColumnName="Kilometrage" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="IdKilometrageMensuel" ColumnName="IdKilometrageMensuel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepensesClients">
+            <EntityTypeMapping TypeName="GPAModel.DepensesClient">
+              <MappingFragment StoreEntitySet="DepensesClient">
+                <ScalarProperty Name="VehiculeId" ColumnName="VehiculeId" />
+                <ScalarProperty Name="CoutTotal" ColumnName="CoutTotal" />
+                <ScalarProperty Name="NoteDepenses" ColumnName="NoteDepenses" />
+                <ScalarProperty Name="Kilometrage" ColumnName="Kilometrage" />
+                <ScalarProperty Name="DateDepenses" ColumnName="DateDepenses" />
+                <ScalarProperty Name="DepenseId" ColumnName="DepenseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParametresDepenses">
+            <EntityTypeMapping TypeName="GPAModel.ParametresDepens">
+              <MappingFragment StoreEntitySet="ParametresDepenses">
+                <ScalarProperty Name="Depense" ColumnName="Depense" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,69 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.AlerteEmailModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdAlerteEmail" name="IdAlerteEmail" type="hidden">
+
+@if (myUser.Profile == 1)
+{
+    <div class="col-md-12">
+        <label>Client</label>
+        @(Html.Kendo().DropDownListFor(m => m.ClientId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Email</label>
+        @Html.Kendo().TextBox().Name("AlerteEmail").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Type</label>
+        @(Html.Kendo().DropDownListFor(m => m.TypeAlerteId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner type...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_ALERTE" }));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+}
+else
+{
+    <div class="col-md-6">
+        <label>Email</label>
+        @Html.Kendo().TextBox().Name("AlerteEmail").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+
+    <div class="col-md-6">
+        <label>Type</label>
+        @(Html.Kendo().DropDownListFor(m => m.TypeAlerteId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner type...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_ALERTE" }));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+}
+
+<div class="clearfix"></div>

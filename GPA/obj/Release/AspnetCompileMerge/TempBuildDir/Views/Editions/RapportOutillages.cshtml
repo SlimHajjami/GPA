@@ -1,0 +1,180 @@
+﻿@{
+    ViewBag.Title = "Rapport Outillages";
+    Layout = "~/Views/Shared/_LayoutEditions.cshtml";
+}
+
+@using GPB.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>  Rapport outillages</h5>
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+
+                    <div class="row" style="margin:1px;">
+
+                        <div class="col-md-4">
+                            <label>Dépôt </label>
+                            @(Html.Kendo().DropDownList()
+                                     .Name("dropdown")
+                                     .DataTextField("Libelle").Template("<input type='checkbox' name='cb' value='#:data.Libelle#' /> #:data.Libelle# <input type='hidden' name='id' value='#:data.Id#' />")
+                                     .DataValueField("Id").Events(e => e.Select("onSelect"))
+                                     .DataSource(source =>
+                                     {
+                                         source.Read(read =>
+                                         {
+                                             read.Action("GetDepotsForComboForReport", "SuiviMateriels");
+                                         });
+                                     })
+                                     .HtmlAttributes(new { style = "width: 100%" })
+                            )
+                        </div>
+
+
+                        <div class="col-md-12" style="margin-top:15px;">
+                            @(Html.Kendo().Button()
+                                        .Name("EXCEL")
+                                        .Content("Exporter")
+                                                        .HtmlAttributes(new { type = "button", style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold; background-color: #fff;float:right;" })
+                                        .Events(ev => ev.Click("EXCEL"))
+                                        .SpriteCssClass("k-icon excel-file")
+                            )
+
+                            @(Html.Kendo().Button()
+                                        .Name("PDF")
+                                        .Content("Exporter")
+                                                        .HtmlAttributes(new { type = "button", style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold; background-color: #fff;float:right;" })
+                                        .Events(ev => ev.Click("PDF"))
+                                                .SpriteCssClass("k-icon pdf-file")
+                            )
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var depotsIds = [];
+
+    function PDF() {
+        var idsDepots = JSON.stringify({ idsDepots: depotsIds });
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetParameters", "SuiviMateriels")',
+            contentType: "application/json; charset=utf-8",
+            data: idsDepots,
+            dataType: "json",
+            success: function (result) {
+                window.open('@Url.Action("OutillagesReport", "SuiviMateriels")' + "?type=PDF");
+            },
+            error: function (result) {
+               alert('Oh no :(');
+            }
+        });
+    }
+
+    function EXCEL() {
+        var model = {
+            idDepot: $("#IdDepot").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetParameters", "SuiviMateriels")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(model),
+            dataType: "json",
+            success: function (result) {
+                window.open('@Url.Action("OutillagesReport", "SuiviMateriels")' + "?type=EXCEL");
+            },
+            error: function (result) {
+                alert('Oh no :(');
+            }
+        });
+    }
+
+    (function ($) {
+        var MultiSelectBox = window.kendo.ui.DropDownList.extend({
+            _select: function (li) { },//Prevents highlighting
+            _blur: function () { },//Prevents auto close
+        });
+        window.kendo.ui.plugin(MultiSelectBox);
+    })(jQuery);
+    //Sets up your optional label
+    $(document).ready(function () {
+        $("#dropdown").data("kendoDropDownList").text("Selectionnez...");
+    })
+
+    function onSelect(e) {
+        var dataItem = this.dataItem(e.item);
+
+        var ddl = $("#dropdown").data("kendoDropDownList");
+        var cbs = document.getElementsByName("cb");
+        var ids = document.getElementsByName("id");
+        var display;
+        var list = [];
+        var idsList = [];
+        depotsIds = [];
+
+        if (dataItem.Id == 0) {
+            if (cbs[0].checked) {
+                for (var i = 1; i < cbs.length; i++) {
+                    cbs[i].checked = true;
+                }
+            }
+            else {
+                for (var i = 1; i < cbs.length; i++) {
+                    cbs[i].checked = false;
+                }
+            }
+        }
+
+        for (var i = 0; i < cbs.length; i++) {
+            if (cbs[i].checked) {
+                list.push(cbs[i].value);
+                if (ids[i].value != 0) {
+                    idsList.push(ids[i].value);
+                }
+            }
+        }
+        if (list.length == 0) {
+            display = "Selectionnez...";
+        }
+        else if (dataItem.Id == 0 && cbs[0].checked) {
+            display = "Tous";
+        }
+        else {
+            display = list.join(", ");
+        }
+        if (idsList.length != 0) {
+            depotsIds = idsList;
+        }
+        ddl.text(display);
+    }
+</script>
+
+

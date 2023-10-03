@@ -1,0 +1,12 @@
+D:\SVN\GPA\trunk\GPA.DAL\bin\Release\GPA.DAL.dll.config
+D:\SVN\GPA\trunk\GPA.DAL\bin\Release\GPA.DAL.dll
+D:\SVN\GPA\trunk\GPA.DAL\bin\Release\GPA.DAL.pdb
+D:\SVN\GPA\trunk\GPA.DAL\bin\Release\EntityFramework.dll
+D:\SVN\GPA\trunk\GPA.DAL\bin\Release\EntityFramework.SqlServer.dll
+D:\SVN\GPA\trunk\GPA.DAL\bin\Release\GPA.Models.dll
+D:\SVN\GPA\trunk\GPA.DAL\bin\Release\GPA.Models.pdb
+D:\SVN\GPA\trunk\GPA.DAL\bin\Release\EntityFramework.xml
+D:\SVN\GPA\trunk\GPA.DAL\bin\Release\EntityFramework.SqlServer.xml
+D:\SVN\GPA\trunk\GPA.DAL\obj\Release\GPA.DAL.csprojResolveAssemblyReference.cache
+D:\SVN\GPA\trunk\GPA.DAL\obj\Release\GPA.DAL.dll
+D:\SVN\GPA\trunk\GPA.DAL\obj\Release\GPA.DAL.pdb

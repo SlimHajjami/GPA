@@ -1,0 +1,498 @@
+﻿@{
+    ViewBag.Title = "Rapport réglements entreprises";
+    Layout = "~/Views/Shared/_LayoutEditions.cshtml";
+}
+
+@using GPB.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>  Rapport réglements entreprises</h5>
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+
+                    <div class="row" style="margin:1px;">
+                        <div class="col-md-3">
+                            <label>Projet</label>
+                            @(Html.Kendo().DropDownList()
+                               .Name("projet")
+                               .DataTextField("LIBELLE").OptionLabel("Sélectionnez...")
+                               .DataValueField("ID_PROJET")
+                               .DataSource(source =>
+                               {
+                                   source.Read(read =>
+                                   {
+                                       read.Action("GetProjects", "CmbBoxs");
+                                   });
+                               })
+                                   .HtmlAttributes(new { style = "width: 100%;" })
+                               .Events(e =>
+                               {
+                                   e.Change("onChangeProjet");
+                               })
+                            )
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Entreprise </label>
+                            @(Html.Kendo().DropDownList()
+                                .Name("entreprise")
+                                    .DataTextField("RaisonSocial").OptionLabel("Sélectionnez...")
+                                .DataValueField("IdEntreprise")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("GetEntreprisesProjet", "CmbBoxs").Data("projetData");
+                                    }).ServerFiltering(true);
+                                }).CascadeFrom("projet")
+                                    .HtmlAttributes(new { style = "width: 100%;" })
+                                .Events(e =>
+                                {
+                                    e.Change("onChangeEntreprise");
+                                })
+                            )
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>Etat</label>
+                            @(Html.Kendo().DropDownList()
+                                    .Name("Etat")
+                                    .DataTextField("Text").OptionLabel("Sélectionnez...")
+                                    .DataValueField("Value")
+                                            .Events(e => e.Change("onChangeEtat"))
+                                    .BindTo(new List<SelectListItem>() {
+                                        new SelectListItem() {
+                                            Value = "2",
+                                            Text = "Non Facturé"
+                                        },
+                                        new SelectListItem() {
+                                            Value = "3",
+                                            Text = "Facturé"
+                                        }
+                                    }).SelectedIndex(1)
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                            )
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>Année</label>
+                            @(Html.Kendo().DropDownList()
+                                            .Name("dropdownAnnee")
+                                            .DataTextField("Text").OptionLabel("Sélectionnez...")
+                                    .DataValueField("Value")
+                                            .Events(e => e.Change("onChangeAnnee"))
+                                    .BindTo(new List<SelectListItem>() {
+                                        new SelectListItem() {
+                                            Text = "2013",
+                                            Value = "2013"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2014",
+                                            Value = "2014"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2015",
+                                            Value = "2015"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2016",
+                                            Value = "2016"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "2017",
+                                            Value = "2017"
+                                        }
+                                    })
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                            )
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>Mois</label>
+                            @(Html.Kendo().DropDownList()
+                                       .Name("dropdownMois")
+                                       .DataTextField("Text").OptionLabel("Sélectionnez...")
+                                       .DataValueField("Value")
+                                       .Events(e => e.Change("onChangeMois"))
+                                       .BindTo(new List<SelectListItem>() {
+                                           new SelectListItem() {
+                                               Text = "Janvier",
+                                               Value = "1"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Février",
+                                               Value = "2"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Mars",
+                                               Value = "3"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Avril",
+                                               Value = "4"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Mai",
+                                               Value = "5"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Juin",
+                                               Value = "6"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Juillet",
+                                               Value = "7"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Aout",
+                                               Value = "8"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Septembre",
+                                               Value = "9"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Octobre",
+                                               Value = "10"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Novembre",
+                                               Value = "11"
+                                           },
+                                           new SelectListItem() {
+                                               Text = "Décembre",
+                                               Value = "12"
+                                           }
+                                       })
+                                       .HtmlAttributes(new { style = "width: 100%" })
+                            )
+                        </div>
+                    </div>
+
+                    <div id="div0">
+
+                        @(Html.Kendo().ToolBar()
+                    .Name("ToolBarPrj")
+                    .HtmlAttributes(new { style = "margin:10px;margin-top:30px;" })
+                    .Items(items =>
+                    {
+                        items.Add().Type(CommandType.Button).Text("Exporter").Click("PDF").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold ;background-color: #fff;" }).SpriteCssClass("k-icon pdf-file");
+                        items.Add().Type(CommandType.Button).Text("Exporter").Click("EXCEL").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold; background-color: #fff;" }).SpriteCssClass("k-icon excel-file");
+                    })
+                        )
+
+
+                        @(Html.Kendo().Grid<GPB.Models.SuiviFinancier.PaiementEntrepriseViewModel>().Name("Grid")
+                               .Columns(columns =>
+                               {
+                                   columns.ForeignKey(e => e.EntrepriseId, (System.Collections.IEnumerable)ViewBag.ListEntreprises, "IdEntreprise", "RaisonSocial").Title("Entreprise");
+                                   columns.Bound(e => e.MontantPaiement).Filterable(false);
+                                   columns.Bound(e => e.DateFacturation).Filterable(false);
+                                   columns.Bound(e => e.FichierPaiment).ClientTemplate("# if(FichierPaiment != null) { # <a target='_blank' href='../../Uploads/Reglements/#= FichierPaiment#'>#= FichierPaiment#</a> # }#").Filterable(false);
+                                   columns.Command(commands =>
+                                   {
+                                       commands.Custom("Details").Click("showdetails");
+                                   }).Width(150);
+                               }).Pageable().Filterable().Sortable()
+                                        .Editable(e => e
+                                        .Mode(GridEditMode.InLine)
+                                        .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?"))
+                                        .DataSource(dataSource => dataSource
+                                        .Ajax()
+                                        .Model(m =>
+                                        {
+                                            m.Id(e => e.Id);
+
+                                        })
+                                            .Read(read => read.Action("GetPaiementEntreprisesForFacturation", "SuiviFinancier").Data("projetEntrepriseData"))
+                                            )
+                                        .HtmlAttributes(new { style = "margin:10px;height:auto" }))
+
+                        @(Html.Kendo().Window()
+    .Name("windowDetails")
+    .Title("Détails")
+    .Visible(false)
+    .Content(@<text>
+        <form method="post" class="row" id="formDetails" style="margin:15px;">
+            <div class="col-md-6">
+                <label>Projet </label>
+                @(Html.Kendo().DropDownList().Enable(false)
+                        .Name("ProjetIdDetails")
+                       .DataTextField("LIBELLE")
+                       .DataValueField("ID_PROJET")
+                       .DataSource(source =>
+                       {
+                           source.Read(read =>
+                           {
+                               read.Action("GetProjects", "CmbBoxs");
+                           });
+                       })
+                          .HtmlAttributes(new { style = "width: 100%;" })
+                )
+            </div>
+            <div class="col-md-6">
+                <label>Entreprise </label>
+                @(Html.Kendo().DropDownList().Enable(false)
+                       .Name("EntrepriseIdDetails")
+                       .DataTextField("RaisonSocial")
+                       .DataValueField("IdEntreprise")
+                       .DataSource(source =>
+                       {
+                           source.Read(read =>
+                           {
+                               read.Action("GetEntreprisesProjet", "CmbBoxs").Data("projetIdData");
+                           }).ServerFiltering(true); ;
+                       })
+                       .HtmlAttributes(new { style = "width: 100%;" })
+                )
+            </div>
+
+            <div class="col-md-6" style="margin-top:15px;">
+                <label>Contrat </label>
+                @(Html.Kendo().DropDownList().Enable(false)
+                                .Name("ContratIdDetails")
+                        .DataTextField("LibelleContrat")
+                        .DataValueField("IdContrat")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("GetContratsEntreprise", "CmbBoxs").Data("modifierEntrepriseData");
+                            });
+                        })
+                        .HtmlAttributes(new { style = "width:100%;" })
+                )
+            </div>
+
+            <div class="col-md-6" style="margin-top:15px;">
+
+                <label>Montant </label>
+                <input type="number" id="MontantPaiementDetails" name="MontantPaiementDetails" class="k-textbox" style="width: 100%;" disabled />
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-6" style="margin-top:15px;padding-left:0px;">
+
+                    <label>Responsable demande</label>
+                    <input type="text" id="ResponsableDemandeDetails" name="ResponsableDemandeDetails" class="k-textbox" style="width: 100%;" disabled />
+                </div>
+
+                <div class="col-md-6" style="margin-top:15px;padding-right:0px;">
+
+                    <label>Date demande</label>
+                    @(Html.Kendo().DatePicker().Name("DateDemandeDetails").HtmlAttributes(new { style = "width: 100%" }).Enable(false))
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6" style="margin-top:15px;padding-left:0px;">
+
+                    <label>Responsable contrôle</label>
+                    <input type="text" id="ResponsableControleDetails" name="ResponsableControleDetails" class="k-textbox" style="width: 100%;" disabled />
+                </div>
+
+                <div class="col-md-6" style="margin-top:15px;padding-right:0px;">
+
+                    <label>Date contrôle</label>
+                    @(Html.Kendo().DatePicker().Name("DateControleDetails").HtmlAttributes(new { style = "width: 100%" }).Enable(false))
+
+                </div>
+            </div>
+
+        </form>
+
+    </text>)
+                                    .Draggable()
+                                    .Resizable()
+                                    .Modal(true)
+                                    .Width(800)
+                                    .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+                        )
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+
+    var idReglement = 0;
+    var canEdit = true;
+
+    function onChangeMois() {
+        $("#Grid").data("kendoGrid").dataSource.read();
+    }
+
+    function onChangeAnnee() {
+        $("#Grid").data("kendoGrid").dataSource.read();
+    }
+    function onChangeEtat() {
+        $("#Grid").data("kendoGrid").dataSource.read();
+    }
+    function projetData() {
+        if ($("#projet").val() != null && $("#projet").val() != '') {
+            return { projet: $("#projet").val() };
+        } else {
+            return { projet: 0 };
+        }
+    }
+    function projetIdData() {
+        if ($("#ProjetId").val() != null && $("#ProjetId").val() != '') {
+            return { projet: $("#ProjetId").val() };
+        } else {
+            return { projet: 0 };
+        }
+    }
+    function onChangeProjetId() {
+        $("#EntrepriseId").data("kendoDropDownList").dataSource.read();
+    }
+    function onChangeProjet() {
+        $("#entreprise").data("kendoDropDownList").value('');
+        $("#entreprise").data("kendoDropDownList").trigger("change");
+        $("#entreprise").data("kendoDropDownList").dataSource.read();
+        $("#Grid").data("kendoGrid").dataSource.read();
+    }
+    function onChangeEntreprise(e) {
+        $("#Grid").data("kendoGrid").dataSource.read();
+    }
+    function projetEntrepriseData() {
+
+        return {
+            projet: $("#projet").val(),
+            entreprise: $("#entreprise").val(),
+            annee: $("#dropdownAnnee").val(),
+            mois: $("#dropdownMois").val(),
+            etat: $("#Etat").val()
+        };
+    }
+
+    function modifierOnChangeEntreprise() {
+        $("#ContratId").data("kendoDropDownList").value('');
+        $("#ContratId").data("kendoDropDownList").dataSource.read();
+    }
+    function modifierEntrepriseData() {
+        if ($("#EntrepriseId").val() != null && $("#EntrepriseId").val() != '') {
+            return { entreprise: $("#EntrepriseId").val() };
+        } else {
+            return { entreprise: 0 };
+        }
+    }
+
+    function showdetails(e) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $("#DateDemandeDetails").data("kendoDatePicker").value(dataItem.DateDemande);
+        $("#DateControleDetails").data("kendoDatePicker").value(dataItem.DateControle);
+        $("#ProjetIdDetails").data("kendoDropDownList").value(dataItem.ProjetId);
+        $("#EntrepriseIdDetails").data("kendoDropDownList").value(dataItem.EntrepriseId);
+        $("#ContratIdDetails").data("kendoDropDownList").value(dataItem.ContratId);
+        $("#MontantPaiementDetails").val(dataItem.MontantPaiement);
+        $("#ResponsableDemandeDetails").val(dataItem.ResponsableDemande);
+        $("#ResponsableControleDetails").val(dataItem.ResponsableControle);
+
+        $("#windowDetails").data("kendoWindow").open().center();
+    }
+
+    function PDF() {
+        var model = {
+            projet: $("#projet").val(),
+            entreprise: $("#entreprise").val(),
+            annee: $("#dropdownAnnee").val(),
+            mois: $("#dropdownMois").val(),
+            etat: $("#Etat").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetReglementsParameters", "SuiviFinancier")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(model),
+            dataType: "json",
+            success: function (result) {
+                window.open('@Url.Action("ReglementReport", "SuiviFinancier")' + "?type=PDF");
+            },
+            error: function (result) {
+                alert('Oh no :(');
+            }
+        });
+    }
+
+    function EXCEL() {
+        var model = {
+            projet: $("#projet").val(),
+            entreprise: $("#entreprise").val(),
+            annee: $("#dropdownAnnee").val(),
+            mois: $("#dropdownMois").val(),
+            etat: $("#Etat").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetReglementsParameters", "SuiviFinancier")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(model),
+            dataType: "json",
+            success: function (result) {
+                 window.open('@Url.Action("ReglementReport", "SuiviFinancier")' + "?type=EXCEL");
+            },
+            error: function (result) {
+                alert('Oh no :(');
+            }
+        });
+    }
+</script>
+
+<style>
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+
+    input.k-textbox {
+        padding: 0;
+    }
+
+    .k-window div.k-window-content {
+        overflow: hidden;
+    }
+</style>
+
+
+
+

@@ -1,0 +1,74 @@
+﻿@model RoleModel
+@using GPA.Models;
+@{
+    ViewBag.Title = "Droits d'accès";
+}
+<title>Droits d'accès</title>
+
+
+ 
+<h2 style="font-size:16px;font-weight:bold;font-family:Verdana;margin:20px">Gestion des droits d'accès</h2>
+<form action="@Url.Action("RoleNew", "Administration")" class="form-horizontal" id="validation-form" method="post">
+
+<div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <b>Information générale : </b>
+                </header>
+                <div class="panel-body">
+                    <input type="hidden" name="IdRole" id="IdRole" class="form-control" value="@Model.IdRole" />
+                    <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label" for="nom">Rôle*  </label>
+                        <div class="col-sm-6 col-lg-4 controls">
+                            <input type="text" name="role_name" id="role_name" class="form-control" data-rule-required="true" data-rule-minlength="3" value="@Model.NomRole" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label" for="prenom">Description </label>
+                        <div class="col-sm-6 col-lg-4 controls">
+                            <textarea type="text" name="role_description" id="role_description" class="form-control">@Model.DescriptionRole</textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+     
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <b>Les droits d'accès  </b>
+                </header>
+                <div class="panel-body">
+                    @Html.Partial("_accessRights", Model)
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-group last">
+        <div class="col-sm-8 col-sm-offset-1 col-lg-10 col-lg-offset-0">
+            <input type="submit" name="ajouter" class="btn btn btn-info" value="Enregistrer" />
+        </div>
+    </div>
+</form>
+
+
+@section styles {
+    <link href="@Url.Content("~/Content/bs3/bootstrap-switch.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/bs3/blue.css")" rel="stylesheet">
+}
+
+@section scripts {
+    @Scripts.Render("~/validator/bootstrap/js")
+    <script src="@Url.Content("~/Content/js/jquery.icheck.js")"></script>
+    <script src="@Url.Content("~/Content/js/icheck-init.js")"></script>
+}
+
+@section scriptsOfPage {
+    <script src="@Url.Content("~/Content/js/Review/EditRole.js")" ></script>
+}

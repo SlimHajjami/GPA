@@ -1,0 +1,122 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.FournisseurModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdFournisseur" name="IdFournisseur" type="hidden">
+
+@if (myUser.Profile == 1)
+{
+    <div class="col-md-12">
+        <label>Client</label>
+        @(Html.Kendo().DropDownListFor(m => m.ClientId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Nom</label>
+        @Html.Kendo().TextBox().Name("NomFournisseur").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Type</label>
+        @(Html.Kendo().DropDownListFor(m => m.TypeFournisseur)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner type...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_FOURNISSEUR" }));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+}
+else
+{
+    <div class="col-md-6">
+        <label>Nom</label>
+        @Html.Kendo().TextBox().Name("NomFournisseur").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+
+    <div class="col-md-6">
+        <label>Type</label>
+        @(Html.Kendo().DropDownListFor(m => m.TypeFournisseur)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner type...")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_FOURNISSEUR" }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+}
+
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Adresse</label>
+    @Html.Kendo().TextBox().Name("AdresseFournisseur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Ville</label>
+    @Html.Kendo().TextBox().Name("VilleFournisseur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Code Postal</label>
+    @Html.Kendo().TextBox().Name("CodePostalFournisseur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Contact</label>
+    @Html.Kendo().TextBox().Name("ContactFournisseur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Tél1</label>
+    @Html.Kendo().TextBox().Name("Tel1Fournisseur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Tél2</label>
+    @Html.Kendo().TextBox().Name("Tel2Fournisseur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Fax</label>
+    @Html.Kendo().TextBox().Name("FaxFournisseur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Email</label>
+    @Html.Kendo().TextBox().Name("EmailFournisseur").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Site Web</label>
+    @Html.Kendo().TextBox().Name("SiteWebFournisseur").HtmlAttributes(new { style = "width: 100%" })
+</div>

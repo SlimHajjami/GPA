@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Gestion des rôles";
+       Layout = "~/Views/Shared/_LayoutAdministration.cshtml";
+}
+ 
+ 
+@using GPA.Models;
+@using System.Configuration;
+ @using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page"> 
+
+            <div class="col-md-12">
+
+                <div class="box-content mag-top-40">
+
+                    <div class="header-box">
+                        <div class="header-box-titre">
+                            <span class="pull-left">
+                                <h5>  Gestions des rôles</h5>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="content-box">
+                        <div class="table-responsive">
+                            <div id="div0">
+                                
+@(Html.Kendo().ToolBar()
+                    .Name("ToolBarPrj")
+                    .HtmlAttributes(new { style = "margin:10px;" })
+                    .Items(items =>
+                    {
+                        items.Add().Type(CommandType.Button).Text("Ajouter").Click("add").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+                    })
+)
+
+@(Html.Kendo().Grid<GPA.Models.RoleModel>()
+                        .Name("Grid")
+                        .HtmlAttributes(new { style = "margin:10px" })
+                        .Columns(columns =>
+                        {
+
+                            columns.Bound(e => e.NomRole)
+                            .Filterable(filterable => filterable.UI("roleFilter"))
+                                    .Width(300);
+                            columns.Bound(e => e.DescriptionRole).Width(300).Filterable(false);
+                            columns.Command(commands =>
+                            {
+                                commands.Custom("Modifier").Click("EditRow").Text("Modifier");
+                                commands.Destroy().Text("Supp.");
+                            }).Width(200);
+
+                        })
+                      .Editable(e => e.DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer ce Role?"))
+                          .Filterable(filterable => filterable
+                          .Extra(false)
+
+                          .Operators(operators => operators
+                              .ForString(str => str.Clear()
+                                      .StartsWith("Commence avec")
+                                      .IsEqualTo("Est égale à")
+                                      .IsNotEqualTo("N'est pas égale à")
+                              ))
+                                  ).Selectable()
+                                      
+                          .DataSource(dataSource => dataSource
+                              .Ajax()
+                                  .Model(m =>
+                                  {
+                                      m.Id(f => f.IdRole);
+                                  })
+                              .Read(read => read.Action("Read", "Role"))
+                              .Destroy(d => d.Action("Delete", "Role"))
+                           )
+)
+
+                                </div>
+                            </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+</div>
+
+<script type="text/javascript">
+
+             function add() {
+                 window.location = "@Url.Action("RoleNew", "Administration")";
+             }
+            function modify(e) {
+                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                window.location = "@Url.Action("RoleEdit", "Administration")" + "?id=" + dataItem.IdRole;
+            }
+
+            $("#add-button").on("click", function (e) {
+                e.preventDefault;
+                window.location = "@Url.Action("RoleNew", "Administration")";
+            });
+
+            function onClose() {
+                $("#undo").show();
+            }
+
+
+
+            $("#undo").bind("click", function () {
+                $("#window").data("kendoWindow").center().open();
+                $("#undo").hide();
+            });
+
+
+            function roleFilter(element) {
+                element.kendoAutoComplete({
+                    dataSource: {
+                        transport: {
+                            read: "@Url.Action("FilterMenuCustomization_Roles")"
+                        }
+                    }
+                });
+            }
+
+            function insertPopupCaption(e) {
+                if (e.model.isNew()) {
+                    $('.k-window-title').text("Nouveau Role");
+                }
+                else {
+                    $('.k-window-title').text("Modifier le Role");
+                }
+            }
+            function AddRole() {
+
+                window.location = "@Url.Action("RoleNew", "Administration")";
+
+            }
+    function DeleteRow(obj) {
+
+        var rowToDelete = $(obj).parent().parent()
+        var grid = $("#Grid").data("kendoGrid");
+        grid.removeRow(rowToDelete);
+    }
+    function EditRow(e) {
+
+        var grid = $("#Grid").data("kendoGrid");
+        var row = grid.select(); 
+        var currentDataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location = "@Url.Action("RoleEdit", "Administration")" + "?id=" + currentDataItem.IdRole;
+        
+        grid.editRow(selectedRow);
+    }
+</script>

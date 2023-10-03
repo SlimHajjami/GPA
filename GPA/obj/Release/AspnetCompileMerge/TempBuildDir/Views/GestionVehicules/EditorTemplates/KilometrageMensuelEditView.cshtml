@@ -1,0 +1,112 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.KilometrageMensuelModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdKilometrageMensuel" name="IdKilometrageMensuel" type="hidden">
+
+@if (myUser.Profile == 1)
+{
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Client</label>
+        @(Html.Kendo().DropDownListFor(m => m.ClientId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner client...")
+            .DataTextField("NomClient")
+            .DataValueField("IdClient")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+            })
+            .Events(e => e.Change("onChangeFltr"))
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+        <div class="col-md-6" style="margin-top:15px;">
+            <label>Département</label>
+            @(Html.Kendo().DropDownList()
+            .Name("DepartementE")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner département...")
+            .DataTextField("NomDepartement")
+            .DataValueField("IdDepartement")
+            .CascadeFrom("ClientId")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs").Data("editClientData"))
+                    .ServerFiltering(true);
+            })
+            .Events(e => e.Change("onChangeFltr"))
+            .HtmlAttributes(new { style = "width: 100%" })
+            )
+        </div>
+        <div class="col-md-6" style="margin-top:15px;">
+            <label>Véhicule</label>
+            @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner vehicule...")
+        .DataTextField("MatriculeVehicule")
+        .DataValueField("IdVehicule")
+        // .CascadeFrom("DepartementE")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetVehiculesParDep", "CmbBoxs").Data("ClientData2"))
+                                .ServerFiltering(true);
+        })
+      
+        .HtmlAttributes(new { style = "width: 100%" })
+            )
+
+        </div>
+
+}
+else
+{
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Département</label>
+        @(Html.Kendo().DropDownList()
+            .Name("DepartementE")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner département...")
+            .DataTextField("NomDepartement")
+            .DataValueField("IdDepartement")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .Events(e => e.Change("onChangeFltr"))
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+        <div class="col-md-6" style="margin-top:15px;">
+
+            <label>Véhicule</label>
+            @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner vehicule...")
+        .DataTextField("MatriculeVehicule")
+        .DataValueField("IdVehicule")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetVehiculesParDep", "CmbBoxs").Data("DepData2"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+            )
+        </div>
+}
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Date de Lecture</label>
+    @*@(Html.Kendo().DatePicker().Name("DateKilometrageMensuel").HtmlAttributes(new { style = "width: 100%" }))*@
+    @(Html.Kendo().DatePicker().Name("DateKilometrageMensuel").Start(CalendarView.Year).Depth(CalendarView.Year).Format("MMMM yyyy").HtmlAttributes(new { style = "width: 100%" }))
+           @*//   .Value("November 2011")
+            //  .DateInput()*@
+              
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Kilométrage</label>
+    @Html.Kendo().NumericTextBox().Name("Kilometrage").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+
+

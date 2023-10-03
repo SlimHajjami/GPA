@@ -1,0 +1,125 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.VehiculeAcquisitionModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdAcquisition" name="IdAcquisition" type="hidden">
+
+<div class="col-md-6">
+    <br /><label>Location</label>&nbsp;&nbsp;
+    @(Html.Kendo().CheckBox().Name("IsLocation").HtmlAttributes(new { style = "width: 100%" }))
+</div>
+
+
+<div class="col-md-6">
+    <label>Date</label>
+    @(Html.Kendo().DatePicker().Name("DateAcquisition").HtmlAttributes(new { style = "width: 100%" }))
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Kilométrage</label>
+    @Html.Kendo().IntegerTextBox().Name("KilometrageAcquisition").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Prix</label>
+    @Html.Kendo().NumericTextBox().Name("PrixAcquisition").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Expiration Garantie</label>
+    @(Html.Kendo().DatePicker().Name("ExpirationGarantie").HtmlAttributes(new { style = "width: 100%" }))
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Prix Vente</label>
+    @Html.Kendo().NumericTextBox().Name("PrixVente").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Note</label>
+    @Html.Kendo().TextBox().Name("NoteAcquisition").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+@if (myUser.Profile == 1)
+{
+    <div class="col-md-12" style="margin-top:15px;">
+        <label>Client</label>
+        @(Html.Kendo().DropDownList()
+            .Name("ClientId")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner client...")
+            .DataTextField("NomClient")
+            .DataValueField("IdClient")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Véhicule</label>
+        @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner véhicule...")
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            .CascadeFrom("ClientId")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetVehicules", "CmbBoxs").Data("editClientData"))
+                    .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Fournisseur</label>
+        @(Html.Kendo().DropDownListFor(m => m.FournisseurId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner fournisseur...")
+            .DataTextField("NomFournisseur")
+            .DataValueField("IdFournisseur")
+            .CascadeFrom("ClientId")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetFournisseursAcquisition", "CmbBoxs").Data("editClientData"))
+                    .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+}
+else
+{
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Véhicule</label>
+        @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner véhicule...")
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetVehicules", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Fournisseur</label>
+        @(Html.Kendo().DropDownListFor(m => m.FournisseurId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner fournisseur...")
+            .DataTextField("NomFournisseur")
+            .DataValueField("IdFournisseur")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetFournisseursAcquisition", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+        )
+    </div>
+}

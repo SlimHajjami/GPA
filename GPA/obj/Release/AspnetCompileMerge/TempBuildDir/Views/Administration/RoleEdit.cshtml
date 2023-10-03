@@ -1,0 +1,140 @@
+﻿@model RoleModel
+@using GPA.Models;
+@{
+    ViewBag.Title = "Droits d'accès";
+    Layout = "~/Views/Shared/_LayoutAdministration.cshtml";
+ }
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+
+<div class="main-container" id="#page">
+
+    <div class="content-box">
+        <div class="table-responsive">
+            <form action="@Url.Action("RoleEdit", "Administration")" class="form-horizontal" id="validation-form" method="post">
+
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <b>Informations générales  </b>
+                            </header>
+                            <div class="panel-body">
+                                <input type="hidden" name="IdRole" id="IdRole" class="form-control" value="@Model.IdRole" />
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-lg-2 control-label" for="nom">Rôle*  </label>
+                                    <div class="col-sm-6 col-lg-4 controls">
+                                        <input type="text" name="role_name" id="role_name" class="form-control" data-rule-required="true" data-rule-minlength="3" value="@Model.NomRole" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-lg-2 control-label" for="prenom">Description </label>
+                                    <div class="col-sm-6 col-lg-4 controls">
+                                        <textarea type="text" name="role_description" id="role_description" class="form-control">@Model.DescriptionRole</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-lg-2 control-label" for="prenom">Groupe des droits d'accès </label>
+                                    <div class="col-sm-6 col-lg-4 controls">
+                                        @(Html.Kendo().ComboBox()
+                                .Name("groupAccessRights")
+                                .BindTo(new SelectList(ViewBag.AllAccessRights, "Key", "Key"))
+                                .HtmlAttributes(new { style = "width: 360px;" })
+                                .Events(e =>
+                                {
+                                    e.Change("getAccessRights");
+                                })
+                                        )
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <b>Les droits d'accès  </b>
+                            </header>
+                            <div class="panel-body">
+                                @{
+                                    foreach (var group in ViewBag.AllAccessRights)
+                                    {
+                                        <div class="col-sm-6" id='@group.Key.Replace(" ", "")' name="divGroupRights" style="display:none">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label" style="text-align: center;margin:10px"><b>@group.Key</b></label>
+                                                <div class="col-sm-8 icheck minimal">
+                                                    @foreach (var right in group.Value)
+                                                    {
+
+                                                        <div class="col-sm-12 icheck">
+                                                            <div class="square-green single-row">
+                                                                <div style="margin:5px" class="radio">
+                                                                    <table cellspacing="5" cellpadding="5">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <input type="checkbox" value="@((int)right.Key)" name="rights" id="rights_@((int)right.Key)" data-toggle="checkbox"
+                                                                                       @(Model.AccessRights.Contains((Enumerators.AccessRights)right.Key) ? Html.Raw("checked") : Html.Raw(""))>
+
+                                                                            </td>
+                                                                            <td>@(right.Value) </td>
+                                                                        </tr>
+                                                                    </table>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                <div class="form-group">
+                                    <div class="col-sm-8 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+                                        <input type="submit" name="ajouter" class="btn btn btn-info" value="Enregistrer" />
+                                        <a href="@Url.Action("Roles")" class="btn btn btn-info" style="margin-left:20px">Annuler</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+        <script type="text/javascript">
+            function getAccessRights() {
+                var id = $("#groupAccessRights").val().replace(/\s/g, "");
+                $('div[name=divGroupRights]').hide();
+                $("#" + id).show();
+            }
+            $(document).ready(function () {
+                getAccessRights();
+            });
+        </script>
+
+        @section styles {
+            <link href="@Url.Content("~/Content/bs3/css/bootstrap-switch.css")" rel="stylesheet" />
+            <link href="@Url.Content("~/Content/bs3/css/green.css")" rel="stylesheet">
+        }
+
+        @section scripts {
+            <script src="@Url.Content("~/Content/bs3/js/jquery-validation/jquery.validate.min.js")"></script>
+            <script src="@Url.Content(string.Format("~/Content/bs3/js/jquery-validation/localization/messages_{0}.js", System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName))"></script>
+            <script src="@Url.Content("~/Content/bs3/js/jquery-validation/additional-methods.min.js")"></script>
+            <script src="@Url.Content("~/Content/bs3/js/jquery-validation/jquery.form.js")"></script>
+            <script src="@Url.Content("~/Content/bs3/js/jquery.icheck.js")"></script>
+            <script src="@Url.Content("~/Content/bs3/js/icheck-init.js")"></script>
+        }
+
+        @section scriptsOfPage {
+            @*<script src="@Url.Content("~/Content/js/Review/EditRole.js")" ></script>*@
+        }

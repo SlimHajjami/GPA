@@ -1,0 +1,276 @@
+﻿/* Home View*/
+
+#home-header {
+    display: block;
+    clear: both;
+}
+
+#home-view {
+    margin: auto;
+    width: auto;
+}
+
+.home-title {
+    width: 200px;
+    height: 80px;
+    background-image: url('../img/3_RecordsLogo.png');
+    background-repeat: no-repeat;
+}
+
+
+.home-header,
+.home-artist-list {
+    display: inline-block;
+    float: left;
+}
+
+    .home-header h1 {
+        color: #fff;
+        font-size: 2em;
+    }
+
+.main-page-top-metrics {
+    width: 1040px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main-hero-wrapper {
+    display: inline-block;
+    float: left;
+    margin: auto;
+    width: 300px;
+}
+
+.home-artist-list {
+    float: left;
+    height: 100px;
+}
+
+.album-list-item-wrapper {
+    display: inline-block;
+    width: 200px;
+    height: 80px;
+}
+
+.album-list-subtitle,
+.album-list-price,
+.album-list-title {
+    margin: 0 15px;
+    width: 180px;
+    color: #747273;
+    vertical-align: top;
+    font-size: 1.2em;
+}
+
+.album-list-title {
+    height: 1.2em;
+    overflow: hidden;
+    color: #eee;
+}
+
+.album-list-price {
+    font-size: 1em;
+}
+
+.album-list-subtitle {
+    color: #666;
+    font-size: 1em;
+}
+
+
+.home-nav {
+    display: inline-block;
+    width: 300px;
+    height: 100%;
+    vertical-align: top;
+}
+
+.artist-nav {
+    margin: 50px 10px;
+    width: 170px;
+    height: 100px;
+    background-color: #3f3f3f;
+}
+
+.sales-album,
+.social-album,
+.charts-album {
+    display: block;
+    overflow: hidden;
+    padding-left: 70px;
+    width: 170px;
+    height: 60px;
+    background-repeat: no-repeat;
+    color: white;
+    vertical-align: baseline;
+    font-size: 1.5em;
+    line-height: 60px;
+}
+
+.sales-album {
+    background-image: url("../img/dollar.png");
+}
+
+.social-album {
+    background-image: url("../img/comments.png");
+}
+
+.charts-album {
+    background-image: url("../img/chart.png");
+}
+
+.gauge-container {
+    display: inline-block;
+    margin: 0 40px;
+    width: 225px;
+    height: 250px;
+    background-image: url("../img/record-gauge-home.png");
+    background-position: 0 15px;
+    background-repeat: no-repeat;
+}
+
+.home-gauge-box {
+    margin: auto;
+    width: 200px;
+    height: 200px;
+}
+
+.wide-gauge-title,
+.gauge-title {
+    position: relative;
+    top: -40px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.wide-gauge-title {
+    top: 20px;
+    font-size: 1.7em;
+}
+
+
+.big-sales-tab {
+    display: inline-block;
+    width: 23.4%;
+    height: 4.3em;
+    border-right: solid 3px #595A5C;
+    vertical-align: baseline;
+    text-align: center;
+    font-size: 1.25em;
+}
+
+    .big-sales-tab:nth-of-type(4) {
+        border: none;
+    }
+
+.big-sales-tab-title,
+.big-sales-tab-amount {
+    display: block;
+    width: 100%;
+    height: 18px;
+    text-align: center;
+}
+
+.big-sales-tab-title {
+    margin-bottom: 5px;
+    height: 1.2em;
+    color: #EAEAEA;
+    font-weight: bold;
+    font-size: 1.7em;
+}
+
+.big-sales-tab-amount {
+    height: 1.6em;
+    color: #F18449;
+    font-size: 1.5em;
+}
+
+.billboard-charts {
+    float: left;
+    padding: 10px 40px;
+}
+
+.top-singles-list {
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    width: 330px;
+    height: 930px;
+}
+
+
+.list-title {
+    color: #F18449;
+    font-weight: bold;
+    font-size: 1.9em;
+}
+
+.top-single-song-list-item,
+.top-album-list-item {
+    display: block;
+    margin: 15px 9px;
+    height: 100px;
+    border: 2px solid transparent;
+    padding: 3px
+}
+
+    .top-single-song-list-item,
+    .top-album-list-item,
+    .top-single-song-list-item > div,
+    .top-album-list-item > div,
+    .top-single-song-list-item > img,
+    .top-album-list-item > img {
+        float: left;
+    }
+
+    .top-single-song-list-item:hover,
+    .top-album-list-item:hover {
+        cursor: pointer;
+        border-color: #747273;
+        background: rgba(0,0,0,.5);
+    }
+
+#topSinglesListView,
+#topAlbumsListView {
+    border: none;
+    background: none;
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+    /* Styles */
+
+    .main-hero-wrapper {
+        width: 300px;
+    }
+
+    .gauge-container {
+        margin: 10px 0;
+    }
+
+    .big-sales-tab-title {
+        font-size: 1.5em;
+    }
+
+    .big-sales-tab-amount {
+        font-size: 1.3em;
+    }
+}
+
+@media only screen and (max-width : 767px) {
+
+    .big-sales-tab {
+        font-size: .75em;
+    }
+
+    .main-hero-wrapper
+    {
+        width:auto;
+    }
+
+}
+
+/* End Home View */

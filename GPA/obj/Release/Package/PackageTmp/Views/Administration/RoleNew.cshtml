@@ -1,0 +1,83 @@
+﻿@model RoleModel
+@using GPA.Models;
+@{
+    ViewBag.Title = "Droits d'accès";
+    Layout = "~/Views/Shared/_LayoutAdministration.cshtml";
+}
+<title>Droits d'accès</title>
+
+<div class="main-container" id="#page">
+
+    <div class="content-box">
+        <div class="table-responsive">
+            <h2 style="font-size:16px;font-weight:bold;font-family:Verdana;margin:10px">Gestion des droits d'accès</h2>
+
+
+            <form action="@Url.Action("RoleNew", "Administration")" class="form-horizontal" id="validation-form" method="post">
+                @*<div id="div0" style="OVERFLOW: auto; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; HEIGHT: 560px; BORDER-BOTTOM-STYLE: none;margin:10px">*@
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            <h2 style="font-size:16px;font-weight:bold;font-family:Verdana;margin:20px">Informations générales</h2>
+
+                            @*<header class="panel-heading">
+                                    <b>Informations générales  </b>
+                                </header>*@
+                            <div class="panel-body">
+                                <input type="hidden" name="IdRole" id="IdRole" class="form-control" value="@Model.IdRole" />
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-lg-2 control-label" for="nom">Rôle*  </label>
+                                    <div class="col-sm-6 col-lg-4 controls">
+                                        <input type="text" name="role_name" id="role_name" class="form-control" data-rule-required="true" data-rule-minlength="3" value="@Model.NomRole" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-lg-2 control-label" for="prenom">Description </label>
+                                    <div class="col-sm-6 col-lg-4 controls">
+                                        <textarea type="text" name="role_description" id="role_description" class="form-control">@Model.DescriptionRole</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            @*<header class="panel-heading">
+                                    <b>Les droits d'accès  </b>
+                                </header>*@
+                            <h2 style="font-size:16px;font-weight:bold;font-family:Verdana;margin:20px">Les droits d'accès</h2>
+                            <div class="panel-body">
+                                @Html.Partial("EditorTemplates/_accessRights", Model)
+                            </div>
+                        </section>
+                    </div>
+                <div class="form-group">
+                    <div class="col-sm-8 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+                        <input type="submit" name="ajouter" class="btn btn btn-info" value="Enregistrer" />
+                        <a href="@Url.Action("Roles")" class="btn btn btn-info" style="margin-left:20px">Annuler</a>
+                    </div>
+                </div>
+
+                @*</div>*@
+            </form>
+
+        </div>
+    </div>
+</div>
+
+            @section styles {
+                <link href="@Url.Content("~/Content/bs3/css/bootstrap-switch.css")" rel="stylesheet" />
+                <link href="@Url.Content("~/Content/bs3/css/green.css")" rel="stylesheet">
+            }
+
+            @section scripts {
+                <script src="@Url.Content("~/Content/bs3/js/jquery-validation/jquery.validate.min.js")"></script>
+                <script src="@Url.Content(string.Format("~/Content/bs3/js/jquery-validation/localization/messages_{0}.js", System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName))"></script>
+                <script src="@Url.Content("~/Content/bs3/js/jquery-validation/additional-methods.min.js")"></script>
+                <script src="@Url.Content("~/Content/bs3/js/jquery-validation/jquery.form.js")"></script>
+                <script src="@Url.Content("~/Content/bs3/js/jquery.icheck.js")"></script>
+                <script src="@Url.Content("~/Content/bs3/js/icheck-init.js")"></script>
+            }
+
+            @section scriptsOfPage {
+                @*<script src="@Url.Content("~/Content/js/Review/EditRole.js")" ></script>*@
+            }

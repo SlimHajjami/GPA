@@ -1,0 +1,117 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.LectureKilometrageModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdLectureKilometrage" name="IdLectureKilometrage" type="hidden">
+
+    @if (myUser.Profile == 1)
+    {
+        <div class="col-md-6" style="margin-top:15px;">
+            <label>Client</label>
+            @(Html.Kendo().DropDownListFor(m => m.ClientId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner client...")
+            .DataTextField("NomClient")
+            .DataValueField("IdClient")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+            })
+            .Events(e => e.Change("onChangeFltr"))
+            .HtmlAttributes(new { style = "width: 100%" })
+            )
+        </div>
+        <div class="col-md-6" style="margin-top:15px;">
+            <label>Département</label>
+            @(Html.Kendo().DropDownList()
+            .Name("DepartementE")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner département...")
+            .DataTextField("NomDepartement")
+            .DataValueField("IdDepartement")
+            .CascadeFrom("ClientId")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs").Data("editClientData"))
+                    .ServerFiltering(true);
+            })
+            .Events(e=>e.Change("onChangeFltr"))
+            .HtmlAttributes(new { style = "width: 100%" })
+            )
+        </div>
+        <div class="col-md-6" style="margin-top:15px;">
+            <label>Véhicule</label>
+            @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner vehicule...")
+        .DataTextField("MatriculeVehicule")
+        .DataValueField("IdVehicule")
+       // .CascadeFrom("DepartementE")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetVehiculesParDep", "CmbBoxs").Data("ClientData2"))
+                                .ServerFiltering(true);
+        })
+      .Events(e => e
+            .Change("GetKmPrecedent"))
+        .HtmlAttributes(new { style = "width: 100%" })
+            )
+          
+        </div>
+
+    }
+    else
+    {
+        <div class="col-md-6" style="margin-top:15px;">
+            <label>Département</label>
+            @(Html.Kendo().DropDownList()
+            .Name("DepartementE")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner département...")
+            .DataTextField("NomDepartement")
+            .DataValueField("IdDepartement")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .Events(e=>e.Change("onChangeFltr"))
+            .HtmlAttributes(new { style = "width: 100%" })
+            )
+        </div>
+        <div class="col-md-6" style="margin-top:15px;">
+
+            <label>Véhicule</label>
+            @(Html.Kendo().DropDownListFor(m => m.VehiculeId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner vehicule...")
+        .DataTextField("MatriculeVehicule")
+        .DataValueField("IdVehicule")
+      //  .CascadeFrom("DepartementE")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetVehiculesParDep", "CmbBoxs").Data("DepData2"));
+        })
+        .Events(e => e
+            .Change("GetKmPrecedent"))
+        .HtmlAttributes(new { style = "width: 100%" })
+            )
+        </div>
+    }
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Kilométrage précedent</label>
+        @Html.Kendo().NumericTextBox().Name("KilometragePR").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Date de Lecture</label>
+        @(Html.Kendo().DatePicker().Name("DateLectureKilometrage").HtmlAttributes(new { style = "width: 100%" }).Events(e => e
+            .Change("GetKmPrecedent")))
+    </div>
+
+    <div class="col-md-6" style="margin-top:15px;">
+        <label>Kilométrage</label>
+        @Html.Kendo().NumericTextBox().Name("Kilometrage").HtmlAttributes(new { style = "width: 100%" })
+    </div>
+
+
+

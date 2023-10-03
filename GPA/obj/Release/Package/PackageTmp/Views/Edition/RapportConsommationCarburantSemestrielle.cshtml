@@ -1,0 +1,198 @@
+﻿@{
+    ViewBag.Title = "Consommation carburant semestrielle";
+    Layout = "~/Views/Shared/_LayoutEdition.cshtml";
+
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>Consommation carburant / Département semestrielle</h5>
+                    </span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+                    @if (myUser.Profile == 1)
+                    {
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-2"><label>Client</label></div>
+                            <div class="col-md-10">
+                                @(Html.Kendo().DropDownList().Name("ClientFiltre")
+                                        .ValuePrimitive(true)
+                                        .OptionLabel("Sélectionner client...")
+                                        .DataTextField("NomClient")
+                                        .DataValueField("IdClient")
+                                        .DataSource(dataSource =>
+                                        {
+                                            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+                                        })
+                                        .HtmlAttributes(new { style = "width: 100%" })
+                                )
+                            </div>
+                        </div>
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-4"><label>Année</label></div>
+                            <div class="col-md-4"><label>Mois</label></div>
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="clearfix"></div>
+
+                            <div class="col-md-4">
+                                @(Html.Kendo().DropDownList().Name("AnneeFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner année...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "ANNEE" }));
+                                    })
+                                    .Value(DateTime.Now.Year.ToString())
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                )
+                            </div>
+                            <div class="col-md-4">
+                                @(Html.Kendo().DropDownList().Name("MoisFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner mois...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "MOIS" }));
+                                    })
+                                    .Value(DateTime.Now.Month.ToString())
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                )
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="margin:1px" class="row">
+                            <div class="col-md-4"><label>Année</label></div>
+                            <div class="col-md-4"><label>Mois</label></div>
+                            <div class="col-md-4">&nbsp;</div>
+                            <div class="clearfix"></div>
+
+                            <div class="col-md-4">
+                                @(Html.Kendo().DropDownList().Name("AnneeFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner année...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "ANNEE" }));
+                                    })
+                                    .Value(DateTime.Now.Year.ToString())
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                )
+                            </div>
+                            <div class="col-md-4">
+                                @(Html.Kendo().DropDownList().Name("MoisFiltre")
+                                    .ValuePrimitive(true)
+                                    .OptionLabel("Sélectionner mois...")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "MOIS" }));
+                                    })
+                                    .Value(DateTime.Now.Month.ToString())
+                                    .HtmlAttributes(new { style = "width: 100%" })
+                                )
+                            </div>
+                        </div>
+                    }
+                    <br />
+@(Html.Kendo().ToolBar()
+    .Name("ToolBar")
+    .HtmlAttributes(new { style = "margin:10px;" })
+    .Items(items =>
+    {
+        items.Add().Type(CommandType.Button).Text("Reset").Click("ResetFiltre").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold ;background-color: #fff;float:right;" }).SpriteCssClass("k-icon k-cancel");
+        items.Add().Type(CommandType.Button).Text("Générer").Click("RapportExcel").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold ;background-color: #fff;float:right;" }).SpriteCssClass("k-icon excel-file");
+        items.Add().Type(CommandType.Button).Text("Générer").Click("RapportPDF").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold ;background-color: #fff;float:right;" }).SpriteCssClass("k-icon pdf-file");
+    })
+)
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function ClientData() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { client: client };
+    }
+
+    function ResetFiltre() {
+        if ($("#ClientFiltre").data("kendoDropDownList") != null) {
+            $("#ClientFiltre").data("kendoDropDownList").value('');
+        }
+        $("#AnneeFiltre").data("kendoDropDownList").value('');
+        $("#MoisFiltre").data("kendoDropDownList").value('');
+    }
+
+    function RapportPDF() {
+        var client = 0;
+        var annee = 0;
+        var mois = 0;
+
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+        if (annee == 0 || mois == 0) {
+            alert("Veuillez sélectionner le mois et l'année.");
+        } else {
+            window.open('@Url.Action("Export", "RapportConsommationCarburantSemestrielle")' + "?type=PDF&client=" + client + "&annee=" + $("#AnneeFiltre").val() + "&mois=" + $("#MoisFiltre").val());
+        }
+    }
+
+    function RapportExcel() {
+        var client = 0;
+        var annee = 0;
+        var mois = 0;
+
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+        if (annee == 0 || mois == 0) {
+            alert("Veuillez sélectionner le mois et l'année.");
+        } else {
+            window.open('@Url.Action("Export", "RapportConsommationCarburantSemestrielle")' + "?type=EXCEL&client=" + client + "&annee=" + $("#AnneeFiltre").val() + "&mois=" + $("#MoisFiltre").val());
+        }
+    }
+</script>

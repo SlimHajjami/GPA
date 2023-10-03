@@ -1,0 +1,389 @@
+﻿@{
+    ViewBag.Title = "Gestion des achats / locations";
+    Layout = "~/Views/Shared/_LayoutGestionVehicules.cshtml";
+
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>Gestion des achats / locations</h5>
+                    </span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+@if (myUser.Profile == 1)
+{
+    <div style="margin:1px" class="row">
+        <div class="col-md-2"><label>Client</label></div>
+        <div class="col-md-4">
+@(Html.Kendo().DropDownList().Name("ClientFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner client...")
+        .DataTextField("NomClient")
+        .DataValueField("IdClient")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeClient");
+        })
+)
+        </div>
+        <div class="col-md-2"><label>Département</label></div>
+        <div class="col-md-4">
+@(Html.Kendo().DropDownList().Name("DepartementFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner département...")
+        .DataTextField("NomDepartement")
+        .DataValueField("IdDepartement")
+        .CascadeFrom("ClientFiltre")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs").Data("ClientData"))
+                .ServerFiltering(true);
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeDepartement");
+        })
+)
+        </div>
+    </div><br />
+}
+else
+{
+    <div style="margin:1px" class="row">
+        <div class="col-md-2"><label>Département</label></div>
+        <div class="col-md-4">
+@(Html.Kendo().DropDownList().Name("DepartementFiltre")
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner département...")
+        .DataTextField("NomDepartement")
+        .DataValueField("IdDepartement")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs", new { client = myUser.Client }));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Events(e =>
+        {
+            e.Change("onChangeDepartement");
+        })
+)
+        </div>
+    </div><br />
+}
+
+                    <div id="div0">
+
+@(Html.Kendo().Grid<VehiculeAcquisitionModel>()
+    .Name("Grid").HtmlAttributes(new { style = "margin:10px;height:auto" })
+    .Columns(columns =>
+    {
+        if (myUser.Profile == 1)
+        {
+            columns.Bound(e => e.Client);
+        }
+        columns.ForeignKey(e => e.VehiculeId, (System.Collections.IEnumerable)ViewBag.ListVehicules, "IdVehicule", "MatriculeVehicule");
+        columns.ForeignKey(e => e.FournisseurId, (System.Collections.IEnumerable)ViewBag.ListFournisseurs, "IdFournisseur", "NomFournisseur");
+        columns.Bound(e => e.IsLocation).ClientTemplate("#if(IsLocation != null) { if(IsLocation){# oui #} else {# non #}}#");
+        columns.Bound(e => e.DateAcquisition);
+        columns.Bound(e => e.PrixAcquisition).Width(100);
+        columns.Bound(e => e.RestePayer);
+        
+       
+        columns.Command(commands =>
+        {
+            commands.Custom("Modifier").Click("EditRow").Text("Modifier");
+            commands.Custom("Paiements").Click("Paiements").Text(" ").HtmlAttributes(new { @class = "fa fa-usd" });
+        }).Width(170);
+    })
+    .Editable(e => e
+    .Mode(GridEditMode.PopUp).TemplateName("AcquisitionEditView")
+    .Window(w => w.Title("Achat / Location").Width(600))
+    .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+    )
+    .Pageable(pageable => pageable.Refresh(true))
+    .Sortable()
+    .Selectable()
+    .Navigatable()
+    .Filterable()
+    .Filterable(filterable => filterable
+    .Extra(false)
+    .Operators(operators => operators
+    .ForString(str => str.Clear()
+    .StartsWith("Commence avec")
+    .IsEqualTo("Est égale à")
+    .IsNotEqualTo("N'est pas égale à")
+    ))
+    )
+    .Events(e =>
+    {
+        e.Edit("onEdit");
+        e.Save("onSave");
+        e.DataBound("onDataBound");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(m =>
+    {
+        m.Id(f => f.IdAcquisition);
+        m.Field(p => p.IdAcquisition).Editable(false);
+    })
+    .Read(read => read.Action("Read", "VehiculeAcquisition").Data("filterData"))
+    .Destroy("Delete", "VehiculeAcquisition")
+    .Update("Update", "VehiculeAcquisition")
+    .Create("Create", "VehiculeAcquisition")
+    )
+)
+
+@(Html.Kendo().Window()
+.Name("windowPaiements")
+.Title("Détails")
+.Visible(false)
+.Content(
+@<text>
+    <div class="row" style="margin:15px;">
+    @(Html.Kendo().ToolBar()
+        .Name("ToolBar2")
+        .HtmlAttributes(new { style = "margin:10px;" })
+        .Items(items =>
+        {
+            items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRowPaiement").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+        })
+    )
+    @(Html.Kendo().Grid<VehiculeAcquisitionPaiementModel>().Name("gridPaiements")
+        .Columns(columns =>
+        {
+            columns.Bound(e => e.ReferencePaiement);
+            columns.Bound(e => e.DatePaiement);
+            columns.Bound(e => e.MontantPaiement);
+            columns.Bound(e => e.NotePaiement);
+
+            columns.Command(commands =>
+            {
+                commands.Custom("Modifier").Click("EditRowPaiement").Text("Modifier");
+                commands.Destroy().Text("Supp.");
+            }).Width(210);
+            
+        })
+        .Editable(e => e
+            .Mode(GridEditMode.PopUp)
+            .Window(w => w.Title("Paiement"))
+            .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+        )
+        .Pageable(pageable => pageable.Refresh(true)).Filterable()
+        .Events(e =>
+        {
+            e.Edit("onEditPaiement");
+            e.Save("onSavePaiement");
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(p => p.IdPaiement);
+            m.Field(p => p.IdPaiement).Editable(false);
+        })
+        .Read(read => read.Action("Read", "VehiculeAcquisitionPaiement").Data("AcquisitionData"))
+        .Destroy("Delete", "VehiculeAcquisitionPaiement")
+        .Update(update => update.Action("Update", "VehiculeAcquisitionPaiement").Data("convertData"))
+        .Create(create => create.Action("Create", "VehiculeAcquisitionPaiement").Data("convertData"))
+        ).AutoBind(false)
+       .HtmlAttributes(new { style = "margin:10px;height:auto" })
+    )
+       </div>
+</text>)
+.Draggable()
+.Resizable()
+.Modal(true)
+.Width(800)
+.Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function AddRow() {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.addRow();
+    }
+
+    function EditRow(e) {
+        var grid = $("#Grid").getKendoGrid(),
+        selectedRow = this.dataItem($(e.currentTarget).closest("tr"));
+        grid.editRow(selectedRow);
+    }
+
+    function onEdit(e) {
+        $("a.k-grid-update")[0].innerHTML = "<span class='k-icon k-update'></span>Enregistrer";
+        if (e.model.isNew()) {
+            $('.k-window-title').text("Nouvelle Achat / Location");
+        }
+        else {
+            $('.k-window-title').text("Modifier Achat / Location");
+        }
+    }
+    function onSave(e) {
+        if ($("#DateAcquisition").data("kendoDatePicker").value() == null) {
+            alert("Selectionnez date d'acquisition!");
+            e.preventDefault();
+        }
+    }
+    function onDataBound(e) {
+        e.sender.tbody.find(".k-button.fa").each(function (idx, element) {
+            $(element).removeClass("fa fa-usd").find("span").addClass("fa fa-usd");
+        });
+    }
+
+    function ClientData() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { client: client };
+    }
+
+    function filterData() {
+        var departement = 0;
+        var client = 0;
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { departement: departement, client: client };
+    }
+
+    function onChangeClient() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        $("#Grid").data("kendoGrid").dataSource.read({ departement: 0, client: client });
+    }
+
+    function onChangeDepartement() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function editClientData() {
+        var client = 0;
+        if ($("#ClientId").val() != null && $("#ClientId").val() != '') {
+            client = $("#ClientId").val();
+        }
+        return { client: client };
+    }
+
+    var idAcquisition = 0;
+    function Paiements(e) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        idAcquisition = dataItem.IdAcquisition;
+        $("#gridPaiements").data("kendoGrid").dataSource.read();
+        $("#windowPaiements").data("kendoWindow").title("Paiements");
+        $("#windowPaiements").data("kendoWindow").open().center();
+    }
+
+    function onEditPaiement(e) {
+        $("#windowPaiements").data("kendoWindow").close();
+        $("a.k-grid-update")[0].innerHTML = "<span class='k-icon k-update'></span>Enregistrer";
+
+        e.container.data("kendoWindow").bind("deactivate", function () {
+            $("#windowPaiements").data("kendoWindow").open().center();
+        });
+
+        e.container.data("kendoWindow").bind("close", function () {
+            $("#windowPaiements").data("kendoWindow").open().center();
+        });
+    }
+
+    function onSavePaiement() {
+        $("#windowPaiements").data("kendoWindow").open().center();
+    }
+
+    function AcquisitionData() {
+        return {acquisition : idAcquisition};
+    }
+
+    function AddRowPaiement() {
+        var grid = $("#gridPaiements").data("kendoGrid");
+        grid.addRow();
+    }
+
+    function EditRowPaiement(e) {
+        var grid = $("#gridPaiements").getKendoGrid(),
+        selectedRow = this.dataItem($(e.currentTarget).closest("tr"));
+        grid.editRow(selectedRow);
+    }
+
+    function convertData(data) {
+        data.AcquisitionId = idAcquisition;
+        return data;
+    }
+</script>
+
+<style>
+    .k-edit-form-container {
+        width: 600px !important;
+    }
+
+    .k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button {
+        min-width: 30px;
+    }
+
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+
+    input.k-textbox {
+        padding: 0;
+    }
+
+    .k-window div.k-window-content {
+        overflow: hidden;
+    }
+</style>

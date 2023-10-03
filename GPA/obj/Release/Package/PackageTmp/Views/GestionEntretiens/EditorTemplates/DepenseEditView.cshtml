@@ -1,0 +1,71 @@
+﻿@using Kendo.Mvc.UI;
+@model GPA.Models.DepenseModel
+@{var myUser = new KPIPrincipal();}
+
+<input id="IdDepense" name="IdDepense" type="hidden">
+
+<div class="col-md-6">
+    <label>Type</label>
+    @(Html.Kendo().DropDownListFor(m => m.TypeId)
+        .ValuePrimitive(true)
+        .OptionLabel("Sélectionner type...")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .DataSource(dataSource =>
+        {
+            dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "TYPE_DEPENSE" }));
+        })
+        .HtmlAttributes(new { style = "width: 100%" })
+    )
+</div>
+
+<div class="col-md-6">
+    <label>Description</label>
+    @Html.Kendo().TextBox().Name("Description").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Quantité</label>
+    @Html.Kendo().NumericTextBox().Name("QuantiteDepense").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Coût Unitaire</label>
+    @Html.Kendo().NumericTextBox().Name("CoutUnitaireDepense").Format("n3").Decimals(4).HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Pièce</label>
+    @(Html.Kendo().DropDownListFor(m => m.PieceId)
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner pièce...")
+            .DataTextField("NomPiece")
+            .DataValueField("IdPiece")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetPieces", "CmbBoxs"));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+    )
+</div>
+
+<div class="col-md-6" style="margin-top:35px;">
+     <a class='k-button k-grid-icontext' onclick='ajouterpieces()' href='#'></span>Nouvelle pièce</a>
+      
+</div>
+<div class="clearfix"></div>
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Expiration Garantie</label>
+    @Html.Kendo().DatePicker().Name("ExpirationGarantie").HtmlAttributes(new { style = "width: 100%" })
+</div>
+
+
+
+<div class="col-md-6" style="margin-top:15px;">
+    <label>Note</label>
+    @Html.Kendo().TextBox().Name("NoteDepense").HtmlAttributes(new { style = "width: 100%" })
+</div>

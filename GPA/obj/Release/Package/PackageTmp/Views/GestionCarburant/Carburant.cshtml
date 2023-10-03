@@ -1,0 +1,860 @@
+﻿@{
+    ViewBag.Title = "Gestion des pleins d'essence";
+    Layout = "~/Views/Shared/_LayoutGestionCarburant.cshtml";
+
+    var myUser = new KPIPrincipal();
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+<div class="main-container" id="#page">
+
+    <div class="col-md-12">
+
+        <div class="box-content mag-top-40">
+
+            <div class="header-box">
+                <div class="header-box-titre">
+                    <span class="pull-left">
+                        <h5>Gestion des pleins carburant</h5>
+                    </span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="table-responsive">
+@if (myUser.Profile == 1)
+{
+                            <div style="margin:1px" class="row">
+                            <div class="col-md-2"><label>Client</label></div>
+                            <div class="col-md-10">
+@(Html.Kendo().DropDownList().Name("ClientFiltre")
+                    .ValuePrimitive(true)
+                    .OptionLabel("Sélectionner client...")
+                    .DataTextField("NomClient")
+                    .DataValueField("IdClient")
+                    .DataSource(dataSource =>
+                    {
+                        dataSource.Read(read => read.Action("GetClients", "CmbBoxs"));
+                    })
+                    .HtmlAttributes(new { style = "width: 100%" })
+                    .Events(e =>
+                    {
+                        e.Change("onChangeFilter");
+                    })
+)
+                            </div>
+                        </div>
+    <div style="margin:1px" class="row">
+        <div class="col-md-3"><label>Département</label></div>
+        <div class="col-md-3"><label>Véhicule</label></div>
+        <div class="col-md-3"><label>Année</label></div>
+        <div class="col-md-3"><label>Mois</label></div>
+
+        <div class="col-md-3">
+            @(Html.Kendo().DropDownList().Name("DepartementFiltre")
+                                        .ValuePrimitive(true)
+                                        .OptionLabel("Sélectionner département...")
+                                        .DataTextField("NomDepartement")
+                                        .DataValueField("IdDepartement")
+                                        .CascadeFrom("ClientFiltre")
+                                        .DataSource(dataSource =>
+                                        {
+                                            dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs").Data("ClientData"))
+                                                .ServerFiltering(true);
+                                        })
+                                        .HtmlAttributes(new { style = "width: 100%" })
+                                        .Events(e =>
+                                        {
+                                            e.Change("onChangeFilter");
+                                        })
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.Kendo().DropDownList().Name("VehiculeFiltre")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner véhicule...")
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            .CascadeFrom("ClientFiltre")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetVehiculesParDep", "CmbBoxs").Data("ClientDepData"))
+                                .ServerFiltering(true);
+                //dataSource.Read(read => read.Action("GetVehicules", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+            .Events(e =>
+            {
+                e.Change("onChangeFilter");
+            })
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.Kendo().DropDownList().Name("AnneeFiltre")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner année...")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "ANNEE" }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+            .Value(DateTime.Now.Year.ToString())
+            .Events(e =>
+            {
+                e.Change("onChangeFilter");
+            })
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.Kendo().DropDownList().Name("MoisFiltre")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner mois...")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "MOIS" }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+            .Value(DateTime.Now.Month.ToString())
+            .Events(e =>
+            {
+                e.Change("onChangeFilter");
+            })
+                    )
+        </div>
+    </div>
+}
+else
+{//<div class="myUser" data-name="client" data-content=myUser.Client></div>
+    <div style="margin:1px" class="row" id="myDiv" data=@myUser.Client>
+        <div class="col-md-3"><label>Département</label></div>
+        <div class="col-md-3"><label>Véhicule</label></div>
+        <div class="col-md-3"><label>Année</label></div>
+        <div class="col-md-3"><label>Mois</label></div>
+
+        <div class="col-md-3">
+            @(Html.Kendo().DropDownList().Name("DepartementFiltre")
+                                            .ValuePrimitive(true)
+                                            .OptionLabel("Sélectionner département...")
+                                            .DataTextField("NomDepartement")
+                                            .DataValueField("IdDepartement")
+                                            .DataSource(dataSource =>
+                                            {
+                                                dataSource.Read(read => read.Action("GetDepartements", "CmbBoxs", new { client = myUser.Client }));
+                                            })
+                                            .HtmlAttributes(new { style = "width: 100%" })
+                                            .Events(e =>
+                                            {
+                                                e.Change("onChangeFilter");
+                                            })
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.Kendo().DropDownList().Name("VehiculeFiltre")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner véhicule...")
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            //  .CascadeFrom("DepartementFiltre")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetVehiculesParDep", "CmbBoxs").Data("DepData"));
+                //dataSource.Read(read => read.Action("GetVehicules", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+            .Events(e =>
+            {
+                e.Change("onChangeFilter");
+            })
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.Kendo().DropDownList().Name("AnneeFiltre")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner année...")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "ANNEE" }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+            .Value(DateTime.Now.Year.ToString())
+            //.SelectedIndex(3)
+            .Events(e =>
+            {
+                e.Change("onChangeFilter");
+                //  e.DataBound("onChangeFilter");
+            })
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.Kendo().DropDownList().Name("MoisFiltre")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner mois...")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetReferentiel", "CmbBoxs", new { keyRef = "MOIS" }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+            .Value(DateTime.Now.Month.ToString())
+            .Events(e =>
+            {
+                e.Change("onChangeFilter");
+                //e.DataBound("onChangeFilter");
+            })
+            )
+        </div>
+       
+        @*<div class="col-md-3">
+            @(Html.Kendo().DropDownList().Name("VehiculeFiltre")
+            .ValuePrimitive(true)
+            .OptionLabel("Sélectionner véhicule...")
+            .DataTextField("MatriculeVehicule")
+            .DataValueField("IdVehicule")
+            //  .CascadeFrom("DepartementFiltre")
+            .DataSource(dataSource =>
+            {
+                dataSource.Read(read => read.Action("GetVehicules", "CmbBoxs", new { client = myUser.Client }));
+            })
+            .HtmlAttributes(new { style = "width: 100%" })
+            .Events(e =>
+            {
+                e.Change("onChangeFilter");
+            })
+            )
+        </div>*@
+    </div>
+}
+
+<br />
+                    <div id="div0">
+@(Html.Kendo().ToolBar()
+            .Name("ToolBar")
+            .HtmlAttributes(new { style = "margin:10px;" })
+            .Items(items =>
+            {
+                items.Add().Type(CommandType.Button).Text("Ajouter").Click("AddRow").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" });
+                items.Add().Type(CommandType.Button).Text("Importer").Click("Import").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold" }).SpriteCssClass("k-icon excel-file");
+                items.Add().Type(CommandType.Button).Text("Générer").Click("PDFReport").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold ;background-color: #fff;" }).SpriteCssClass("k-icon pdf-file");
+                items.Add().Type(CommandType.Button).Text("Générer").Click("ExcelReport").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold ;background-color: #fff;" }).SpriteCssClass("k-icon excel-file");
+
+                items.Add().Type(CommandType.Button).Text("Supp. tout").Click("DeleteAll").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold;float:right" });
+                items.Add().Type(CommandType.Button).Text("Supp. cochés").Click("DeleteChecked").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold;float:right" });
+                items.Add().Type(CommandType.Button).Text("Cocher tout").Click("SelectAll").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold;float:right" });
+                items.Add().Type(CommandType.Button).Text("Décocher tout").Click("UnselectAll").HtmlAttributes(new { style = "margin:5px;font-size:12px;font-name:Arial;font-weight:bold;float:right" });
+
+            })
+)
+
+@(Html.Kendo().Grid<CarburantModel>()
+            .Name("Grid").HtmlAttributes(new { style = "margin:10px;height:auto" })
+            .Columns(columns =>
+            {
+            //columns.Template(@< input type = 'checkbox' class='checkbox' /);
+
+            if (myUser.Profile == 1)
+            {
+                columns.ForeignKey(e => e.ClientId, (System.Collections.IEnumerable)ViewBag.ListClients, "IdClient", "NomClient");
+            }
+            // columns.Template(c => "<input type='checkbox' class='checkbox' ").Width(40);
+            // columns.ClientTemplate("#:<input type='checkbox' class='checkbox' />#");
+
+            columns.ForeignKey(e => e.VehiculeId, (System.Collections.IEnumerable)ViewBag.ListVehicules, "IdVehicule", "MatriculeVehicule");
+                //.Filterable(f=>f
+                //.Extra(false)
+                //.Operators(o => o
+                //.ForString(str => str.StartsWith("Commence avec"))));
+            columns.Bound(e => e.DateCarburant);
+            columns.Bound(e => e.CoutTotalCarburant);
+            columns.Bound(e => e.CoutUnitaireCarburant);
+            columns.Template(@<text></text>).ClientTemplate("<input type='checkbox' class='checkbox' />").Width(25);
+
+                columns.Command(commands =>
+                {
+                    commands.Custom("Modifier").Click("EditRow").Text("Modifier");
+                    commands.Destroy().Text("Supp.");
+
+                }).Width(280);
+
+
+            })
+            .Editable(e => e
+            .Mode(GridEditMode.PopUp).TemplateName("CarburantEditView")
+            .Window(w => w.Title("Carburant").Width(600))
+            //        .DisplayDeleteConfirmation("Êtes-vous sûr de vouloir supprimer cet enregistrement?")
+            )
+            .Pageable(pageable => pageable.Refresh(true))
+            .Sortable()
+            .Selectable()
+            .Navigatable()
+            .Filterable()
+            .Filterable(filterable => filterable
+            .Extra(false)
+            .Operators(operators => operators
+            .ForString(str => str.Clear()
+            .StartsWith("Commence avec")
+            .IsEqualTo("Est égale à")
+            .IsNotEqualTo("N'est pas égale à")
+            ))
+            )
+            .Events(e =>
+            {
+                // e.FilterMenuInit("gridFilterInit");
+                e.Edit("onEdit");
+                e.Save("onSave");
+             //   e.SaveChanges("onSave");
+               
+            })
+            .DataSource(dataSource => dataSource
+            .Ajax()
+            .Events(events =>
+            {
+                events.Error("onGridError");
+            })
+            .Model(m =>
+            {
+                m.Id(f => f.IdCarburant);
+                m.Field(p => p.IdCarburant).Editable(false);
+            })
+            .Read(read => read.Action("Read", "Carburant").Data("filterData"))
+            .Destroy("Delete", "Carburant")
+            .Update("Update", "Carburant")
+            .Create("Create", "Carburant")
+        )
+)
+
+@(Html.Kendo().Window()
+    .Name("importerWindow")
+    .Actions(actions => actions
+        .Close()
+    )
+    .Title("Importer Pleins Carburant")
+    .Draggable()
+    .Width(500)
+    .Height(450)
+    .Modal(true)
+    .Visible(false)
+    .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            @*<input type="button" value="show all items" onclick="showAll()" />
+            <input type="button" value="set pager back" onclick="setPagerBack()" />*@
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var oldPageSize = 0;
+    function gridFilterInit(args) {
+        $(".k-filter-menu li.k-item:contains('Est')").hide();
+        $(".k-filter-menu li.k-item:contains('N')").hide();
+    }
+    function onGridError(e) {
+        if (e.errors) {
+            var message = "Il y a des erreurs:\n";
+            // Create a message containing all errors.
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            // Display the message.
+            alert(message);
+            // Cancel the changes.
+            var grid = $("#Grid").data("kendoGrid");
+            grid.cancelChanges();
+        }
+    }
+    function SelectAll() {
+
+        $(".k-grid .k-selectable input").prop("checked", true).trigger("change");
+
+    }
+
+    function UnselectAll() {
+        $(".k-grid .k-selectable input").prop("checked", false).trigger("change");
+    }
+
+    function showAll() {
+        var grid = $("#Grid").data("kendoGrid");
+        oldPageSize = grid.dataSource.pageSize();
+        grid.dataSource.pageSize(grid.dataSource.data().length);
+    }
+
+    function setPagerBack() {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.dataSource.pageSize(oldPageSize);
+    }
+    function DeleteAll() {
+        var client = 0;
+        //var myUser = KPIPrincipal();///not defined
+
+        if (document.getElementById('myDiv') != null && document.getElementById('myDiv') != '') {
+            var myClient = document.getElementById('myDiv');
+            client = myClient.getAttribute("data");
+            //client = id;
+        }else
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+
+        $.ajax({
+            url: '@Url.Action("DeleteAll", "Carburant")',
+            type: "POST",
+
+            data: JSON.stringify({ clientId: client }),
+
+            contentType: "application/json; charset=utf-8",
+
+            success: function (response) {
+
+                $("#Grid").data("kendoGrid").dataSource.read();
+            }
+       });
+    }
+    function onSave(e) {
+       
+        if ($("#CoutTotalCarburant").data("kendoNumericTextBox").value() == 0 && $("#QuantiteCarburant").data("kendoNumericTextBox").value() == 0) {
+            alert("Vous devez entrer les champ 'Prix total' ou 'Quantité Litres' et 'Kilomètrage Fin'!");
+            e.preventDefault();
+        } else if (parseFloat($("#KilometrageFin").data("kendoNumericTextBox").value()) < (parseFloat($("#OdometreActuel").data("kendoNumericTextBox").value()) - 100)) {
+            alert("Veuillez entrer une valeur 'Odomètre Actuel' qui est supérieure, égale ou légèrement inférieure à la valeur de la 'Dernière Lecture Odomètre'! ");
+            e.preventDefault();
+        } else {
+            e.sender.one("dataBound", function () {
+                e.sender.dataSource.read();
+            });
+        }
+          //  $("#Grid").data("kendoGrid").dataSource.read();
+        
+    }
+    function DeleteChecked() {
+        var grid = $("#Grid").data("kendoGrid");
+        $("#Grid").find("input:checked").each(function () {
+            grid.removeRow($(this).closest('tr'));
+        })
+        $("#Grid").data("kendoGrid").dataSource.read();
+
+    }
+    function AddRow() {
+        var grid = $("#Grid").data("kendoGrid");
+        grid.addRow();
+    }
+
+    function EditRow(e) {
+        var grid = $("#Grid").getKendoGrid(),
+        selectedRow = this.dataItem($(e.currentTarget).closest("tr"));
+        grid.editRow(selectedRow);
+        var prix = $("#CoutUnitaireCarburant").data("kendoNumericTextBox").value();
+        var nbLitres = $("#QuantiteCarburant").data("kendoNumericTextBox").value();
+        $("#CoutTotalCarburant").data("kendoNumericTextBox").value(prix * nbLitres);
+    }
+
+    function onEdit(e) {
+        $("a.k-grid-update")[0].innerHTML = "<span class='k-icon k-update'></span>Enregistrer";
+        if (e.model.isNew()) {
+            $('.k-window-title').text("Nouveau Plein Carburant");
+        }
+        else {
+            $('.k-window-title').text("Modifier Plein Carburant");
+        }
+    }
+
+    function ClientData() {
+        var client = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        return { client: client };
+    }
+
+    function filterData() {
+        var client = 0;
+        var departement = 0;
+        var annee = 0;
+        var mois = 0;
+        var vehicule = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+        if ($("#VehiculeFiltre").val() != null && $("#VehiculeFiltre").val() != '') {
+            vehicule = $("#VehiculeFiltre").val();
+        }
+        return { client: client,  departement: departement, annee: annee, mois: mois, vehicule: vehicule };
+    }
+
+    function onChangeFilter() {
+        $("#Grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function editClientData() {
+        var client = 0;
+        if ($("#ClientId").val() != null && $("#ClientId").val() != '') {
+            client = $("#ClientId").val();
+        }
+        return { client: client };
+    }
+    function ClientDepData() {
+        var client = 0;
+        var departement = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        return { client: client, departement: departement };
+    }
+    function DepData() {
+        var client = 0;
+        var departement = 0;
+
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        return { client: client, departement: departement };
+    }
+
+    function Import() {
+        var grid = $("#Grid").getKendoGrid();
+        var row = grid.select();
+        var currentDataItem = grid.dataItem(row);
+        $("#importerWindow").data("kendoWindow").content("<input type='file' id='FichierImport' name='FichierImport' /><div id='file_columns'></div>");
+
+        $("#FichierImport").kendoUpload({
+            async: {
+                saveUrl: "../Carburant/Upload",
+                autoUpload: true
+            },
+            multiple: false,
+            files: [],
+            success: onFileUploaded,
+            validation: {
+                allowedExtensions: [".xls", ".xlsx"]
+            }
+        });
+
+        $("#importerWindow").data("kendoWindow").title("Importer Pleins Carburant");
+        $("#importerWindow").data("kendoWindow").center();
+        $("#importerWindow").data("kendoWindow").open();
+    }
+
+    function onFileUploaded(e) {
+        if (e.response.message == "1") {
+            var columns = "";
+            for (i = 0; i < e.response.columns.length; i++) {
+                columns += '<option value="' + e.response.columns[i] + '">' + e.response.columns[i] + '</option>';
+            }
+
+            var content = '';
+
+            content += '<div class="col-md-6"><label>Matricule Véhicule* </label><br /><select id="MatriculeAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6"><label>Date* </label><br /><select id="DateAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Quantité Litres* </label><br /><select id="QuantiteAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Coût/Litre* </label><br /><select id="CoutUnitaireAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Coût total</label><br /><select id="CoutTotalAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Description </label><br /><select id="DescriptionAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Fournisseur </label><br /><select id="FournisseurAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Kilométrage Début </label><br /><select id="KilometrageDebutAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Kilométrage Fin </label><br /><select id="KilometrageFinAssoc"><option value=""></value>' + columns + '</select></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"><label>Note </label><br /><select id="NoteAssoc"><option value=""></value>' + columns + '</select></div>';
+
+            content += '<div class="col-md-12"></div>';
+            content += '<div class="col-md-6" style="margin-top:15px;"></div><div class="col-md-6" style="margin-top:15px;text-align:right;"><a class="k-button k-button-icontext k-primary" onclick="saveImporter(\'' + e.response.file + '\')"><span class="k-icon k-update"></span>Enregistrer</a><div>';
+
+            $("#file_columns").append(content);
+        } else {
+            alert(e.response.message);
+        }
+    }
+
+    function saveImporter(file, format) {
+        if ($("#MatriculeAssoc").val() != '' && $("#DateAssoc").val() != '' && $("#QuantiteAssoc").val() != '' && $("#CoutUnitaireAssoc").val() != '') {
+            var columns = {
+                Matricule: $("#MatriculeAssoc").val(),
+                Date: $("#DateAssoc").val(),
+                Quantite: $("#QuantiteAssoc").val(),
+                Cout: $("#CoutUnitaireAssoc").val(),
+                CoutTotal: $("#CoutTotalAssoc").val(),
+                Description: $("#DescriptionAssoc").val(),
+                Fournisseur: $("#FournisseurAssoc").val(),
+                KilometrageDebut: $("#KilometrageDebutAssoc").val(),
+                KilometrageFin: $("#KilometrageFinAssoc").val(),
+                Note: $("#NoteAssoc").val()
+            };
+            $.ajax({
+                type: 'post',
+                cache: false,
+                url: "../Carburant/Import",
+                data: JSON.stringify({ file: file, columns: columns }),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#importerWindow").data("kendoWindow").close();
+                    $("#Grid").data("kendoGrid").dataSource.read();
+                }
+            });
+        } else {
+            alert("Tous les champs marqués par * sont obligatoires.");
+        }
+    }
+
+    function RapportPDF() {
+        var client = 0;
+        var departement = 0;
+        var annee = 0;
+        var mois = 0;
+
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+        if (annee == 0 || mois == 0) {
+            alert("Veuillez sélectionner le mois et l'année.");
+        } else {
+            window.open('@Url.Action("Export", "RapportConsommationCarburantMensuel")' + "?type=PDF&departement=" + departement + "&client=" + client + "&annee=" + $("#AnneeFiltre").val() + "&mois=" + $("#MoisFiltre").val());
+        }
+    }
+    function RapportExcel() {
+        var client = 0;
+        var departement = 0;
+        var annee = 0;
+        var mois = 0;
+
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+        if (annee == 0 || mois == 0) {
+            alert("Veuillez sélectionner le mois et l'année.");
+        } else {
+            window.open('@Url.Action("Export", "RapportConsommationCarburantMensuel")' + "?type=EXCEL&departement=" + departement + "&client=" + client + "&annee=" + $("#AnneeFiltre").val() + "&mois=" + $("#MoisFiltre").val());
+        }
+    }
+
+    function PDFReport() {
+        var client = 0;
+        var departement = 0;
+        var annee = 0;
+        var mois = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+        if (annee == 0 || mois == 0) {
+            alert("Veuillez sélectionner le mois et l'année.");
+        } else {
+            window.open('@Url.Action("RapportConsommationCarburantMensuel", "Carburant")' +
+               "?annee=" + $("#AnneeFiltre").val() +
+                "&mois=" + $("#MoisFiltre").val() +
+                "&departement=" + departement +
+                "&client=" + client + "&type=PDF");
+        }
+    }
+    function ExcelReport() {
+        var client = 0;
+        var departement = 0;
+        var annee = 0;
+        var mois = 0;
+        if ($("#ClientFiltre").val() != null && $("#ClientFiltre").val() != '') {
+            client = $("#ClientFiltre").val();
+        }
+        if ($("#DepartementFiltre").val() != null && $("#DepartementFiltre").val() != '') {
+            departement = $("#DepartementFiltre").val();
+        }
+        if ($("#AnneeFiltre").val() != null && $("#AnneeFiltre").val() != '') {
+            annee = $("#AnneeFiltre").val();
+        }
+        if ($("#MoisFiltre").val() != null && $("#MoisFiltre").val() != '') {
+            mois = $("#MoisFiltre").val();
+        }
+        if (annee == 0 || mois == 0) {
+            alert("Veuillez sélectionner le mois et l'année.");
+        } else {
+            window.open('@Url.Action("RapportConsommationCarburantMensuel", "Carburant")' +
+                "?annee=" + $("#AnneeFiltre").val() +
+                "&mois=" + $("#MoisFiltre").val() +
+                "&departement=" + departement +
+                "&client=" + client + "&type=EXCEL");
+        }
+    }
+
+
+    function GetCoutCarburantAndKm(e) {
+        var vehiculeId = $("#VehiculeId").val();
+        var dateCarburant = $("#DateCarburant").val();
+        $.ajax({
+            type: "POST",
+            cache: false,
+            url: '@Url.Action("GetPrixUnitaireByIdVehicule", "CarburantCout")',
+            data: JSON.stringify({ idVehicule: vehiculeId, dateCarburant: dateCarburant }),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response != null) {
+
+                    var numerictextbox = $("#CoutUnitaireCarburant").data("kendoNumericTextBox");
+                    numerictextbox.value(response.CoutUnitaireCarburant);
+                    numerictextbox.trigger("change");
+                    numerictextbox.enable(false);
+                    CoutTotalCarburantChange(e);
+                }
+            }
+        });
+        $.ajax({
+            type: "POST",
+            cache: false,
+            url: '@Url.Action("GetKilomterageDebutByIdVehicule", "Carburant")',
+            data: JSON.stringify({ idVehicule: vehiculeId, dateCarburant: dateCarburant }),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                var integertextbox = $("#KilometrageDebut").data("kendoNumericTextBox");
+                if (response != undefined && response.Kilometrage != null) {
+                   
+                    
+                    integertextbox.value(response.Kilometrage);
+                                    
+                } else {
+                    integertextbox.value(0);
+                }
+                integertextbox.trigger("change");
+                integertextbox.enable(false);
+            },
+            error: function (errorThrown) {
+                var integertextbox = $("#KilometrageDebut").data("kendoNumericTextBox");
+                integertextbox.value(0);
+                integertextbox.trigger("change");
+                integertextbox.enable(false);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            cache: false,
+            url: '@Url.Action("GetKilomteragePrecedentByIdVehicule", "Kilometrage")',
+            data: JSON.stringify({ idVehicule: vehiculeId, date: dateCarburant }),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                var textbox = $("#OdometreActuel").data("kendoNumericTextBox");
+                if (response != null && response.Kilometrage != null) {
+                    
+                    textbox.value(response.Kilometrage);
+                   
+                } else {
+                    textbox.value(0);
+                }
+                textbox.trigger("change");
+                textbox.enable(false);
+            }
+        });
+    }
+
+    function CoutTotalCarburantChange(e) {
+        if ($("#CoutTotalCarburant").data("kendoNumericTextBox").value() > 0) {
+            var total = $("#CoutTotalCarburant").data("kendoNumericTextBox").value();
+            var prix = $("#CoutUnitaireCarburant").data("kendoNumericTextBox").value();
+            if (prix > 0) {
+                var nbLitres = total / prix;
+                if (!($("#QuantiteCarburant").data("kendoNumericTextBox").value() == nbLitres)) {
+                    $("#QuantiteCarburant").data("kendoNumericTextBox").value(nbLitres);
+                    $("#QuantiteCarburant").data("kendoNumericTextBox").trigger("change");
+                }
+
+            }
+
+        }
+    }
+    function QuantiteCarburantChange(e) {
+        if ($("#QuantiteCarburant").data("kendoNumericTextBox").value() > 0) {
+            var prix = $("#CoutUnitaireCarburant").data("kendoNumericTextBox").value();
+            var nbLitres = $("#QuantiteCarburant").data("kendoNumericTextBox").value();
+            var total = prix * nbLitres;
+            if (!($("#CoutTotalCarburant").data("kendoNumericTextBox").value() == total) ) {
+                $("#CoutTotalCarburant").data("kendoNumericTextBox").value(total);
+                $("#CoutTotalCarburant").data("kendoNumericTextBox").trigger("change");
+            }
+
+        }
+    }
+</script>
+
+<style>
+    .k-edit-form-container {
+        width: 600px !important;
+    }
+
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+
+    input.k-textbox {
+        padding: 0;
+    }
+
+    .k-window div.k-window-content {
+        overflow: hidden;
+    }
+</style>

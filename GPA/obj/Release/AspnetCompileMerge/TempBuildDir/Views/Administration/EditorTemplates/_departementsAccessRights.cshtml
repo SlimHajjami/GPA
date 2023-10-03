@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "Droits d'accès des entreprises";
+}
+
+@using GPA.Models;
+@using System.Configuration;
+@using Kendo.Mvc.UI;
+
+
+<title>Droits d'accès des départements</title>
+
+<div id="div0">
+    <br />
+    <h2 style="font-size: 16px; font-weight: bold; font-family: Verdana;margin-left:10px">Droits d'accès des départements</h2>
+
+    <div id="divPartialHolder">
+@(Html.Kendo().Grid<AccessRightDepartementModel>()
+    .Name("gridDepartements").HtmlAttributes(new { style = "margin:10px;height:auto;margin-top:40px;" })
+    .Columns(columns =>
+    {
+        columns.Bound(e => e.Libelle).Filterable(false);
+        columns.Bound(e => e.Visualisation).ClientTemplate("<input type='checkbox' name='Visualisation' #= Visualisation ? checked='checked' :'' # class='chkbxvis' />").Filterable(false).Width(100).HeaderTemplate("<label><input type='checkbox' id='chkSelectAllVis' onclick='checkAllVis(this)'/>Visualisation</label>").Sortable(false);
+        columns.Bound(e => e.Saisie).ClientTemplate("<input type='checkbox' #= Saisie ? checked='checked' :'' #  class='chkbxsai'/>").Filterable(false).Width(100).HeaderTemplate("<label><input type='checkbox' id='chkSelectAllSai' onclick='checkAllSai(this)'/>Saisie</label>").Sortable(false);
+        columns.Bound(e => e.Validation).ClientTemplate("<input type='checkbox' #= Validation ? checked='checked' :'' #  class='chkbxval'/>").Filterable(false).Width(100).HeaderTemplate("<label><input type='checkbox' id='chkSelectAllVal' onclick='checkAllVal(this)'/>Validation</label>").Sortable(false);
+    })
+    .ToolBar(toolBar =>
+    {
+        toolBar.Custom().Text("Séléctionner tous").HtmlAttributes(new { id = "SelectAll" , @class="SelectAll"}); ;
+        toolBar.Save().SaveText("Enregistrer").CancelText("Annuler");
+    })
+    .Editable(e => e.Mode(GridEditMode.InCell))
+    .Pageable(pageable => pageable.Refresh(true))
+    .Sortable()
+    .Selectable()
+    .Navigatable()
+    .Filterable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(m =>
+            {
+                m.Id(r => r.IdAccessRightDepartement);
+                m.Field(r => r.Libelle).Editable(false);
+            })
+            .Events(events =>
+             {
+                 events.RequestEnd("onRequestEnd");
+             })
+             .Read(read => read.Action("ReadDepartementsAccessRights", "Utilisateur").Data("ProjetAdditionalData"))
+             .Update(update => update.Action("UpdateDepartementsAccessRights", "Utilisateur"))
+             .Create(create => create.Action("UpdateDepartementsAccessRights", "Utilisateur"))
+     )
+)
+    </div>
+
+
+
+
+
+</div>
+
+
+<script>
+
+      function onRequestEnd(e) {
+          if (e.type == "update" | e.type == "create") {
+              $("#gridDepartements").data("kendoGrid").dataSource.read();
+              $("#accessRightsWindow").data("kendoWindow").close();
+          }
+      }
+
+      function ProjetAdditionalData() {
+          return {
+              idUtilisateur: userId
+          };
+      }
+      $(function () {
+          $('#gridDepartements').on('click', '.chkbxvis', function () {
+              var checked = $(this).is(':checked');
+              var grid = $('#gridDepartements').data().kendoGrid;
+              var dataItem = grid.dataItem($(this).closest('tr'));
+              dataItem.set('Visualisation', checked);
+          })
+      })
+      $(function () {
+          $('#gridDepartements').on('click', '.chkbxsai', function () {
+              var checked = $(this).is(':checked');
+              var grid = $('#gridDepartements').data().kendoGrid;
+              var dataItem = grid.dataItem($(this).closest('tr'));
+              dataItem.set('Saisie', checked);
+          })
+      })
+      $(function () {
+          $('#gridDepartements').on('click', '.chkbxval', function () {
+              var checked = $(this).is(':checked');
+              var grid = $('#gridDepartements').data().kendoGrid;
+              var dataItem = grid.dataItem($(this).closest('tr'));
+              dataItem.set('Validation', checked);
+          })
+      })
+
+      $("#SelectAll").click(function (e) {
+          e.preventDefault();
+          var grid = $('#gridDepartements').data().kendoGrid;
+          $.each(grid.dataSource.view(), function () {
+
+              this['Visualisation'] = true;
+              this.dirty = true;
+          });
+          $.each(grid.dataSource.view(), function () {
+              this['Saisie'] = true;
+              this.dirty = true;
+          });
+          $.each(grid.dataSource.view(), function () {
+              this['Validation'] = true;
+              this.dirty = true;
+          });
+          grid.refresh();
+      });
+
+
+      function checkAllVis(ele) {
+          var state = $(ele).is(':checked');
+          var grid = $('#gridDepartements').data('kendoGrid');
+          $.each(grid.dataSource.view(), function () {
+              if (this['Visualisation'] != state)
+                  this.dirty = true;
+              this['Visualisation'] = state;
+          });
+          grid.refresh();
+      }
+
+      function checkAllSai(ele) {
+          var state = $(ele).is(':checked');
+          var grid = $('#gridDepartements').data('kendoGrid');
+          $.each(grid.dataSource.view(), function () {
+              if (this['Saisie'] != state)
+                  this.dirty = true;
+              this['Saisie'] = state;
+          });
+          grid.refresh();
+      }
+
+      function checkAllVal(ele) {
+          var state = $(ele).is(':checked');
+          var grid = $('#gridDepartements').data('kendoGrid');
+          $.each(grid.dataSource.view(), function () {
+              if (this['Validation'] != state)
+                  this.dirty = true;
+              this['Validation'] = state;
+          });
+          grid.refresh();
+      }
+</script>
+
+<style>
+    .form-control,
+    .container,
+    .container-fluid,
+    .row,
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+    .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+    .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+    .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+    .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+    .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+    .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+    .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+    .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+    .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+    .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+    .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .k-grid-content {
+        height: 300px !important;
+    }
+</style>
